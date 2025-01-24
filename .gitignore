@@ -2,4 +2,4 @@
 /server/instance
 /server/service_account_key
 /server/venv
-
+/server/.env
