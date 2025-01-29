@@ -1,6 +1,5 @@
-from reddit_clone import db
+from reddit_clone import db, bcrypt
 from flask import jsonify
-from flask_bcrypt import Bcrypt
 
 #Model and Methods
 class User(db.Model):
@@ -56,6 +55,19 @@ class User(db.Model):
             email = form_data["email"],
             full_name = form_data["full_name"],
             username= form_data["username"],
-            password_hash = 2
- 
+            password_hash = bcrypt.generate_password_hash(form_data["password_hash"]).decode('utf-8')
         )
+        db.session.add(new_user)
+        db.session.commit()
+        return jsonify(new_user.to_dict())
+
+    #Update/Patch User
+    #Finish after storage is setup
+    def patch_user(self, form_data, id):
+        current_user = User.query.get(id)
+
+    #Delete User
+    def delete_user(self, id):
+        current_user = User.query.get(id)
+        db.session.delete(current_user)
+        db.session.commit()
