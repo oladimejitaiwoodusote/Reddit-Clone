@@ -26,9 +26,10 @@ class User(db.Model):
     #login 
     #logout
 
-    def __init__(self, username, email):
+    def __init__(self, username, email, fullname):
         self.username = username
         self.email = email
+        self.full_name = fullname
 
     def to_dict(self):
         return (
