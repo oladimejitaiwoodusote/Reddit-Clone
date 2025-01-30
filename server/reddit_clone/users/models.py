@@ -89,8 +89,6 @@ class User(db.Model):
         db.session.commit()
 
     #Methods for flask_login
-    #get_id()
-
     #is_authenticated
     @property
     def is_authenticated(self):
