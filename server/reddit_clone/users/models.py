@@ -1,5 +1,11 @@
-from reddit_clone import db, bcrypt
+from reddit_clone import db, bcrypt, login_manager
 from flask import jsonify
+
+
+@login_manager.user_loader()
+def load_user(user_id):
+    return User.get(user_id)
+
 
 #Model and Methods
 class User(db.Model):
@@ -49,6 +55,14 @@ class User(db.Model):
         if user:
             return jsonify(user.to_dict())
 
+    #Authenticate User/Login
+    @classmethod
+    def authenticate(cls, username, password_hash):
+        user = cls.query.filter(username=username)
+        if user and bcrypt.check_password_hash(user.password_hash, password_hash):
+            return user
+        return None
+
     #Create User
     @classmethod
     def create_user(cls, form_data):
@@ -66,9 +80,32 @@ class User(db.Model):
     #Finish after storage is setup
     def patch_user(self, form_data, id):
         current_user = User.query.get(id)
+        #not done!
 
     #Delete User
     def delete_user(self, id):
         current_user = User.query.get(id)
         db.session.delete(current_user)
         db.session.commit()
+
+    #Methods for flask_login
+    #get_id()
+
+    #is_authenticated
+    @property
+    def is_authenticated(self):
+        return True
+
+    #is_active
+    @property
+    def is_active(self):
+        return True
+
+    #is_anonymous
+    @property
+    def is_anonymous(self):
+        return False
+
+    #get_id
+    def get_id(self):
+        return str(self.id)
