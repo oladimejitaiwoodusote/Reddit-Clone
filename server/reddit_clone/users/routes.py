@@ -10,9 +10,9 @@ def user_login():
     if current_user.is_authenticated:
         return jsonify({
             "message": "User already loged in"
-        })
+        }), 200
 
-    json = request.json()
+    json = request.json
     user = User.authenticate(json['username'], json['password'])
     if user:
         login_user(user)
@@ -32,5 +32,18 @@ def user_register():
         return jsonify({
             "message": "User already loged in"
         })
+    json = request.json
+    newuser = User.create_user(json)
+    return jsonify(newuser.to_dict())
+
+#Delete User
+@login_required
+@user.delete("user/delete")
+def user_delete():
+    current_user.delete_user()
+    return jsonify({
+        "message": "User deleted"
+    })
+    
 
     

@@ -6,6 +6,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
 
+
 from reddit_clone.config import DATABASE_URI
 
 app = Flask(__name__)
@@ -23,3 +24,5 @@ login_manager = LoginManager(app)
 @app.route('/')
 def test_route():
     return "Hello World!"
+
+

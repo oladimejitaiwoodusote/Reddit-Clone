@@ -4,7 +4,7 @@ from flask import jsonify
 
 @login_manager.user_loader()
 def load_user(user_id):
-    return User.get(user_id)
+    return User.query.get(user_id)
 
 
 #Model and Methods
@@ -58,7 +58,7 @@ class User(db.Model):
     #Authenticate User/Login
     @classmethod
     def authenticate(cls, username, password_hash):
-        user = cls.query.filter(username=username)
+        user = cls.query.filter_by(username=username).first()
         if user and bcrypt.check_password_hash(user.password_hash, password_hash):
             return user
         return None
@@ -74,7 +74,7 @@ class User(db.Model):
         )
         db.session.add(new_user)
         db.session.commit()
-        return jsonify(new_user.to_dict())
+        return new_user
 
     #Update/Patch User
     #Finish after storage is setup
@@ -83,9 +83,8 @@ class User(db.Model):
         #not done!
 
     #Delete User
-    def delete_user(self, id):
-        current_user = User.query.get(id)
-        db.session.delete(current_user)
+    def delete_user(self):
+        db.session.delete(self)
         db.session.commit()
 
     #Methods for flask_login
