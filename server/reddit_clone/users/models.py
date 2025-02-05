@@ -2,7 +2,7 @@ from reddit_clone import db, bcrypt, login_manager
 from flask import jsonify
 
 
-@login_manager.user_loader()
+@login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
 
