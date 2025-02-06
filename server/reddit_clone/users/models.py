@@ -57,9 +57,9 @@ class User(db.Model):
 
     #Authenticate User/Login
     @classmethod
-    def authenticate(cls, username, password_hash):
-        user = cls.query.filter_by(username=username).first()
-        if user and bcrypt.check_password_hash(user.password_hash, password_hash):
+    def authenticate(cls, form_data):
+        user = cls.query.filter_by(username = form_data["username"]).first()
+        if user and bcrypt.check_password_hash(user.password_hash, form_data["password"]):
             return user
         return None
 
@@ -70,7 +70,7 @@ class User(db.Model):
             email = form_data["email"],
             full_name = form_data["full_name"],
             username= form_data["username"],
-            password_hash = bcrypt.generate_password_hash(form_data["password_hash"]).decode('utf-8')
+            password_hash = bcrypt.generate_password_hash(form_data["password"]).decode('utf-8')
         )
         db.session.add(new_user)
         db.session.commit()

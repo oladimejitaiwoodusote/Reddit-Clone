@@ -13,7 +13,7 @@ def user_login():
         }), 200
 
     json = request.json
-    user = User.authenticate(json['username'], json['password'])
+    user = User.authenticate(json)
     if user:
         login_user(user)
         return jsonify(user.to_dict())
@@ -44,6 +44,3 @@ def user_delete():
     return jsonify({
         "message": "User deleted"
     })
-    
-
-    
