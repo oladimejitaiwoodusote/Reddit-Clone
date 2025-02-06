@@ -32,10 +32,11 @@ class User(db.Model):
     #login 
     #logout
 
-    def __init__(self, username, email, fullname):
+    def __init__(self, username, email, full_name, password_hash):
         self.username = username
         self.email = email
-        self.full_name = fullname
+        self.full_name = full_name
+        self.password_hash = password_hash
 
     def to_dict(self):
         return (
@@ -53,7 +54,8 @@ class User(db.Model):
     def get_user(self, id):
         user = User.query.get(id)
         if user:
-            return jsonify(user.to_dict())
+            return user.to_dict()
+        return None
 
     #Authenticate User/Login
     @classmethod
