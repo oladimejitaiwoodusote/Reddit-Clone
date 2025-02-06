@@ -5,7 +5,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 user = Blueprint("users", __name__)
 
 #Login
-@user.post("user/login")
+@user.post("/user/login")
 def user_login():
     if current_user.is_authenticated:
         return jsonify({
@@ -20,13 +20,13 @@ def user_login():
     return jsonify({"message": "Invalid username or password"}), 409
 
 #Logout
-@user.delete("user/logout")
+@user.delete("/user/logout")
 @login_required
 def user_logout():
     logout_user(current_user)
 
 #Create User/Register User
-@user.post("user/register")
+@user.post("/user/register")
 def user_register():
     if current_user.is_authenticated:
         return jsonify({
@@ -38,7 +38,7 @@ def user_register():
 
 #Delete User
 @login_required
-@user.delete("user/delete")
+@user.delete("/user/delete")
 def user_delete():
     current_user.delete_user()
     return jsonify({

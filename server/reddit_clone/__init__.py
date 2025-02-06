@@ -18,6 +18,12 @@ migrate = Migrate(app, db)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 
+from reddit_clone.users.models import User
+
 @app.route('/')
 def test_route():
     return "Hello World!"
+
+from reddit_clone.users.routes import user
+
+app.register_blueprint(user)
