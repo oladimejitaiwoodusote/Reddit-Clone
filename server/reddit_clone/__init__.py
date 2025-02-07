@@ -5,13 +5,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
-from reddit_clone.config import DATABASE_URI
+from reddit_clone.config import DATABASE_URI, SECRET_KEY
 
 app = Flask(__name__)
 CORS (app, supports_credentials=True)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = SECRET_KEY
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)

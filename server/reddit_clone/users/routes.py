@@ -16,7 +16,7 @@ def user_login():
     user = User.authenticate(json)
     if user:
         login_user(user)
-        return jsonify(user.to_dict())
+        return jsonify(user.to_dict()), 200
     return jsonify({"message": "Invalid username or password"}), 409
 
 #Logout
