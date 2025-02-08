@@ -23,7 +23,8 @@ def user_login():
 @user.delete("/user/logout")
 @login_required
 def user_logout():
-    logout_user(current_user)
+    logout_user()
+    return {}, 204
 
 #Create User/Register User
 @user.post("/user/register")
@@ -34,13 +35,11 @@ def user_register():
         })
     json = request.json
     newuser = User.create_user(json)
-    return jsonify(newuser.to_dict())
+    return jsonify(newuser.to_dict()), 201
 
 #Delete User
 @login_required
 @user.delete("/user/delete")
 def user_delete():
     current_user.delete_user()
-    return jsonify({
-        "message": "User deleted"
-    })
+    return {}, 204
