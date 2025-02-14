@@ -24,6 +24,8 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, server_default = db.func.now())
     updated_at = db.Column(db.DateTime, server_default = db.func.now(), onupdate = db.func.now())
 
+    posts = db.relationship("Post", back_populates=("user"))
+
     #methods needed
     #Get user profile
     #create user account
