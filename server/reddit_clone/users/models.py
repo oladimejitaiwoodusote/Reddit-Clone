@@ -85,6 +85,7 @@ class User(db.Model):
     def patch_user(self, form_data, id):
         current_user = User.query.get(id)
         #not done!
+        
 
     #Delete User
     def delete_user(self):
