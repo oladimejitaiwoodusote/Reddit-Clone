@@ -81,19 +81,6 @@ class User(db.Model):
     #Update/Patch User
     #Finish after storage is setup
     def patch_user(self, form_data):
-        # user = User.query.get(id)
-        # new_email = form_data["email"]
-        # if new_email:
-        #     user.email = new_email
-        
-        # new_fullname = form_data["full_name"]
-        # if new_fullname:
-        #     user.full_name = new_fullname
-
-        # new_username = form_data["username"]
-        # if new_username:
-        #     user.username = new_username
-        2
         if "email" in form_data:
             self.email = form_data["email"]
 
@@ -108,6 +95,22 @@ class User(db.Model):
 
         if "bio" in form_data:
             self.bio = form_data["bio"]
+
+        #Handling Password
+        if "password" in form_data:
+            current_password = form_data.get("password")
+            new_password = form_data["password"]
+
+            if not current_password:
+                raise ValueError("Current password is required to change password.")
+
+            if not bcrypt.check_password_hash(self.password_hash, current_password):
+                raise ValueError("Password incorrect")
+
+            if len(new_password) < 8:
+                raise ValueError("New password must be at least 8 characters long")
+
+            self.password_hash = bcrypt.generate_password_hash(new_password).decode('utf-8')
 
         db.session.commit()
         return self

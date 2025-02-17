@@ -27,5 +27,7 @@ def test_route():
     return "Hello World!"
 
 from reddit_clone.users.routes import user
+from reddit_clone.posts.routes import posts
 
 app.register_blueprint(user)
+app.register_blueprint(posts)

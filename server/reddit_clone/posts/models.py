@@ -25,46 +25,54 @@ class Post(db.Model):
     #delete posts
     #edit post
 
-    def __init__(self, title):
+    def __init__(self, title, content = None, media = None, user_id = None):
         self.title = title
+        self.content = content
+        self.media = media
+        self.user_id = user_id
 
     def to_dict(self):
         return ({
+            "id": self.id,
             "title": self.title,
             "content": self.content,
             "media": self.media,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "updated_at": self.updated_at.isoformat() if self.updated_at else None,
+            "user_id": self.user_id,
         })
+        
 
     @classmethod
-    def create_post(cls, form_data ):
+    def create_post(cls, form_data, user_id ):
         new_post = Post(
             title = form_data["title"],
             content = form_data["content"],
             media = form_data["media"],
+            user_id = user_id
         )
         db.session.add(new_post)
         db.session.commit()
         return new_post
 
     def delete_post(self):
+        if self is None:
+            raise ValueError("Post not found")
+
         db.session.delete(self)
         db.session.commit()
 
-    def patch_post(self, form_data, id):
-        post = Post.query.get(id)
-        new_title = form_data["title"]
-        if new_title:
-            post.title = new_title
-
-        new_content = form_data["content"]
-        if new_content:
-            post.content = new_content
+    def patch_post(self, form_data):       
+        if "title" in form_data:
+            self.title = form_data["title"]
         
-        new_media = form_data["media"]
-        if new_media:
-            post.media = new_media
+        if "content" in form_data:
+            self.content = form_data["content"]
+
+        if "media" in form_data:
+            self.media = form_data["media"]
 
         db.session.commit()
-        return post
+        return self
 
     
