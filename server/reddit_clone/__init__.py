@@ -20,6 +20,7 @@ bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 
 from reddit_clone.users.models import User
+from reddit_clone.posts.models import Post
 
 @app.route('/')
 def test_route():

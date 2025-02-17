@@ -1,5 +1,5 @@
 from reddit_clone import db
-from flask import jsonify
+from flask import jsonify, request
 
 class Post(db.Model):
 
@@ -50,9 +50,21 @@ class Post(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def edit_post(self, form_data, id):
-        2
+    def patch_post(self, form_data, id):
         post = Post.query.get(id)
+        new_title = form_data["title"]
+        if new_title:
+            post.title = new_title
+
+        new_content = form_data["content"]
+        if new_content:
+            post.content = new_content
         
+        new_media = form_data["media"]
+        if new_media:
+            post.media = new_media
+
+        db.session.commit()
+        return post
 
     

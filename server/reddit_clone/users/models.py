@@ -1,6 +1,4 @@
 from reddit_clone import db, bcrypt, login_manager
-from flask import jsonify
-
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -82,10 +80,37 @@ class User(db.Model):
 
     #Update/Patch User
     #Finish after storage is setup
-    def patch_user(self, form_data, id):
-        current_user = User.query.get(id)
-        #not done!
+    def patch_user(self, form_data):
+        # user = User.query.get(id)
+        # new_email = form_data["email"]
+        # if new_email:
+        #     user.email = new_email
         
+        # new_fullname = form_data["full_name"]
+        # if new_fullname:
+        #     user.full_name = new_fullname
+
+        # new_username = form_data["username"]
+        # if new_username:
+        #     user.username = new_username
+        2
+        if "email" in form_data:
+            self.email = form_data["email"]
+
+        if "full_name" in form_data:
+            self.full_name = form_data["full_name"]
+
+        if "username" in form_data:
+            self.username = form_data["username"]
+
+        if "avatar" in form_data:
+            self.avatar = form_data["avatar"]
+
+        if "bio" in form_data:
+            self.bio = form_data["bio"]
+
+        db.session.commit()
+        return self
 
     #Delete User
     def delete_user(self):

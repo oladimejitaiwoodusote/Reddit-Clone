@@ -43,3 +43,11 @@ def user_register():
 def user_delete():
     current_user.delete_user()
     return {}, 204
+
+#Edit User
+@login_required
+@user.patch("/user/patch")
+def patch_user():
+    json = request.json
+    patched_user = current_user.patch_user(json)
+    return jsonify(patched_user.to_dict()), 200
