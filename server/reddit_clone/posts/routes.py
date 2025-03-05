@@ -22,11 +22,11 @@ def delete_post(id):
     if not post:
         return jsonify({"message": "Post not found"}),404
 
-    post.delete_post(id)
+    if post.user_id != current_user.id:
+        return jsonify({"message": "Unauthorized: You can only delete your own posts"})
 
-    return jsonify({
-        "message": "Post deleted"
-    })
+    post.delete_post()
+    return jsonify({ "message": "Post deleted"})
 
 #Patch Post
 @posts.patch("/post/edit/<int:id>")
@@ -36,8 +36,9 @@ def patch_post(id):
     if not post:
         return jsonify({"message": "Post not found"}),404
 
+    if post.user_id != current_user.id:
+        return jsonify({"message": "Unauthorized: You can only edit your own posts!"})
+
     json = request.json
     post.patch_post(json)
     return jsonify(post.to_dict()), 200
-
-

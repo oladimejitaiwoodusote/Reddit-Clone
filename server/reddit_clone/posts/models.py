@@ -1,9 +1,7 @@
 from reddit_clone import db
-from flask import jsonify, request
+from flask import request
 
 class Post(db.Model):
-
-    #Update User for Posts relationship
 
     __tablename__ = "posts"
 
@@ -19,18 +17,13 @@ class Post(db.Model):
     user = db.relationship("User", back_populates=("posts"))
 
     #init method
-    #to dict
-    #get post
-    #create posts
-    #delete posts
-    #edit post
-
     def __init__(self, title, content = None, media = None, user_id = None):
         self.title = title
         self.content = content
         self.media = media
         self.user_id = user_id
 
+    #to dict
     def to_dict(self):
         return ({
             "id": self.id,
@@ -42,26 +35,25 @@ class Post(db.Model):
             "user_id": self.user_id,
         })
         
-
+    #create posts
     @classmethod
     def create_post(cls, form_data, user_id ):
         new_post = Post(
             title = form_data["title"],
-            content = form_data["content"],
-            media = form_data["media"],
+            content = form_data.get("content"),
+            media = form_data.get("media"),
             user_id = user_id
         )
         db.session.add(new_post)
         db.session.commit()
         return new_post
 
+    #delete posts
     def delete_post(self):
-        if self is None:
-            raise ValueError("Post not found")
-
         db.session.delete(self)
         db.session.commit()
 
+    #edit post
     def patch_post(self, form_data):       
         if "title" in form_data:
             self.title = form_data["title"]
@@ -74,5 +66,3 @@ class Post(db.Model):
 
         db.session.commit()
         return self
-
-    

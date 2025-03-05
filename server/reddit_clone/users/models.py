@@ -4,7 +4,6 @@ from reddit_clone import db, bcrypt, login_manager
 def load_user(user_id):
     return User.query.get(user_id)
 
-
 #Model and Methods
 class User(db.Model):
 
@@ -23,14 +22,6 @@ class User(db.Model):
     updated_at = db.Column(db.DateTime, server_default = db.func.now(), onupdate = db.func.now())
 
     posts = db.relationship("Post", back_populates=("user"))
-
-    #methods needed
-    #Get user profile
-    #create user account
-    #update/patch user account
-    #delete user account
-    #login 
-    #logout
 
     def __init__(self, username, email, full_name, password_hash):
         self.username = username
