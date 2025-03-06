@@ -21,6 +21,7 @@ login_manager = LoginManager(app)
 
 from reddit_clone.users.models import User
 from reddit_clone.posts.models import Post
+from reddit_clone.comments.models import Comment
 
 @app.route('/')
 def test_route():
@@ -28,6 +29,8 @@ def test_route():
 
 from reddit_clone.users.routes import user
 from reddit_clone.posts.routes import posts
+from reddit_clone.comments.routes import comments
 
 app.register_blueprint(user)
 app.register_blueprint(posts)
+app.register_blueprint(comments)

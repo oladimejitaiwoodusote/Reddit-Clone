@@ -5,7 +5,6 @@ from flask_login import login_required, current_user
 comments = Blueprint("comments", __name__)
 
 #Create Comment
-#Finish Later
 @comments.post("/comment/create")
 @login_required
 def create_comment():

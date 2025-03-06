@@ -15,8 +15,10 @@ class Comment(db.Model):
     user = db.relationship("User", back_populates = ("comments"))
     post = db.relationship("Post", back_populates = ("comments"))
 
-    def __init__(self, text):
+    def __init__(self, text, user_id = None, post_id = None):
         self.text = text
+        self.user_id = user_id
+        self.post_id = post_id
 
     def to_dict(self):
         return ({
@@ -49,5 +51,3 @@ class Comment(db.Model):
     def patch_comment(self, form_data):
         self.text = form_data["text"]
         db.session.commit()
-
-    
