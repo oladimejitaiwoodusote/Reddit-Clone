@@ -21,7 +21,8 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, server_default = db.func.now())
     updated_at = db.Column(db.DateTime, server_default = db.func.now(), onupdate = db.func.now())
 
-    posts = db.relationship("Post", back_populates=("user"))
+    posts = db.relationship("Post", back_populates=("user"), cascade= "all, delete-orphan")
+    comments = db.relationship("Comment", back_populates = "user", cascade= "all, delete-orphan")
 
     def __init__(self, username, email, full_name, password_hash):
         self.username = username

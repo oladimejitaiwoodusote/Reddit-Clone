@@ -1,5 +1,4 @@
 from reddit_clone import db
-from flask import request
 
 class Post(db.Model):
 
@@ -14,7 +13,9 @@ class Post(db.Model):
     updated_at = db.Column(db.DateTime, server_default = db.func.now(), onupdate = db.func.now())
     
     user_id = db.Column(db.Integer, db.ForeignKey("users.id")) 
+    
     user = db.relationship("User", back_populates=("posts"))
+    comments = db.relationship("Comment", back_populates=("post"), cascade= "all, delete-orphan")
 
     #init method
     def __init__(self, title, content = None, media = None, user_id = None):
