@@ -22,7 +22,9 @@ class User(db.Model):
     updated_at = db.Column(db.DateTime, server_default = db.func.now(), onupdate = db.func.now())
 
     posts = db.relationship("Post", back_populates=("user"), cascade= "all, delete-orphan")
-    comments = db.relationship("Comment", back_populates = "user", cascade= "all, delete-orphan")
+    comments = db.relationship("Comment", back_populates = ("user"), cascade= "all, delete-orphan")
+    comment_votes = db.relationship("CommentVote", back_populates = ("user"), cascade= "all, delete-orphan")
+
 
     def __init__(self, username, email, full_name, password_hash):
         self.username = username
@@ -60,15 +62,15 @@ class User(db.Model):
     #Create User
     @classmethod
     def create_user(cls, form_data):
-        new_user = User(
+        user = User(
             email = form_data["email"],
             full_name = form_data["full_name"],
             username= form_data["username"],
             password_hash = bcrypt.generate_password_hash(form_data["password"]).decode('utf-8')
         )
-        db.session.add(new_user)
+        db.session.add(user)
         db.session.commit()
-        return new_user
+        return user
 
     #Update/Patch User
     #Finish after storage is setup

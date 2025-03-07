@@ -39,15 +39,15 @@ class Post(db.Model):
     #create posts
     @classmethod
     def create_post(cls, form_data, user_id ):
-        new_post = Post(
+        post = Post(
             title = form_data["title"],
             content = form_data.get("content"),
             media = form_data.get("media"),
             user_id = user_id
         )
-        db.session.add(new_post)
+        db.session.add(post)
         db.session.commit()
-        return new_post
+        return post
 
     #delete posts
     def delete_post(self):

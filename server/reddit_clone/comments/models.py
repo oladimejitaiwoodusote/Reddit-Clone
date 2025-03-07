@@ -14,6 +14,7 @@ class Comment(db.Model):
 
     user = db.relationship("User", back_populates = ("comments"))
     post = db.relationship("Post", back_populates = ("comments"))
+    comment_votes = db.relationship("CommentVote", back_populates = ("comments"), cascade= "all, delete-orphan")
 
     def __init__(self, text, user_id = None, post_id = None):
         self.text = text
@@ -33,14 +34,14 @@ class Comment(db.Model):
     #create comment
     @classmethod
     def create_comment(cls, form_data, user_id, post_id):
-        new_comment = Comment(
+        comment = Comment(
             text= form_data["text"],
             user_id = user_id,
             post_id = post_id
         )
-        db.session.add(new_comment)
+        db.session.add(comment)
         db.session.commit()
-        return new_comment
+        return comment
 
     #delete comment
     def delete_comment(self):
