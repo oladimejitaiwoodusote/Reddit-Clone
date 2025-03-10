@@ -1,10 +1,10 @@
 from reddit_clone import db
 
-class CommentVote():
+class CommentVote(db.Model):
     __tablename__ = "comment_votes"
 
     id = db.Column(db.Integer, primary_key = True)
-    is_upvote = db.Column(db.Boolean)
+    is_upvote = db.Column(db.Boolean, nullable = False)
 
     created_at = db.Column(db.DateTime, server_default = db.func.now())
     updated_at = db.Column(db.DateTime, server_default = db.func.now(), onupdate = db.func.now())
@@ -33,6 +33,15 @@ class CommentVote():
     #Create comment vote
     @classmethod
     def create_comment_vote(cls, form_data, user_id, comment_id):
+        is_upvote = form_data.get("is_upvote")
+
+        if is_upvote is None:
+            return {"error": "is_upvote is required and must be true or false"}
+
+        existing_vote = cls.query.filter_by(user_id = user_id, comment_id = comment_id).first()
+        if existing_vote:
+            return None
+
         comment_vote = CommentVote(
             is_upvote= form_data["is_upvote"],
             user_id=user_id,

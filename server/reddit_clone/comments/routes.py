@@ -42,7 +42,7 @@ def patch_comment(id):
         return jsonify({"message": "Comment not found"}), 404
 
     if comment.user_id != current_user.id:
-        return jsonify({"message": "Unauthorized: You can only delete your own comments"})
+        return jsonify({"message": "Unauthorized: You can only delete your own comments"}), 403
 
     json = request.json
     comment.patch_comment(json)

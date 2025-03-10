@@ -23,7 +23,7 @@ def delete_post(id):
         return jsonify({"message": "Post not found"}),404
 
     if post.user_id != current_user.id:
-        return jsonify({"message": "Unauthorized: You can only delete your own posts"})
+        return jsonify({"message": "Unauthorized: You can only delete your own posts!"}), 403
 
     post.delete_post()
     return jsonify({ "message": "Post deleted"})
@@ -37,7 +37,7 @@ def patch_post(id):
         return jsonify({"message": "Post not found"}),404
 
     if post.user_id != current_user.id:
-        return jsonify({"message": "Unauthorized: You can only edit your own posts!"})
+        return jsonify({"message": "Unauthorized: You can only edit your own posts!"}), 403
 
     json = request.json
     post.patch_post(json)
