@@ -16,7 +16,7 @@ def create_comment_vote():
     comment_vote = CommentVote.create_comment_vote(json, current_user.id, comment_id)
     if not comment_vote:
         # return jsonify(comment_vote.to_dict())
-        return jsonify({"message": "vote already cast!"})
+        return jsonify({"message": "vote already cast!"}), 400
     elif comment_vote:
         return jsonify(comment_vote.to_dict())
 
@@ -34,7 +34,7 @@ def delete_comment_vote(id):
         return jsonify({"message": "Unauthorized: You can only unvote your own vote"}), 403
 
     comment_vote.delete_comment_vote()
-    return jsonify({"message": "Comment vote deleted"})
+    return jsonify({"message": "Comment vote deleted"}), 200
 
 #Patch Comment vote
 @comment_votes.patch("/comment_vote/edit/<int:id>")

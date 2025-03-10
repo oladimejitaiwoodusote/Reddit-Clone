@@ -23,6 +23,7 @@ from reddit_clone.users.models import User
 from reddit_clone.posts.models import Post
 from reddit_clone.comments.models import Comment
 from reddit_clone.comment_votes.models import CommentVote
+from reddit_clone.post_votes.models import PostVote
 
 @app.route('/')
 def test_route():
@@ -32,8 +33,10 @@ from reddit_clone.users.routes import user
 from reddit_clone.posts.routes import posts
 from reddit_clone.comments.routes import comments
 from reddit_clone.comment_votes.routes import comment_votes
+from reddit_clone.post_votes.routes import post_votes
 
 app.register_blueprint(user)
 app.register_blueprint(posts)
 app.register_blueprint(comments)
 app.register_blueprint(comment_votes)
+app.register_blueprint(post_votes)
