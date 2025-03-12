@@ -24,6 +24,7 @@ class User(db.Model):
     posts = db.relationship("Post", back_populates=("user"), cascade= "all, delete-orphan")
     comments = db.relationship("Comment", back_populates = ("user"), cascade= "all, delete-orphan")
     comment_votes = db.relationship("CommentVote", back_populates = ("user"), cascade= "all, delete-orphan")
+    post_votes = db.relationship("PostVote", back_populates = ("user"), cascade = "all, delete-orphan")
 
 
     def __init__(self, username, email, full_name, password_hash):

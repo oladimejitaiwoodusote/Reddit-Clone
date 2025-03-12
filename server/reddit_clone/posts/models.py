@@ -13,8 +13,10 @@ class Post(db.Model):
     updated_at = db.Column(db.DateTime, server_default = db.func.now(), onupdate = db.func.now())
     
     user_id = db.Column(db.Integer, db.ForeignKey("users.id")) 
+    subreddit_id = db.Column(db.Integer, db.ForeignKey("subreddits.id"))
     
     user = db.relationship("User", back_populates=("posts"))
+    subreddit = db.relationship("Subreddit", back_populates = ("posts"))
     comments = db.relationship("Comment", back_populates=("post"), cascade= "all, delete-orphan")
     post_votes = db.relationship("PostVote", back_populates=("post"), cascade = "all, delete-orphan")
 
@@ -39,12 +41,13 @@ class Post(db.Model):
         
     #create posts
     @classmethod
-    def create_post(cls, form_data, user_id ):
+    def create_post(cls, form_data, user_id, subreddit_id ):
         post = Post(
             title = form_data["title"],
             content = form_data.get("content"),
             media = form_data.get("media"),
-            user_id = user_id
+            user_id = user_id,
+            subreddit_id = subreddit_id
         )
         db.session.add(post)
         db.session.commit()
