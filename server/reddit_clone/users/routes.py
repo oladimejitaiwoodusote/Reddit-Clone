@@ -2,10 +2,10 @@ from reddit_clone.users.models import User
 from flask import Blueprint, request, jsonify
 from flask_login import current_user, login_user, logout_user, login_required
 
-user = Blueprint("users", __name__)
+users = Blueprint("users", __name__)
 
 #Login
-@user.post("/user/login")
+@users.post("/user/login")
 def user_login():
     if current_user.is_authenticated:
         return jsonify({
@@ -20,14 +20,14 @@ def user_login():
     return jsonify({"message": "Invalid username or password"}), 409
 
 #Logout
-@user.delete("/user/logout")
+@users.delete("/user/logout")
 @login_required
 def user_logout():
     logout_user()
     return {}, 204
 
 #Create User/Register User
-@user.post("/user/register")
+@users.post("/user/register")
 def user_register():
     if current_user.is_authenticated:
         return jsonify({
@@ -39,14 +39,14 @@ def user_register():
 
 #Delete User
 @login_required
-@user.delete("/user/delete")
+@users.delete("/user/delete")
 def user_delete():
     current_user.delete_user()
     return {}, 204
 
 #Edit User
 @login_required
-@user.patch("/user/patch")
+@users.patch("/user/patch")
 def patch_user():
     json = request.json
     patched_user = current_user.patch_user(json)

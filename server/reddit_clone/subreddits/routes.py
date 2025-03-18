@@ -2,10 +2,10 @@ from reddit_clone.subreddits.models import Subreddit
 from flask import Blueprint, request, jsonify
 from flask_login import login_required
 
-subreddit = Blueprint("subreddits", __name__)
+subreddits = Blueprint("subreddits", __name__)
 
 #Create Subreddit
-@subreddit.post("/subreddit/create")
+@subreddits.post("/subreddit/create")
 @login_required
 def create_subreddit():
     json = request.json
@@ -17,7 +17,7 @@ def create_subreddit():
 
 #Patch Subreddit
 @login_required
-@subreddit.patch("/subreddit/edit/<int:id>")
+@subreddits.patch("/subreddit/edit/<int:id>")
 def patch_subreddit(id):
     subreddit = Subreddit.query.get(id)
     if not subreddit:

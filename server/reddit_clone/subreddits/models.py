@@ -48,4 +48,3 @@ class Subreddit(db.Model):
 
         db.session.commit()
         return self
-

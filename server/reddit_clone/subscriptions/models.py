@@ -39,6 +39,7 @@ class Subscription(db.Model):
 
         db.session.add(subscription)
         db.session.commit()
+        return subscription
 
     #Delete subscription
     def delete_subscription(self):
@@ -46,5 +47,3 @@ class Subscription(db.Model):
         db.session.commit()
 
     #Edit subscription - can't edit one
-
-    
