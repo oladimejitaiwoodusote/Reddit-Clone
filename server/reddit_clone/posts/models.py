@@ -21,11 +21,12 @@ class Post(db.Model):
     post_votes = db.relationship("PostVote", back_populates=("post"), cascade = "all, delete-orphan")
 
     #init method
-    def __init__(self, title, content = None, media = None, user_id = None):
+    def __init__(self, title, content = None, media = None, user_id = None, subreddit_id = None):
         self.title = title
         self.content = content
         self.media = media
         self.user_id = user_id
+        self.subreddit_id = subreddit_id
 
     #to dict
     def to_dict(self):
