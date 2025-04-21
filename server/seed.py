@@ -87,11 +87,12 @@ def create_comments(users, posts):
     comments = []
     for _ in range(100):
         c = Comment.create_comment({
-            "comment": fake.paragraph(nb_sentences = 2)
+            "text": fake.paragraph(nb_sentences = 2)
         },
-            user_id = rc([users.id for user in users]),
-            post_id = rc([posts.id for post in posts])
+            user_id = rc([user.id for user in users]),
+            post_id = rc([post.id for post in posts])
         )
+        comments.append(c)
 
     return comments
 
@@ -104,6 +105,7 @@ def create_comment_votes(users, comments):
             user_id = rc([user.id for user in users]),
             comment_id= rc([comment.id for comment in comments])
         )
+        comment_votes.append(c)
 
     return comment_votes
 
@@ -140,5 +142,3 @@ if __name__ == "__main__":
         post_votes = create_post_votes(users, posts)
         comments = create_comments(users, posts)
         comment_votes = create_comment_votes(users, comments)
-
-
