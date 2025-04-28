@@ -1,0 +1,78 @@
+.Navbar{
+  display: flex;
+  align-items: center;
+  height: 60px; 
+  width: 100%;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #1f2128;
+  border-bottom: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.Navbar_left{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.Navbar_left svg {
+  margin-right: 8px;
+  font-size: 36px;
+  color: #ff4500;
+}
+
+.Navbar_middle{
+  flex: 1;
+  max-width: 600px;
+  margin: 0 20px;
+}
+
+.Navbar_searchWrapper{
+  display: flex;
+  align-items: center;
+  background-color: #2d3748;
+  border-radius: 20px;
+  padding: 0 20px;
+  height: 40px;
+}
+
+.Navbar_searchIcon{
+  color: #a0aec0;
+  font-size: 18px;
+  margin-right: 8px;
+}
+
+.Navbar_searchWrapper input{
+  flex: 1;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 14px;
+  outline: none;
+}
+
+
+
+.Navbar_right button{
+  background-color: #ff4500;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  height: 40px;
+  width: 75px;
+}
+
+.Navbar_right button:hover{
+  background-color: #005fa3;
+}
