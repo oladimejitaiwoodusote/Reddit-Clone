@@ -6,7 +6,7 @@
   justify-content: space-between;
   padding: 10px 20px;
   background-color: #1f2128;
-  border-bottom: white;
+  border-bottom: 0.1px solid white;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -40,6 +40,12 @@
   border-radius: 20px;
   padding: 0 20px;
   height: 40px;
+  border: 1.5px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.Navbar_searchWrapper:focus-within{
+  border-color: #4c9aff;
 }
 
 .Navbar_searchIcon{
@@ -58,8 +64,6 @@
   outline: none;
 }
 
-
-
 .Navbar_right button{
   background-color: #ff4500;
   color: white;
@@ -74,5 +78,5 @@
 }
 
 .Navbar_right button:hover{
-  background-color: #005fa3;
+  background-color: #a33c15;
 }
