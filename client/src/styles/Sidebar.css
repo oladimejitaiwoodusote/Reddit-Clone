@@ -1,3 +1,52 @@
-.Siderbar{
-    width: 240px
+.Sidebar{
+    width: 240px;
+    background-color: #1f2128;
+    padding: 16px;
+    color: white;
+    font-family: Arial, sans-serif;
 }
+
+.Sidebar_Home {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+}
+
+.Sidebar_Home a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 8px;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.Sidebar_Home a:hover {
+    background-color: #2a2a2b;
+}
+
+.Sidebar_Home a:active {
+    background-color: black;
+}
+
+.Sidebar_Threads h4 {
+    margin: 0 0 12px 0;
+    font-size: 12px;
+    color: #a0aec0;
+}
+
+.Sidebar_CommunityList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.Sidebar_CommunityItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px;
+}
+

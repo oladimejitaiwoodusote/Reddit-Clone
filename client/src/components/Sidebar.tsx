@@ -1,29 +1,30 @@
 import { GoHome } from "react-icons/go";
 import { BsArrowUpRightCircle } from "react-icons/bs";
+import '../styles/Sidebar.css'
 
 function Sidebar() {
     {/*Maybe create some fake subreddit data for the communities section*/}
 
     const dummySubreddits = [
         {
-            id : 1,
-            name: "Javascript",
-            avatar: "https://styles.redditmedia.com/t5_2qh30/styles/communityIcon_youricon.png",
-            members: 1200000
+          id: 1,
+          name: "javascript",
+          avatar: "https://ui-avatars.com/api/?name=JS&background=ff9900&color=ffffff&size=64",
+          members: 1200000,
         },
         {
-            id: 2,
-            name: "reactJs",
-            avatar:"ttps://styles.redditmedia.com/t5_2zldd/styles/communityIcon_reacticon.png",
-            members: 85000
+          id: 2,
+          name: "reactjs",
+          avatar: "https://ui-avatars.com/api/?name=React&background=61dafb&color=000000&size=64",
+          members: 850000,
         },
         {
-            id: 3,
-            name: "webdev",
-            avatar: "https://styles.redditmedia.com/t5_2qt55/styles/communityIcon_webdevicon.png",
-            members: 400000,
-        }
-    ]
+          id: 3,
+          name: "webdev",
+          avatar: "https://ui-avatars.com/api/?name=WebDev&background=4caf50&color=ffffff&size=64",
+          members: 400000,
+        },
+      ]
   
     return (
     <div className="Sidebar">
