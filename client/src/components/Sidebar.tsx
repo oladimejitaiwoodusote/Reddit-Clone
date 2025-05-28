@@ -1,5 +1,6 @@
 import { GoHome } from "react-icons/go";
 import { BsArrowUpRightCircle } from "react-icons/bs";
+import { NavLink } from "react-router-dom";
 import '../styles/Sidebar.css'
 
 function Sidebar() {
@@ -29,14 +30,14 @@ function Sidebar() {
     return (
     <div className="Sidebar">
         <div className="Sidebar_Home">
-            <a href="/">
+            <NavLink to="/" className="Sidebar_Link">
                 <GoHome/>
                 <span>Home</span>                
-            </a>
-            <a href="/popular">
+            </NavLink>
+            <NavLink to="/popular" className="Sidebar_Link">
                 <BsArrowUpRightCircle/>
                 <span>Popular</span>                
-            </a>
+            </NavLink>
         </div>
         <div className="Sidebar_Threads">
             <h4>POPULAR COMMUNITIES</h4>

@@ -7,7 +7,7 @@
   padding: 10px 20px;
   background-color: #1f2128;
   border-bottom: 0.1px solid white;
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 1000;
 }

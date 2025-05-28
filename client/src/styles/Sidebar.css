@@ -4,12 +4,18 @@
     padding: 16px;
     color: white;
     font-family: Arial, sans-serif;
+    border-right: 1px solid white;
+    height: 100vh;
+    position: fixed;
+    top: 60px;
 }
 
 .Sidebar_Home {
     display: flex;
     flex-direction: column;
     margin-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding-bottom: 12px;
 }
 
 .Sidebar_Home a {
@@ -28,6 +34,14 @@
 }
 
 .Sidebar_Home a:active {
+    background-color: black;
+}
+
+.Sidebar_Link.hover{
+    background-color: #2a2a2b;
+}
+
+.Sidebar_Link.active {
     background-color: black;
 }
 
