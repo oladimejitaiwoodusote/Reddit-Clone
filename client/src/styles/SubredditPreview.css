@@ -1,0 +1,36 @@
+.SubredditPreview{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px;
+    transition: background 0.2;
+    cursor: pointer;       
+}
+
+.SubredditPreview:hover{
+    background-color: #2a2a2b;
+}
+
+.SubredditPreview img{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.SubredditPreviewInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.SubredditPreviewInfo strong{
+    font-size: 15px;
+    font-weight: 100;
+    color: white;
+}
+
+.SubredditPreviewInfo p {
+    font-size: 13px;
+    margin: 0;
+    color: #a0aec0;
+}

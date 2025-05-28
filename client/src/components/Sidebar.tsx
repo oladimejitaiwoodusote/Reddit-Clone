@@ -1,3 +1,4 @@
+import SubredditPreview from "./SubredditPreview";
 import { GoHome } from "react-icons/go";
 import { BsArrowUpRightCircle } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
@@ -44,13 +45,7 @@ function Sidebar() {
             <div className="Sidebar_CommunityList">
             {/*Need to import them from backend*/}
                 {dummySubreddits.map((subreddit) => (
-                    <div key={subreddit.id} className="Sidebar_CommunityItem">
-                        <img src={subreddit.avatar} alt={`r/${subreddit.name}`}/>
-                        <div className="Sidebar_CommunityInfo">
-                            <strong>r/{subreddit.name}</strong>
-                            <p>{subreddit.members.toLocaleString()} members</p>
-                        </div>
-                    </div>
+                    <SubredditPreview key={subreddit.id} subreddit={subreddit}/>
                 ))}
             </div>            
         </div>
