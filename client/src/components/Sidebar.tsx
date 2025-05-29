@@ -5,8 +5,6 @@ import { NavLink } from "react-router-dom";
 import '../styles/Sidebar.css'
 
 function Sidebar() {
-    {/*Maybe create some fake subreddit data for the communities section*/}
-
     const dummySubreddits = [
         {
           id: 1,

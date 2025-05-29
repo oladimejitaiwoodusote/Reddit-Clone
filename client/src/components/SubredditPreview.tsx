@@ -7,7 +7,11 @@ interface Subreddit {
     members: number;
 }
 
-function SubredditPreview({subreddit}: {subreddit: Subreddit}) {
+interface SubredditPreviewProps{
+    subreddit:Subreddit
+}
+
+function SubredditPreview({subreddit}: SubredditPreviewProps) {
   return (
         <div key={subreddit.id} className="SubredditPreview">
             <img src={subreddit.avatar} alt={`r/${subreddit.name}`}/>

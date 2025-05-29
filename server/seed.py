@@ -12,14 +12,15 @@ from sqlalchemy import text
 
 fake = Faker()
 
+avatars = ["https://d7hftxdivxxvm.cloudfront.net/?height=800&quality=80&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FqNzvYZT0RbuuyuSyrs6wWw%2Fnormalized.jpg&width=719",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Elliott_Smith.jpg/440px-Elliott_Smith.jpg", 
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/MF_Doom_-_Hultsfred_2011_%28cropped%29.jpg/440px-MF_Doom_-_Hultsfred_2011_%28cropped%29.jpg",
+    "https://pbs.twimg.com/media/DaT9nhjX4AAiKW-.jpg",
+    "https://news.artnet.com/app/news-upload/2014/06/bjork-app-moma-acquisition.jpg",
+    "https://pbs.twimg.com/media/EmO-CcJXEAEOrV5.jpg"
+    ]
+    
 def create_users():
-    avatars = ["https://d7hftxdivxxvm.cloudfront.net/?height=800&quality=80&resize_to=fit&src=https%3A%2F%2Fd32dm0rphc51dk.cloudfront.net%2FqNzvYZT0RbuuyuSyrs6wWw%2Fnormalized.jpg&width=719",
-     "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Elliott_Smith.jpg/440px-Elliott_Smith.jpg", 
-     "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/MF_Doom_-_Hultsfred_2011_%28cropped%29.jpg/440px-MF_Doom_-_Hultsfred_2011_%28cropped%29.jpg",
-     "https://pbs.twimg.com/media/DaT9nhjX4AAiKW-.jpg",
-     "https://news.artnet.com/app/news-upload/2014/06/bjork-app-moma-acquisition.jpg",
-     "https://pbs.twimg.com/media/EmO-CcJXEAEOrV5.jpg"
-     ]
      
     users = []
     for _ in range(10):
@@ -39,7 +40,8 @@ def create_subreddits():
     for _ in range(5):
         s = Subreddit.create_subreddit({
             "name": fake.user_name(),
-            "description": fake.sentence(nb_words =3)
+            "description": fake.sentence(nb_words =3),
+            "avatar": rc(avatars)
         })
         subreddits.append(s)
 

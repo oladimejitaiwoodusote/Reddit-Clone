@@ -26,3 +26,11 @@ def patch_subreddit(id):
     json = request.json
     subreddit.patch_subreddit(json)
     return jsonify(subreddit.to_dict()), 200
+
+#Get Subreddits
+@subreddits.get("/subreddits/all")
+def fetch_subreddits():
+    fetched_subreddits = Subreddit.get_subreddits()
+    subreddits = [subreddit.to_dict() for subreddit in fetched_subreddits]
+    
+    return jsonify(subreddits), 200
