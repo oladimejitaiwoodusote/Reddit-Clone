@@ -15,17 +15,18 @@ class Subreddit(db.Model):
     posts = db.relationship("Post", back_populates = ("subreddit"), cascade = "all, delete-orphan")
     subscriptions = db.relationship("Subscription", back_populates = ("subreddit"), cascade = "all, delete-orphan")
 
-    def __init__(self, name, description = None):
+    def __init__(self, name, description = None, avatar = None):
         self.name = name
         self.description = description
+        self.avatar = avatar or self.default_avatar_url
 
     def to_dict(self):
         return ({
             "id": self.id,
             "name": self.name,
-            "default_avatar_url": self.default_avatar_url,
             "avatar": self.avatar,
             "description": self.description,
+            "member_count": len(self.subscriptions),
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "updated_at": self.updated_at.isoformat() if self.updated_at else None
         })
@@ -33,9 +34,12 @@ class Subreddit(db.Model):
     #Create Subreddit
     @classmethod
     def create_subreddit(cls, form_data):
+        avatar = form_data.get("avatar") or cls.default_avatar_url
+
         subreddit = Subreddit(
             name = form_data["name"],
-            description= form_data["description"]
+            description= form_data["description"],
+            avatar = avatar
         )
 
         db.session.add(subreddit)

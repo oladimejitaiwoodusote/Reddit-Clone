@@ -36,16 +36,35 @@ def create_users():
     return users
 
 def create_subreddits():
-    subreddits = []
-    for _ in range(5):
-        s = Subreddit.create_subreddit({
-            "name": fake.user_name(),
-            "description": fake.sentence(nb_words =3),
-            "avatar": rc(avatars)
-        })
-        subreddits.append(s)
-
-    return subreddits
+    subreddit_data = [
+        {
+        "name": "javascript",
+        "description": "Subreddit for all things Javascript!",
+        "avatar": "https://ui-avatars.com/api/?name=JS&background=ff9900&color=ffffff&size=64"
+        },
+        {
+        "name": "reactjs",
+        "description": "Subreddit for all things React!",
+        "avatar": "https://ui-avatars.com/api/?name=React&background=61dafb&color=000000&size=64"
+        },
+        {
+        "name": "python",
+        "description": "Subreddit for all things Python!",
+        "avatar": "https://ui-avatars.com/api/?name=Py&background=306998&color=ffffff&size=64"
+        },
+        {
+        "name": "goland",
+        "description": "Subreddit for all things Go!",
+        "avatar": "https://ui-avatars.com/api/?name=Go&background=00ADD8&color=ffffff&size=64"
+        },
+        {
+        "name": "flask",
+        "description": "Subreddit for all things Flask!",
+        "avatar": "https://ui-avatars.com/api/?name=Flask&background=000000&color=ffffff&size=64"
+        }
+    ]
+       
+    return [Subreddit.create_subreddit(data) for data in subreddit_data]
 
 def create_subscriptions(users, subreddits):
     subscriptions = []
