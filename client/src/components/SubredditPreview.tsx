@@ -1,10 +1,10 @@
 import '../styles/SubredditPreview.css'
 
-interface Subreddit {
+export interface Subreddit {
     id: number;
     name: string;
     avatar: string;
-    members: number;
+    member_count: number;
 }
 
 interface SubredditPreviewProps{
@@ -17,7 +17,7 @@ function SubredditPreview({subreddit}: SubredditPreviewProps) {
             <img src={subreddit.avatar} alt={`r/${subreddit.name}`}/>
             <div className="SubredditPreviewInfo">
                 <strong>r/{subreddit.name}</strong>
-                <p>{subreddit.members.toLocaleString()} members</p>
+                <p>{subreddit.member_count} members</p>
             </div>
         </div>     
   );

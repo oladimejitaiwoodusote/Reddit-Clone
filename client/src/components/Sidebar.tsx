@@ -1,31 +1,24 @@
-import SubredditPreview from "./SubredditPreview";
+import SubredditPreview, {Subreddit} from "./SubredditPreview";
 import { GoHome } from "react-icons/go";
 import { BsArrowUpRightCircle } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import '../styles/Sidebar.css'
+import { useEffect, useState } from "react";
 
 function Sidebar() {
-    const dummySubreddits = [
-        {
-          id: 1,
-          name: "javascript",
-          avatar: "https://ui-avatars.com/api/?name=JS&background=ff9900&color=ffffff&size=64",
-          members: 1200000,
-        },
-        {
-          id: 2,
-          name: "reactjs",
-          avatar: "https://ui-avatars.com/api/?name=React&background=61dafb&color=000000&size=64",
-          members: 850000,
-        },
-        {
-          id: 3,
-          name: "webdev",
-          avatar: "https://ui-avatars.com/api/?name=WebDev&background=4caf50&color=ffffff&size=64",
-          members: 400000,
-        },
-      ]
-  
+    
+    const [subreddits, setSubreddits] = useState<Subreddit[]>([])
+    useEffect(() => {
+      fetch(`http://127.0.0.1:5000//subreddits/all`)
+      .then(response => response.json())
+      .then(data => setSubreddits(data))
+    },[])
+
+    useEffect(() => {
+      console.log(subreddits)
+    }, [subreddits]);
+
+      
     return (
     <div className="Sidebar">
         <div className="Sidebar_Home">
@@ -42,7 +35,7 @@ function Sidebar() {
             <h4>POPULAR COMMUNITIES</h4>
             <div className="Sidebar_CommunityList">
             {/*Need to import them from backend*/}
-                {dummySubreddits.map((subreddit) => (
+                {subreddits.map((subreddit) => (
                     <SubredditPreview key={subreddit.id} subreddit={subreddit}/>
                 ))}
             </div>            
