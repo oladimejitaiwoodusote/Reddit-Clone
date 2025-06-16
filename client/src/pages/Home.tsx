@@ -1,7 +1,9 @@
 
 function Home() {
   return (
-    <div>Home</div>
+    <div>
+      <img src={'https://pbs.twimg.com/media/DaT9nhjX4AAiKW-.jpg'} alt="nuthing"/>
+    </div>
   )
 }
 

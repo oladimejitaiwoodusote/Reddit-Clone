@@ -18,7 +18,6 @@ function Sidebar() {
       console.log(subreddits)
     }, [subreddits]);
 
-      
     return (
     <div className="Sidebar">
         <div className="Sidebar_Home">

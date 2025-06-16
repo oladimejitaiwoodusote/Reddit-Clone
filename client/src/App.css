@@ -1,0 +1,20 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.AppLayout {
+    display: flex;
+}
+
+.Sidebar {
+    width: 240px;
+    flex-shrink: 0;
+}
+
+.MainContent {
+    flex-grow: 1;
+    padding: 1rem;
+    margin-top: 64px;
+    margin-left: 240px;
+}
