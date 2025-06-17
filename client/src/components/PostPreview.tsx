@@ -17,7 +17,7 @@ function PostPreview({post}: PostPreviewProps) {
     <div key={post.id} className="PostPreview">
         <div className='PostPreview_Header'>
             <div className='PostPreview_Subreddit'>
-                <span>{post.subreddit_name}</span>
+                <span>r/{post.subreddit_name}</span>
             </div>
             <div className='PostPreview_Time'>
                 <p>{post.time} hrs ago</p>
