@@ -1,0 +1,10 @@
+.Vote {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid white;
+}
+
+.Vote svg{
+    font-size: 25px;
+}
