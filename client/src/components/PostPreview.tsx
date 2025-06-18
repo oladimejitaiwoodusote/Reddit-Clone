@@ -1,5 +1,6 @@
 import '../styles/PostPreview.css'
 import Vote from './Vote'
+import Comment from './Comment'
 
 export interface Post{
     id: number,
@@ -40,7 +41,7 @@ function PostPreview({post}: PostPreviewProps) {
         <div className='PostPreview_Interactions'>
             {/* To do: Comment component */}
             <Vote vote_count={post.vote_count}/>
-            <span>💬 {post.comment_count} Comments</span>
+            <Comment comment_count={post.comment_count}/>
         </div>
     </div>
   )

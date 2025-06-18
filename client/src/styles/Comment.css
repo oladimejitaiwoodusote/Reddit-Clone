@@ -1,13 +1,14 @@
-.Vote {
+.Comment {
     display: flex;
     align-items: center;
     gap: 5px;
-    background: #2d3748;
     color: white;
-    padding: 3px 5px;
+    padding: 8px 13px;
+    background: #2d3748;
     border-radius: 20px;
+
 }
 
-.Vote svg{
-    font-size: 25px;
+.Comment svg {
+    font-size: 15px;
 }
