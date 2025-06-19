@@ -9,13 +9,6 @@
     margin: 24px auto;
 }
 
-.PostPreview img{
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
 .PostPreview_Header {
     display: flex;
     align-items: center;
@@ -29,6 +22,13 @@
     display: flex;
     align-items: center;
     gap: 4px;
+}
+
+.PostPreview_Meta img{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .PostPreview_Subreddit {
@@ -52,14 +52,25 @@
 
 
 .PostPreview_Title{
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     margin-bottom: 8px;
 }
 
+.PostPreview_Media {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.PostPreview_Media img{
+    border-radius: 20px;
+    width: 100%;
+}
+
 .PostPreview_Content{
     font-size: 14px;
-    color: #d7dadc;
+    color: gray;
 }
 
 .PostPreview_Interactions {

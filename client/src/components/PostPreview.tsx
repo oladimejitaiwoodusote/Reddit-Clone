@@ -4,11 +4,12 @@ import Comment from './Comment'
 
 export interface Post{
     id: number,
-    subreddit_avatar: string
+    subreddit_avatar: string,
     subreddit_name: string,
     time: number,
     title: string,
-    content: string,
+    media?: string,
+    content?: string,
     vote_count: number,
     comment_count: number
 }
@@ -22,7 +23,7 @@ function PostPreview({post}: PostPreviewProps) {
     <div key={post.id} className="PostPreview">
         <div className='PostPreview_Header'>
             <div className="PostPreview_Meta">
-                <img src={post.subreddit_avatar} alt={post.subreddit_avatar}/>
+                <img src={post.subreddit_avatar} alt={`r/${post.subreddit_name} avatar`}/>
                 <span className='PostPreview_Subreddit'>r/{post.subreddit_name}</span>
                 <span className='PostPreview_Dot'> • </span>
                 <p className='PostPreview_Time'>{post.time} hrs ago</p>
@@ -35,11 +36,13 @@ function PostPreview({post}: PostPreviewProps) {
         <div className='PostPreview_Title'>
             <span>{post.title}</span>
         </div>
-        <div className='PostPreview_Content'>
+        {post.media && (<div className='PostPreview_Media'>
+            <img src={post.media} alt={`r/${post.subreddit_name} avatar`}/>
+        </div>)}
+        {post.content && (<div className='PostPreview_Content'>
             <p>{post.content}</p>
-        </div>
+        </div>)}
         <div className='PostPreview_Interactions'>
-            {/* To do: Comment component */}
             <Vote vote_count={post.vote_count}/>
             <Comment comment_count={post.comment_count}/>
         </div>
