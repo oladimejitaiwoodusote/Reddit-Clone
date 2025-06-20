@@ -32,9 +32,13 @@ class Post(db.Model):
     def to_dict(self):
         return ({
             "id": self.id,
+            "subreddit_avatar": self.subreddit.avatar,
+            "subreddit_name": self.subreddit.name,
             "title": self.title,
             "content": self.content,
             "media": self.media,
+            "vote_count": sum(1 if vote.is_upvote else -1 for vote in self.post_votes),
+            "comment_count": len(self.comments),
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "updated_at": self.updated_at.isoformat() if self.updated_at else None,
             "user_id": self.user_id,
@@ -72,3 +76,9 @@ class Post(db.Model):
 
         db.session.commit()
         return self
+
+    #Get All Posts
+    @classmethod
+    def get_posts(cls):
+        posts = Post.query.all()
+        return posts

@@ -53,7 +53,7 @@ def create_subreddits():
         "avatar": "https://ui-avatars.com/api/?name=Py&background=306998&color=ffffff&size=64"
         },
         {
-        "name": "goland",
+        "name": "golang",
         "description": "Subreddit for all things Go!",
         "avatar": "https://ui-avatars.com/api/?name=Go&background=00ADD8&color=ffffff&size=64"
         },
@@ -79,10 +79,18 @@ def create_subscriptions(users, subreddits):
 
 def create_posts(users, subreddits):
     posts = []
+    media = [
+        "https://upload.wikimedia.org/wikipedia/en/b/ba/Radioheadokcomputer.png",
+        "https://upload.wikimedia.org/wikipedia/en/4/4b/My_Bloody_Valentine_-_Loveless.png",
+        "https://upload.wikimedia.org/wikipedia/en/4/42/ATribeCalledQuestTheLowEndtheory.jpg",
+        "https://upload.wikimedia.org/wikipedia/en/6/64/Pavement_Crooked_Rain.jpg",
+        "https://upload.wikimedia.org/wikipedia/en/f/fd/Elliottsmitheitheror55.jpg",
+    ]
     for _ in range(50):
         p = Post.create_post({
             "title": fake.sentence(),
-            "content": fake.text(max_nb_chars=200)
+            "media": rc(media),
+            "content": fake.text(max_nb_chars=640)
         },
             user_id = rc([user.id for user in users]),
             subreddit_id= rc([subreddit.id for subreddit in subreddits])
