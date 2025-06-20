@@ -1,4 +1,5 @@
 from reddit_clone import db
+from datetime import datetime
 
 class Post(db.Model):
 
@@ -30,6 +31,13 @@ class Post(db.Model):
 
     #to dict
     def to_dict(self):
+        now = datetime.utcnow()
+        hours_ago = None
+        if self.created_at:
+            delta = now - self.created_at
+            hours_ago = int(delta.total_seconds() // 3600)
+
+
         return ({
             "id": self.id,
             "subreddit_avatar": self.subreddit.avatar,
@@ -39,6 +47,7 @@ class Post(db.Model):
             "media": self.media,
             "vote_count": sum(1 if vote.is_upvote else -1 for vote in self.post_votes),
             "comment_count": len(self.comments),
+            "time": hours_ago,
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "updated_at": self.updated_at.isoformat() if self.updated_at else None,
             "user_id": self.user_id,

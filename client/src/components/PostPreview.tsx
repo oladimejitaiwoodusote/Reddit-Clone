@@ -1,6 +1,7 @@
 import '../styles/PostPreview.css'
 import Vote from './Vote'
 import Comment from './Comment'
+import { Link } from 'react-router-dom'
 
 export interface Post{
     id: number,
@@ -34,7 +35,9 @@ function PostPreview({post}: PostPreviewProps) {
             </div>
         </div>
         <div className='PostPreview_Title'>
-            <span>{post.title}</span>
+            <Link to={`post/${post.id}`}>
+                <span>{post.title}</span>
+            </Link>
         </div>
         {post.media && (<div className='PostPreview_Media'>
             <img src={post.media} alt={`r/${post.subreddit_name} avatar`}/>
@@ -44,7 +47,9 @@ function PostPreview({post}: PostPreviewProps) {
         </div>)}
         <div className='PostPreview_Interactions'>
             <Vote vote_count={post.vote_count}/>
-            <Comment comment_count={post.comment_count}/>
+            <Link to={`post/${post.id}`}>
+                <Comment comment_count={post.comment_count}/>
+            </Link>
         </div>
     </div>
   )
