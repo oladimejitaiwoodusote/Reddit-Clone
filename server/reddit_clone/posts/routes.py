@@ -48,3 +48,8 @@ def patch_post(id):
 def get_posts():
     post_dicts = [post.to_dict() for post in Post.get_posts()]
     return jsonify(post_dicts)
+
+@posts.get("/post/<int:post_id>")
+def get_post(post_id):
+    post_dict = Post.get_post(post_id).to_dict()
+    return jsonify(post_dict)

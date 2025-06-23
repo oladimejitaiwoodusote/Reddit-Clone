@@ -91,3 +91,9 @@ class Post(db.Model):
     def get_posts(cls):
         posts = Post.query.all()
         return posts
+
+    #Get Single Post
+    @classmethod
+    def get_post(cls, id):
+        post = Post.query.get(id)
+        return post
