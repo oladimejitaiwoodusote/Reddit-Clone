@@ -12,13 +12,12 @@ function Home() {
     .then(data => setPosts(data))
   }, [])
 
-  useEffect(() => {
-    console.log(posts)
-  },[posts])
+  // useEffect(() => {
+  //   console.log(posts)
+  // },[posts])
   
   return (
     <div className="Home">
-      <img src={'https://pbs.twimg.com/media/DaT9nhjX4AAiKW-.jpg'} alt="nuthing"/>
 
       <div className='Home_Post_Previews'>
         {posts.map((post) => (

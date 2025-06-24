@@ -14,9 +14,9 @@ function Sidebar() {
       .then(data => setSubreddits(data))
     },[])
 
-    useEffect(() => {
-      console.log(subreddits)
-    }, [subreddits]);
+    // useEffect(() => {
+    //   console.log(subreddits)
+    // }, [subreddits]);
 
     return (
     <div className="Sidebar">

@@ -1,0 +1,19 @@
+.FullPost{
+    width: 50%;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+}
+
+.FullPost_Header {
+    display: flex;
+}
+
+.FullPost_Meta {
+    display: flex;
+    flex-direction: column;
+}
+
+.FullPost_Meta_Top {
+    display: flex;
+}
