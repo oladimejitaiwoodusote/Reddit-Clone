@@ -30,7 +30,7 @@ function FullPost() {
             <span className='FullPost_Dot'> • </span>
             <p className='FullPost_Time'>{post.time} hr. ago</p>
           </div>
-          <span className='FullPost_Subreddit'>{post.user_name}</span>
+          <span className='FullPost_Username'>{post.user_name}</span>
         </div>
       </div>
       <div className='FullPost_Title'>

@@ -3,10 +3,19 @@
     /* display: flex;
     flex-direction: column;
     align-items: center; */
+    margin: 4px auto;
 }
 
 .FullPost_Header {
     display: flex;
+    gap: 8px;
+}
+
+.FullPost_Header img{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .FullPost_Meta {
@@ -16,4 +25,43 @@
 
 .FullPost_Meta_Top {
     display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.FullPost_Dot{
+    color: #a0a0a0;
+}
+
+.FullPost_Time {
+    color: #a0a0a0;
+    font-size: 12px;
+}
+
+.FullPost_Subreddit {
+    font-weight: bold;
+    color: #d7dadc;
+    font-size: 12px;
+}
+
+.FullPost_Username{
+    color: #d7dadc;
+    font-size: 12px;
+}
+
+.FullPost_Title{
+    color: white;
+    font-size: 25px;
+    margin-bottom: 8px;
+}
+
+.FullPost_Media {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.FullPost_Media img{
+    border-radius: 20px;
+    width: 100%;
 }
