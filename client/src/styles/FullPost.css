@@ -1,12 +1,9 @@
 .FullPost{
     width: 50%;
-    /* display: flex;
-    flex-direction: column;
-    align-items: center; */
     margin: 4px auto;
 }
 
-.FullPost_Header {
+.FullPost_Header{
     display: flex;
     gap: 8px;
 }
@@ -18,12 +15,12 @@
     object-fit: cover;
 }
 
-.FullPost_Meta {
+.FullPost_Meta{
     display: flex;
     flex-direction: column;
 }
 
-.FullPost_Meta_Top {
+.FullPost_Meta_Top{
     display: flex;
     gap: 4px;
     align-items: center;
@@ -33,12 +30,12 @@
     color: #a0a0a0;
 }
 
-.FullPost_Time {
+.FullPost_Time{
     color: #a0a0a0;
     font-size: 12px;
 }
 
-.FullPost_Subreddit {
+.FullPost_Subreddit{
     font-weight: bold;
     color: #d7dadc;
     font-size: 12px;
@@ -55,7 +52,7 @@
     margin-bottom: 8px;
 }
 
-.FullPost_Media {
+.FullPost_Media{
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
@@ -65,3 +62,38 @@
     border-radius: 20px;
     width: 100%;
 }
+
+.FullPost_Content{
+    font-size: 14px;
+    color: gray;
+}
+
+.FullPost_Interactions{
+    margin-top: 12px; 
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 12px;
+    color: #a0a0a0;
+}
+
+.FullPost_CommentInput{
+    display: flex;
+    align-items: center;
+    height: 40px;
+    margin: 4px auto;
+    border: 1px solid grey;
+    border-radius: 20px;
+    margin-top: 40px;
+}
+
+.FullPost_CommentInput input{
+    height: 100%;
+    flex: 1;
+    background-color: #1f2128;
+    border: none;  
+    outline: none;  
+    background: transparent;
+    margin-left: 10px;
+}
+

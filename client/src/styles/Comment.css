@@ -1,14 +1,23 @@
-.Comment {
+.Comment{
+    margin-top: 20px;
     display: flex;
-    align-items: center;
-    gap: 7px;
-    color: white;
-    padding: 8px 13px;
-    background: #2d3748;
-    border-radius: 20px;
-
+    flex-direction: column;
+    background: #1f2128;
+    align-items: flex-start;
 }
 
-.Comment svg {
-    font-size: 15px;
+.Comment_Header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.Comment_Header img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.Comment_Username{
+    font-size: 12px;
 }

@@ -1,6 +1,6 @@
 import '../styles/PostPreview.css'
-import Vote from './Vote'
-import Comment from './Comment'
+import VoteButton from './VoteButton'
+import CommentButton from './CommentButton'
 import { Link } from 'react-router-dom'
 
 export interface Post{
@@ -46,9 +46,9 @@ function PostPreview({post}: PostPreviewProps) {
             <p>{post.content}</p>
         </div>)}
         <div className='PostPreview_Interactions'>
-            <Vote vote_count={post.vote_count}/>
+            <VoteButton vote_count={post.vote_count}/>
             <Link to={`post/${post.id}`}>
-                <Comment comment_count={post.comment_count}/>
+                <CommentButton comment_count={post.comment_count}/>
             </Link>
         </div>
     </div>

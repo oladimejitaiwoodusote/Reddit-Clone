@@ -1,10 +1,10 @@
-import '../styles/Vote.css'
+import '../styles/VoteButton.css'
 import { LuArrowBigUp } from "react-icons/lu";
 import { LuArrowBigDown } from "react-icons/lu";
 
 
 
-function Vote({vote_count}: {vote_count : number}) {
+function VoteButton({vote_count}: {vote_count : number}) {
   return (
     <div className='Vote'>
         <LuArrowBigUp/>
@@ -14,4 +14,4 @@ function Vote({vote_count}: {vote_count : number}) {
   )
 }
 
-export default Vote
+export default VoteButton
