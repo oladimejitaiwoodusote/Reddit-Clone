@@ -7,7 +7,7 @@ export interface Post{
     id: number,
     subreddit_avatar: string,
     subreddit_name: string,
-    time: number,
+    time: string,
     title: string,
     user_name: string,
     media?: string,
@@ -28,7 +28,7 @@ function PostPreview({post}: PostPreviewProps) {
                 <img src={post.subreddit_avatar} alt={`r/${post.subreddit_name} avatar`}/>
                 <span className='PostPreview_Subreddit'>r/{post.subreddit_name}</span>
                 <span className='PostPreview_Dot'> • </span>
-                <p className='PostPreview_Time'>{post.time} hr. ago</p>
+                <p className='PostPreview_Time'>{post.time}</p>
             </div>
             <div className='PostPreview_JoinButton'>
                 <button>Join</button>

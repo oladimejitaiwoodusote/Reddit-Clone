@@ -32,10 +32,25 @@ class Post(db.Model):
     #to dict
     def to_dict(self):
         now = datetime.utcnow()
-        hours_ago = None
+        time_str = None
+
         if self.created_at:
             delta = now - self.created_at
-            hours_ago = int(delta.total_seconds() // 3600)
+            seconds = delta.total_seconds()
+            hours = seconds // 3600
+            days = seconds // (3600 * 24)
+            months = seconds // (3600 * 24 * 30)
+            years = seconds // (3600 * 24 * 365)
+
+            if hours < 24:
+                time_str = f"{int(hours)} hr. ago"
+            elif days < 30:
+                time_str = f"{int(days)} day{'s' if days!= 1 else ''} ago"
+            elif months < 12:
+                time_str = f"{int(months)} month{'s' if months != 1 else ''} ago"
+            else:
+                time_str = f"{int(years)} year{'s' if years != 1 else ''} ago"
+
 
 
         return ({
@@ -48,7 +63,7 @@ class Post(db.Model):
             "media": self.media,
             "vote_count": sum(1 if vote.is_upvote else -1 for vote in self.post_votes),
             "comment_count": len(self.comments),
-            "time": hours_ago,
+            "time": time_str,
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "updated_at": self.updated_at.isoformat() if self.updated_at else None,
             "user_id": self.user_id,
@@ -98,3 +113,10 @@ class Post(db.Model):
     def get_post(cls, id):
         post = Post.query.get(id)
         return post
+
+    #Get Posts Comments
+    @classmethod
+    def get_post_comments(cls, id):
+        post = Post.query.get(id)
+        return post.comments
+

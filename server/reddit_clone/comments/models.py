@@ -1,4 +1,5 @@
 from reddit_clone import db
+from datetime import datetime
 
 class Comment(db.Model):
     __tablename__ = "comments"
@@ -22,13 +23,39 @@ class Comment(db.Model):
         self.post_id = post_id
 
     def to_dict(self):
+        now = datetime.utcnow()
+        time_str = None
+
+        if self.created_at:
+            delta = now - self.created_at
+            seconds = delta.total_seconds()
+            hours = seconds // 3600
+            days = seconds // (3600 * 24)
+            months = seconds // (3600 * 24 * 30)
+            years = seconds // (3600 * 24 * 365)
+
+            if hours < 24:
+                time_str = f"{int(hours)} hr. ago"
+            elif days < 30:
+                time_str = f"{int(days)} day{'s' if days!= 1 else ''} ago"
+            elif months < 12:
+                time_str = f"{int(months)} month{'s' if months != 1 else ''} ago"
+            else:
+                time_str = f"{int(years)} year{'s' if years != 1 else ''} ago"
+
+
+
         return ({
             "id": self.id,
-            "text": self.text,
+            "content": self.text,
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "updated_at": self.updated_at.isoformat() if self.updated_at else None,
             "user_id": self.user_id,
-            "post_id": self.post_id
+            "user_name": self.user.username,
+            "user_avatar": self.user.avatar,
+            "post_id": self.post_id,
+            "vote_count": sum(1 if vote.is_upvote else -1 for vote in self.comment_votes),
+            "time": time_str
         })
 
     #create comment

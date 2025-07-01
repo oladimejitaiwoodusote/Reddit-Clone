@@ -47,9 +47,16 @@ def patch_post(id):
 @posts.get("/post/all")
 def get_posts():
     post_dicts = [post.to_dict() for post in Post.get_posts()]
-    return jsonify(post_dicts)
+    return jsonify(post_dicts), 200
 
+#Get Indivual Posts
 @posts.get("/post/<int:post_id>")
 def get_post(post_id):
     post_dict = Post.get_post(post_id).to_dict()
-    return jsonify(post_dict)
+    return jsonify(post_dict), 200
+
+#Get Comments for Individual Post
+@posts.get("/post/comments/<int:post_id>")
+def get_post_comments(post_id):
+    comment_dicts = [comment.to_dict() for comment in Post.get_post_comments(post_id)]
+    return jsonify(comment_dicts), 200

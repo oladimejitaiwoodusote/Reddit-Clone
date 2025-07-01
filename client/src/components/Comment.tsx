@@ -6,7 +6,7 @@ export interface CommentData {
   id: number;
   user_name: string;
   user_avatar: string;
-  time: number;
+  time: string;
   content: string;
   vote_count: number;
 }
@@ -22,7 +22,7 @@ function Comment({comment}: CommentProps) {
         <img src={comment.user_avatar} alt={`r/${comment.user_name} avatar`}/>
         <span className='Comment_Username'>{comment.user_name}</span>
         <span className='Comment_Dot'> • </span>
-        <span className='Comment_Time'>{comment.time} hrs ago</span>
+        <span className='Comment_Time'>{comment.time}</span>
       </div>
       <div className='Comment_Text'>
         <p>
