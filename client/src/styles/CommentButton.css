@@ -1,4 +1,4 @@
-.Comment {
+.CommentButton {
     display: flex;
     align-items: center;
     gap: 7px;
@@ -9,6 +9,6 @@
 
 }
 
-.Comment svg {
+.CommentButton svg {
     font-size: 15px;
 }

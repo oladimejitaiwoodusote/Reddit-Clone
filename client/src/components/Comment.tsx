@@ -1,4 +1,6 @@
 import '../styles/Comment.css'
+import { LuArrowBigUp } from "react-icons/lu";
+import { LuArrowBigDown } from "react-icons/lu";
 
 export interface CommentData {
   id: number;
@@ -23,10 +25,14 @@ function Comment({comment}: CommentProps) {
         <span className='Comment_Time'>{comment.time} hrs ago</span>
       </div>
       <div className='Comment_Text'>
-        {comment.content}
+        <p>
+         {comment.content}
+        </p>
       </div>
       <div className='Comment_Interactions'>
-
+        <LuArrowBigUp/>
+            {comment.vote_count}
+        <LuArrowBigDown/>
       </div>
     </div>
   )

@@ -10,6 +10,7 @@ import Comment, {CommentData} from '../components/Comment'
 function FullPost() {
   const { id } = useParams()
   const [post, setPost] = useState<Post | null>(null);
+  // const [comments, setComments] = useState<CommentData[]>([])
 
   useEffect(() => {
     fetch(`http://127.0.0.1:5000//post/${id}`)
