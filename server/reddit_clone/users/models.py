@@ -28,11 +28,12 @@ class User(db.Model):
     subscriptions = db.relationship("Subscription", back_populates = ("user"), cascade = "all, delete-orphan")
 
 
-    def __init__(self, username, email, full_name, password_hash):
+    def __init__(self, username, email, full_name, password_hash, avatar=None):
         self.username = username
         self.email = email
         self.full_name = full_name
         self.password_hash = password_hash
+        self.avatar = avatar or self.default_avatar_url
 
     def to_dict(self):
         return (
@@ -40,7 +41,6 @@ class User(db.Model):
                 "email": self.email,
                 "full_name": self.full_name,
                 "username": self.username,
-                "default_avatar_url": self.default_avatar_url,
                 "avatar": self.avatar,
                 "bio": self.bio
             }
@@ -64,9 +64,12 @@ class User(db.Model):
     #Create User
     @classmethod
     def create_user(cls, form_data):
+        avatar = form_data.get("avatar") or cls.default_avatar_url
+
         user = User(
             email = form_data["email"],
             full_name = form_data["full_name"],
+            avatar=avatar,
             username= form_data["username"],
             password_hash = bcrypt.generate_password_hash(form_data["password"]).decode('utf-8')
         )
@@ -135,3 +138,8 @@ class User(db.Model):
     #get_id
     def get_id(self):
         return str(self.id)
+
+    #To-Delete: Get all users
+    @classmethod
+    def get_users(cls):
+        return User.query.all()

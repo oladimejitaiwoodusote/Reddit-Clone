@@ -51,3 +51,9 @@ def patch_user():
     json = request.json
     patched_user = current_user.patch_user(json)
     return jsonify(patched_user.to_dict()), 200
+
+#Get All Users; To delete!!
+@users.get("/user/all")
+def get_users():
+    users_dicts = [user.to_dict() for user in User.get_users()]
+    return jsonify(users_dicts), 200
