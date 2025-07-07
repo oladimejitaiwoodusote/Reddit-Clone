@@ -1,4 +1,5 @@
-import SubredditPreview, {Subreddit} from "./SubredditPreview";
+import SubredditPreview from "./SubredditPreview";
+import { SubredditData } from "../types";
 import { GoHome } from "react-icons/go";
 import { BsArrowUpRightCircle } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
@@ -7,16 +8,12 @@ import { useEffect, useState } from "react";
 
 function Sidebar() {
     
-    const [subreddits, setSubreddits] = useState<Subreddit[]>([])
+    const [subreddits, setSubreddits] = useState<SubredditData[]>([])
     useEffect(() => {
       fetch(`http://127.0.0.1:5000//subreddits/all`)
       .then(response => response.json())
-      .then(data => setSubreddits(data))
+      .then(data=> setSubreddits(data))
     },[])
-
-    // useEffect(() => {
-    //   console.log(subreddits)
-    // }, [subreddits]);
 
     return (
     <div className="Sidebar">

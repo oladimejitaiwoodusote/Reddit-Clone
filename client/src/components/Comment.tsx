@@ -1,15 +1,7 @@
 import '../styles/Comment.css'
 import { LuArrowBigUp } from "react-icons/lu";
 import { LuArrowBigDown } from "react-icons/lu";
-
-export interface CommentData {
-  id: number;
-  user_name: string;
-  user_avatar: string;
-  time: string;
-  content: string;
-  vote_count: number;
-}
+import { CommentData } from '../types';
 
 interface CommentProps{
   comment:CommentData

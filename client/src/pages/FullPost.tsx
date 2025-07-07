@@ -1,15 +1,16 @@
 import '../styles/FullPost.css'
-import { Post } from '../components/PostPreview'
+import { PostData } from '../types'
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import VoteButton from '../components/VoteButton'
 import CommentButton from '../components/CommentButton'
-import Comment, {CommentData} from '../components/Comment'
+import Comment from '../components/Comment'
+import { CommentData } from '../types'
 
 
 function FullPost() {
   const { id } = useParams()
-  const [post, setPost] = useState<Post | null>(null);
+  const [post, setPost] = useState<PostData | null>(null);
   const [comments, setComments] = useState<CommentData[]>([])
 
   useEffect(() => {

@@ -32,5 +32,13 @@ def patch_subreddit(id):
 def fetch_subreddits():
     fetched_subreddits = Subreddit.get_subreddits()
     subreddits = [subreddit.to_dict() for subreddit in fetched_subreddits]
-    
     return jsonify(subreddits), 200
+
+#Get Individual Subreddit
+@subreddits.get("/subreddit/r/<string:subreddit_name>")
+def get_subreddit(subreddit_name):
+    subreddit = Subreddit.get_subreddit(subreddit_name)
+    if not subreddit:
+        return jsonify({"message": "Subreddit not found"}), 401
+
+    return jsonify(subreddit.to_dict()), 200

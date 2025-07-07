@@ -4,10 +4,11 @@ class Subreddit(db.Model):
     __tablename__ = "subreddits"
 
     id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.Text, nullable = False)
+    name = db.Column(db.Text, nullable = False, unique=True)
     description = db.Column(db.Text)
     default_avatar_url = "https://storage.googleapis.com/instagram-clone/Empty%20Avatar.jpeg"
     avatar = db.Column(db.String, default=default_avatar_url)
+    wallpaper = db.Column(db.String)
 
     created_at = db.Column(db.DateTime, server_default = db.func.now())
     updated_at = db.Column(db.DateTime, server_default = db.func.now(), onupdate = db.func.now())
@@ -15,9 +16,10 @@ class Subreddit(db.Model):
     posts = db.relationship("Post", back_populates = ("subreddit"), cascade = "all, delete-orphan")
     subscriptions = db.relationship("Subscription", back_populates = ("subreddit"), cascade = "all, delete-orphan")
 
-    def __init__(self, name, description = None, avatar = None):
+    def __init__(self, name, wallpaper, description = None, avatar = None):
         self.name = name
         self.description = description
+        self.wallpaper = wallpaper
         self.avatar = avatar or self.default_avatar_url
 
     def to_dict(self):
@@ -25,6 +27,7 @@ class Subreddit(db.Model):
             "id": self.id,
             "name": self.name,
             "avatar": self.avatar,
+            "wallpaper": self.wallpaper,
             "description": self.description,
             "member_count": len(self.subscriptions),
             "created_at": self.created_at.isoformat() if self.created_at else None,
@@ -39,6 +42,7 @@ class Subreddit(db.Model):
         subreddit = Subreddit(
             name = form_data["name"],
             description= form_data["description"],
+            wallpaper=form_data["wallpaper"],
             avatar = avatar
         )
 
@@ -67,3 +71,9 @@ class Subreddit(db.Model):
     def get_subreddits(cls):
         subreddits = Subreddit.query.all()
         return subreddits
+
+    #Get Individual Subreddit
+    @classmethod
+    def get_subreddit(cls, name):
+        subreddit = Subreddit.query.filter_by(name=name).first()
+        return subreddit

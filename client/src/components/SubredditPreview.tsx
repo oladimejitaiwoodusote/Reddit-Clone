@@ -1,25 +1,22 @@
 import '../styles/SubredditPreview.css'
-
-export interface Subreddit {
-    id: number;
-    name: string;
-    avatar: string;
-    member_count: number;
-}
+import { Link } from 'react-router-dom';
+import { SubredditData } from '../types';
 
 interface SubredditPreviewProps{
-    subreddit:Subreddit
+    subreddit:SubredditData
 }
 
 function SubredditPreview({subreddit}: SubredditPreviewProps) {
   return (
+    <Link to={`subreddit/r/${subreddit.name}`} className="SubredditPreviewLink">                   
         <div key={subreddit.id} className="SubredditPreview">
             <img src={subreddit.avatar} alt={`r/${subreddit.name}`}/>
             <div className="SubredditPreviewInfo">
                 <strong>r/{subreddit.name}</strong>
                 <p>{subreddit.member_count} members</p>
             </div>
-        </div>     
+        </div> 
+    </Link>    
   );
 }
 

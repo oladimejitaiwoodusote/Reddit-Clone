@@ -2,22 +2,10 @@ import '../styles/PostPreview.css'
 import VoteButton from './VoteButton'
 import CommentButton from './CommentButton'
 import { Link } from 'react-router-dom'
-
-export interface Post{
-    id: number,
-    subreddit_avatar: string,
-    subreddit_name: string,
-    time: string,
-    title: string,
-    user_name: string,
-    media?: string,
-    content?: string,
-    vote_count: number,
-    comment_count: number
-}
+import { PostData } from '../types'
 
 interface PostPreviewProps{
-    post:Post
+    post:PostData
 }
 
 function PostPreview({post}: PostPreviewProps) {

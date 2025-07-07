@@ -40,27 +40,32 @@ def create_subreddits():
         {
         "name": "javascript",
         "description": "Subreddit for all things Javascript!",
-        "avatar": "https://ui-avatars.com/api/?name=JS&background=ff9900&color=ffffff&size=64"
+        "avatar": "https://ui-avatars.com/api/?name=JS&background=ff9900&color=ffffff&size=64",
+        "wallpaper": "https://www.tutorialrepublic.com/lib/images/javascript-illustration.png"
         },
         {
         "name": "reactjs",
         "description": "Subreddit for all things React!",
-        "avatar": "https://ui-avatars.com/api/?name=React&background=61dafb&color=000000&size=64"
+        "avatar": "https://ui-avatars.com/api/?name=React&background=61dafb&color=000000&size=64",
+        "wallpaper": "https://goodworklabs.com/wp-content/uploads/2016/10/reactjs.png"
         },
         {
         "name": "python",
         "description": "Subreddit for all things Python!",
-        "avatar": "https://ui-avatars.com/api/?name=Py&background=306998&color=ffffff&size=64"
+        "avatar": "https://ui-avatars.com/api/?name=Py&background=306998&color=ffffff&size=64",
+        "wallpaper": "https://afrihub.com/assets/img/pc/python.png"
         },
         {
         "name": "golang",
         "description": "Subreddit for all things Go!",
-        "avatar": "https://ui-avatars.com/api/?name=Go&background=00ADD8&color=ffffff&size=64"
+        "avatar": "https://ui-avatars.com/api/?name=Go&background=00ADD8&color=ffffff&size=64",
+        "wallpaper": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Go_Logo_Blue.svg/1200px-Go_Logo_Blue.svg.png"
         },
         {
         "name": "flask",
         "description": "Subreddit for all things Flask!",
-        "avatar": "https://ui-avatars.com/api/?name=Flask&background=000000&color=ffffff&size=64"
+        "avatar": "https://ui-avatars.com/api/?name=Flask&background=000000&color=ffffff&size=64",
+        "wallpaper": "https://miro.medium.com/v2/resize:fit:980/1*cWuvkF15QKOsTHtgyIaqOA.png"
         }
     ]
        
