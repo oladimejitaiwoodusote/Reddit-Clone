@@ -4,14 +4,14 @@ import { SubredditData } from '../types'
 import { useEffect, useState } from 'react'
 
 function Subreddit() {
-  const {name} = useParams()
+  const {subreddit_name} = useParams()
   const [subreddit, setSubreddit] = useState<SubredditData|null>(null);
 
   useEffect(()=> {
-    fetch(`http://127.0.0.1:5000//subreddit/r/${name}`)
+    fetch(`http://127.0.0.1:5000//subreddit/r/${subreddit_name}`)
     .then(response => response.json())
     .then(data => setSubreddit(data))
-  },[name])
+  },[subreddit_name])
 
   useEffect(() => {
     console.log(subreddit)
@@ -27,7 +27,7 @@ function Subreddit() {
           <div className='Subreddit_Header_Bottom'>
             <div className='Subreddit_Header_Bottom_Info'>
               <img src={subreddit.avatar} alt={`r/${subreddit.name} avatar`}/>
-              <span>{subreddit.name}</span>
+              <span>r/{subreddit.name}</span>
             </div>
             <div className='Subreddit_Header_Interactions'>
               <button>+ Create Post</button>

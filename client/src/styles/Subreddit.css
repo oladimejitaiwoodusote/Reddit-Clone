@@ -1,0 +1,39 @@
+.Subreddit{
+    width: 55%;
+    margin: 0px auto;
+}
+
+.Subreddit_Header_Bottom{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Subreddit_Header_Bottom_Info {
+    display: flex;
+    align-items: center;
+}
+
+.Subreddit_Header_Bottom_Info img{
+    border-radius: 40px;
+    width: 150%;
+}
+
+.Subreddit_Header_Bottom_Info span{
+    color: white;
+    font-size: 30px;
+    font-weight: 10000;
+    margin-left: 15px;
+}
+
+.Subreddit_Header_Interactions button:nth-child(1){
+    color: white;
+    background: #1f2128;
+    padding: 8px 13px;
+    border-radius: 40%;
+}
+
+.Subreddit_Header_Interactions button:nth-child(2){
+    color: white;
+    background: #0079d3
+}
