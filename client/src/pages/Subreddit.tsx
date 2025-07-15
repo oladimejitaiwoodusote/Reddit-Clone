@@ -2,6 +2,8 @@ import { useParams } from 'react-router-dom'
 import '../styles/Subreddit.css'
 import { SubredditData } from '../types'
 import { useEffect, useState } from 'react'
+import { AiOutlinePlus } from "react-icons/ai";
+
 
 function Subreddit() {
   const {subreddit_name} = useParams()
@@ -30,7 +32,10 @@ function Subreddit() {
               <span>r/{subreddit.name}</span>
             </div>
             <div className='Subreddit_Header_Interactions'>
-              <button>+ Create Post</button>
+              <button>
+                <AiOutlinePlus/>
+                Create Post
+              </button>
               <button>Join</button>
             </div>
           </div>

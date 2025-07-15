@@ -4,6 +4,7 @@ import CommentButton from './CommentButton'
 import { Link } from 'react-router-dom'
 import { PostData } from '../types'
 
+
 interface PostPreviewProps{
     post:PostData
 }
