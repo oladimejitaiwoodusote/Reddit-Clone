@@ -4,14 +4,13 @@ import CommentButton from './CommentButton'
 import { Link } from 'react-router-dom'
 import { PostData } from '../types'
 
-
 interface PostPreviewProps{
     post:PostData
 }
 
-function PostPreview({post}: PostPreviewProps) {
+function PostPreview({post, className = ''}: PostPreviewProps & { className?: string }) {
   return (
-    <div key={post.id} className="PostPreview">
+    <div key={post.id} className={`PostPreview ${className}`}>
         <div className='PostPreview_Header'>
             <div className="PostPreview_Meta">
                 <img src={post.subreddit_avatar} alt={`r/${post.subreddit_name} avatar`}/>

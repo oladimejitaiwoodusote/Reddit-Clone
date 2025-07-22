@@ -18,7 +18,7 @@ function Home() {
 
       <div className='Home_Post_Previews'>
         {posts.map((post) => (
-          <PostPreview key={post.id} post={post}/>
+          <PostPreview key={post.id} post={post} className='PostPreview_Home'/>
         ))}
       </div>
     </div>

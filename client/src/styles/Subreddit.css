@@ -76,3 +76,47 @@
     border: none;
     font-size: 15px;
 }
+
+.Subreddit_Main {
+    display: flex;
+    margin-top: 40px;
+    gap: 20px;
+}
+
+.Subreddit_Post_Previews {
+    flex: 3;
+}
+
+.Subreddit_Description{
+    flex: 1;
+    max-width: 300px;
+    align-items: flex-start;
+    color: #a0aec0;
+    background: black;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.Subreddit_Description span{
+    color: #a0aec0;
+    font-weight: 1000;
+}
+
+.Subreddit_Description p{
+    color: #a0aec0;
+    font-weight: 100;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.Subreddit_Subscribers{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    color:#a0aec0;
+}
+
+.Subreddit_Subscribers span:nth-of-type(2){
+    font-weight: 100;
+    font-size: 12px;
+}

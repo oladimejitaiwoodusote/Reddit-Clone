@@ -13,6 +13,7 @@ export interface CommentData {
     avatar: string;
     member_count: number;
     wallpaper: string;
+    description: string;
 }
 
 export interface PostData{
