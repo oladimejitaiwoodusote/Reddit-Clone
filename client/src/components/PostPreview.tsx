@@ -8,13 +8,13 @@ interface PostPreviewProps{
     post:PostData
 }
 
-function PostPreview({post, className = ''}: PostPreviewProps & { className?: string }) {
+function PostPreview({post}: PostPreviewProps) {
   return (
-    <div key={post.id} className={`PostPreview ${className}`}>
+    <div key={post.id} className="PostPreview">
         <div className='PostPreview_Header'>
             <div className="PostPreview_Meta">
                 <img src={post.subreddit_avatar} alt={`r/${post.subreddit_name} avatar`}/>
-                <span className='PostPreview_Subreddit'>r/{post.subreddit_name}</span>
+                <span className='PostPreview_Subreddit_Name'>r/{post.subreddit_name}</span>
                 <span className='PostPreview_Dot'> • </span>
                 <p className='PostPreview_Time'>{post.time}</p>
             </div>

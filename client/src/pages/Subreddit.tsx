@@ -96,7 +96,7 @@ function Subreddit() {
           <div className='Subreddit_Post_Previews'>
             {
               dummyPosts.map((post) => (
-                <PostPreview key={post.id} post={post} className='PostPreview_Subreddit'/>
+                <PostPreview key={post.id} post={post}/>
               ))
             }
           </div>

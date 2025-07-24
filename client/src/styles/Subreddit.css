@@ -85,6 +85,7 @@
 
 .Subreddit_Post_Previews {
     flex: 3;
+    width: 100%;
 }
 
 .Subreddit_Description{

@@ -5,18 +5,8 @@
     margin-bottom: 16px;
     color: white;
     font-family: Arial, sans-serif;
-    width: 50%;
-    margin: 24px auto;
-}
-
-.PostPreview_Home{
-    width: 50%;
-    margin: 24px auto;
-}
-
-.PostPreview_Subreddit{
-    width: 100%;
-    margin-top: 16px;
+    /* width: 50%;
+    margin: 24px auto; */
 }
 
 .PostPreview a {
@@ -46,7 +36,7 @@
     object-fit: cover;
 }
 
-.PostPreview_Subreddit {
+.PostPreview_Subreddit_Name {
     font-weight: bold;
     color: #d7dadc;
 }
