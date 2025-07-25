@@ -96,6 +96,9 @@
     background: black;
     padding: 20px;
     border-radius: 10px;
+    height: fit-content;
+    position: sticky;
+    top: 70px;
 }
 
 .Subreddit_Description span{
