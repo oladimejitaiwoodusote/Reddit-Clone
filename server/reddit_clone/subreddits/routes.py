@@ -42,3 +42,13 @@ def get_subreddit(subreddit_name):
         return jsonify({"message": "Subreddit not found"}), 401
 
     return jsonify(subreddit.to_dict()), 200
+
+#Get Individual Subreddit posts
+@subreddits.get("/subreddit/r/<string:subreddit_name>/posts")
+def get_subreddit_posts(subreddit_name):
+    subreddit = Subreddit.get_subreddit(subreddit_name)
+    if not subreddit:
+        return jsonify({"message": "Subreddit not found"}), 401
+    
+    post_dicts = [post.to_dict() for post in subreddit.posts]
+    return jsonify(post_dicts), 200
