@@ -5,27 +5,22 @@ import { useEffect, useState } from 'react'
 import { AiOutlinePlus } from "react-icons/ai";
 import PostPreview from '../components/PostPreview';
 
-
 function Subreddit() {
   const {subreddit_name} = useParams()
   const [subreddit, setSubreddit] = useState<SubredditData|null>(null);
   const [posts, setPosts] = useState<PostData[]>([])
 
   useEffect(()=> {
-    fetch(`http://127.0.0.1:5000//subreddit/r/${subreddit_name}`)
+    fetch(`http://127.0.0.1:5000/subreddit/r/${subreddit_name}`)
     .then(response => response.json())
     .then(data => setSubreddit(data))
   },[subreddit_name])
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000//subreddit/r/${subreddit_name}/posts`)
+    fetch(`http://127.0.0.1:5000/subreddit/r/${subreddit_name}/posts`)
     .then(response => response.json())
     .then(data => setPosts(data))
-  })
-
-  useEffect(() => {
-    console.log(subreddit)
-  })
+  }, [subreddit_name])
   
   if (!subreddit) return <p>Loading...</p>
   return (
@@ -62,7 +57,7 @@ function Subreddit() {
                 {subreddit.description}
              </p>
              <div className='Subreddit_Subscribers'>
-               <span>34</span>
+               <span>{subreddit.member_count}</span>
                <span>Subscribers</span>
              </div>
           </div>

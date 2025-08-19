@@ -1,6 +1,12 @@
+import '../styles/Popular.css'
+
 function Popular() {
   return (
-    <div>Popular</div>
+    <div className='Popular'>
+      <div className='Popular_Post_Previews'>
+
+      </div>
+    </div>
   )
 }
 

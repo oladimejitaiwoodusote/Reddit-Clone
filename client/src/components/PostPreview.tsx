@@ -14,7 +14,9 @@ function PostPreview({post}: PostPreviewProps) {
         <div className='PostPreview_Header'>
             <div className="PostPreview_Meta">
                 <img src={post.subreddit_avatar} alt={`r/${post.subreddit_name} avatar`}/>
-                <span className='PostPreview_Subreddit_Name'>r/{post.subreddit_name}</span>
+                <Link to={`/subreddit/r/${post.subreddit_name}`} className="SubredditPreviewLink">                
+                    <span className='PostPreview_Subreddit_Name'>r/{post.subreddit_name}</span>
+                </Link>
                 <span className='PostPreview_Dot'> • </span>
                 <p className='PostPreview_Time'>{post.time}</p>
             </div>
@@ -23,7 +25,7 @@ function PostPreview({post}: PostPreviewProps) {
             </div>
         </div>
         <div className='PostPreview_Title'>
-            <Link to={`post/${post.id}`}>
+            <Link to={`/subreddit/r/${post.subreddit_name}/post/${post.id}`}>
                 <span>{post.title}</span>
             </Link>
         </div>
@@ -35,7 +37,7 @@ function PostPreview({post}: PostPreviewProps) {
         </div>)}
         <div className='PostPreview_Interactions'>
             <VoteButton vote_count={post.vote_count}/>
-            <Link to={`post/${post.id}`}>
+            <Link to={`/subreddit/r/${post.subreddit_name}/post/${post.id}`}>
                 <CommentButton comment_count={post.comment_count}/>
             </Link>
         </div>

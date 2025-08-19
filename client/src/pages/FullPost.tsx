@@ -1,6 +1,6 @@
 import '../styles/FullPost.css'
 import { PostData } from '../types'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import VoteButton from '../components/VoteButton'
 import CommentButton from '../components/CommentButton'
@@ -32,7 +32,9 @@ function FullPost() {
         <img src={post.subreddit_avatar} alt={`r/${post.subreddit_name} avatar`}/>
         <div className="FullPost_Meta">
           <div className='FullPost_Meta_Top'>
-            <span className='FullPost_Subreddit'>r/{post.subreddit_name}</span>
+            <Link to={`/subreddit/r/${post.subreddit_name}`} className="SubredditPreviewLink">            
+              <span className='FullPost_Subreddit'>r/{post.subreddit_name}</span>
+            </Link>
             <span className='FullPost_Dot'> • </span>
             <p className='FullPost_Time'>{post.time}</p>
           </div>

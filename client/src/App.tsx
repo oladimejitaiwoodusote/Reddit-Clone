@@ -19,8 +19,9 @@ function App() {
           <Routes>
             <Route path="/" element= {<Home/>}/>
             <Route path="/popular" element= {<Popular/>}/>
-            <Route path="/post/:id" element={<FullPost/>}/>
+            {/* <Route path="/post/:id" element={<FullPost/>}/> */}
             <Route path="/subreddit/r/:subreddit_name" element={<Subreddit/>}/>
+            <Route path="/subreddit/r/:subreddit_name/post/:id" element={<FullPost/>}/>
           </Routes>
         </main>
       </div>

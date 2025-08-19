@@ -21,6 +21,9 @@ class Post(db.Model):
     comments = db.relationship("Comment", back_populates=("post"), cascade= "all, delete-orphan")
     post_votes = db.relationship("PostVote", back_populates=("post"), cascade = "all, delete-orphan")
 
+    def get_score(self):
+        return sum(1 if v.is_upvote else -1 for v in self.post_votes)
+
     #init method
     def __init__(self, title, content = None, media = None, user_id = None, subreddit_id = None):
         self.title = title
@@ -61,7 +64,7 @@ class Post(db.Model):
             "title": self.title,
             "content": self.content,
             "media": self.media,
-            "vote_count": sum(1 if vote.is_upvote else -1 for vote in self.post_votes),
+            "vote_count": self.get_score(),
             "comment_count": len(self.comments),
             "time": time_str,
             "created_at": self.created_at.isoformat() if self.created_at else None,
@@ -107,6 +110,19 @@ class Post(db.Model):
     def get_posts(cls):
         posts = Post.query.all()
         return posts
+
+    #Get All Posts Ordered by newest(Home Page)
+    @classmethod
+    def get_posts_by_new(cls):
+        posts = Post.query.order_by(Post.created_at.desc()).all()
+        return posts
+
+    #Get All Posts Ordered by popularity (Popular Page)
+    @classmethod
+    def get_posts_by_popularity(cls):
+        posts = Post.query.all()
+        return sorted(posts, key=lambda post: post.get_score(), reverse=True)
+
 
     #Get Single Post
     @classmethod

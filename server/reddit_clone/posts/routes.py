@@ -49,6 +49,18 @@ def get_posts():
     post_dicts = [post.to_dict() for post in Post.get_posts()]
     return jsonify(post_dicts), 200
 
+#Get posts sorted by newest
+@posts.get("/post/new")
+def get_posts_new():
+    post_dicts = [post.to_dict() for post in Post.get_posts_by_new()]
+    return jsonify(post_dicts), 200
+
+#Get posts sorted by popularity
+@posts.get("/post/popular")
+def get_posts_popularity():
+    post_dicts = [post.to_dict() for post in Post.get_posts_by_popularity()]
+    return jsonify(post_dicts), 200
+
 #Get Indivual Posts
 @posts.get("/post/<int:post_id>")
 def get_post(post_id):
