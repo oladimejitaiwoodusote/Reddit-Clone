@@ -30,7 +30,6 @@ function Sidebar() {
         <div className="Sidebar_Threads">
             <h4>POPULAR COMMUNITIES</h4>
             <div className="Sidebar_CommunityList">
-            {/*Need to import them from backend*/}
                 {subreddits.map((subreddit) => (
                     <SubredditPreview key={subreddit.id} subreddit={subreddit}/>
                 ))}

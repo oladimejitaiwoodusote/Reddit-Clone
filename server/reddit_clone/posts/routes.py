@@ -43,12 +43,6 @@ def patch_post(id):
     post.patch_post(json)
     return jsonify(post.to_dict()), 200
 
-#Get Posts
-@posts.get("/post/all")
-def get_posts():
-    post_dicts = [post.to_dict() for post in Post.get_posts()]
-    return jsonify(post_dicts), 200
-
 #Get posts sorted by newest
 @posts.get("/post/new")
 def get_posts_new():

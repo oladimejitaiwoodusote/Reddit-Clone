@@ -19,6 +19,13 @@ def user_login():
         return jsonify(user.to_dict()), 200
     return jsonify({"message": "Invalid username or password"}), 409
 
+#Get current user/ Check Session
+@users.get("/user/me")
+def get_current_user():
+    if current_user.is_authenticated:
+        return jsonify(current_user.to_dict()), 200
+    return jsonify({"message": "Not logged in"}), 401
+    
 #Logout
 @users.delete("/user/logout")
 @login_required

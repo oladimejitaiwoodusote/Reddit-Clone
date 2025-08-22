@@ -105,12 +105,6 @@ class Post(db.Model):
         db.session.commit()
         return self
 
-    #Get All Posts
-    @classmethod
-    def get_posts(cls):
-        posts = Post.query.all()
-        return posts
-
     #Get All Posts Ordered by newest(Home Page)
     @classmethod
     def get_posts_by_new(cls):

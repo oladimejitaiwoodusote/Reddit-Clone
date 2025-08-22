@@ -1,4 +1,6 @@
 from reddit_clone import db, bcrypt, login_manager
+from sqlalchemy import or_
+from sqlalchemy.exc import IntegrityError
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -56,8 +58,17 @@ class User(db.Model):
     #Authenticate User/Login
     @classmethod
     def authenticate(cls, form_data):
-        user = cls.query.filter_by(username = form_data["username"]).first()
-        if user and bcrypt.check_password_hash(user.password_hash, form_data["password"]):
+        identifier = form_data["identifier"]
+        password = form_data["password"]
+
+        user = cls.query.filter(
+            or_(
+                cls.username == identifier, 
+                cls.email == identifier
+            )            
+        ).first()
+
+        if user and bcrypt.check_password_hash(user.password_hash, password):
             return user
         return None
 
@@ -73,9 +84,15 @@ class User(db.Model):
             username= form_data["username"],
             password_hash = bcrypt.generate_password_hash(form_data["password"]).decode('utf-8')
         )
+
         db.session.add(user)
-        db.session.commit()
-        return user
+        try:
+            db.session.commit()
+            return user
+        except IntegrityError:
+            db.session.rollback()
+            raise ValueError("Username or Email already exists")
+
 
     #Update/Patch User
     #Finish after storage is setup
