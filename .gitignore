@@ -1,5 +1,18 @@
-/server/__pychache__
-/server/instance
-/server/service_account_key
-/server/venv
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+/server/venv/
+
+# Flask/instance data
+/server/instance/
+*.db
+
+# Environment files
 /server/.env
+/server/.env.*
+
+# Service keys
+/server/service_account_key*
