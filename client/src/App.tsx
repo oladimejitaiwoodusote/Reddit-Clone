@@ -6,6 +6,8 @@ import Popular from './pages/Popular'
 import FullPost from './pages/FullPost'
 import { Routes, Route } from 'react-router-dom'
 import Subreddit from './pages/Subreddit'
+import LoginModal from './components/LoginModal'
+import SignupModal from './components/SingupModal'
 
 
 function App() {
@@ -21,9 +23,14 @@ function App() {
             <Route path="/popular" element= {<Popular/>}/>
             <Route path="/subreddit/r/:subreddit_name" element={<Subreddit/>}/>
             <Route path="/subreddit/r/:subreddit_name/post/:id" element={<FullPost/>}/>
-          </Routes>
+          </Routes>          
         </main>
       </div>
+
+      {/* Modals rendered globally*/}
+      <LoginModal/>
+      <SignupModal/>
+
     </>
   )
 }

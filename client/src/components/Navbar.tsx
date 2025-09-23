@@ -1,9 +1,12 @@
 import { FaReddit } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa"; 
 import '../styles/Navbar.css'
+import { useModal } from "../context/ModalContext";
 
 
 function Navbar() {
+  const {openModal} = useModal();
+
   return (
     <nav className="Navbar">
         <a href="/" className="Navbar_left">            
@@ -18,7 +21,7 @@ function Navbar() {
         </div>
         
         <div className="Navbar_right">
-            <button type="button">
+            <button type="button" onClick={() => openModal("login")}>
               Log In
             </button>
         </div>
