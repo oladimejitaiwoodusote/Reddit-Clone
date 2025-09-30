@@ -1,4 +1,25 @@
 .LoginModal_overlay {
     position: fixed;
-    
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 20vh;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    z-index: 1000;
 }
+
+
+.LoginModal{
+    background: #2b3a55;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 400px;
+    max-width: 90vw;
+    position: relative;
+    color: white;
+}
+
+
