@@ -3,7 +3,7 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: 20vh;
+    height: 100vh;
     background: rgba(0,0,0,0.6);
     display: flex;
     justify-content: center;
@@ -13,7 +13,7 @@
 
 
 .LoginModal{
-    background: #2b3a55;
+    background: #1f2128;
     padding: 2rem;
     border-radius: 10px;
     width: 400px;
@@ -22,4 +22,69 @@
     color: white;
 }
 
+.LoginModal_title {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: white;
+    text-align: center;
+}
 
+.LoginModal_close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: #444c5c;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 300;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.LoginModal_form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.LoginModal_input_field {
+    padding: 0.75rem;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background: #2d3748;
+    color: white;
+}
+
+.LoginModal_submit_button{
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 20px;
+    border: none;
+    background: #ff4500;
+    color: white;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.LoginModal_submit_button:hover{
+    background: #e03d00;
+}
+
+.LoginModal_footer{
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.LoginModal_signup_link {
+    color: #5fa8d3;
+    cursor: pointer;
+}
+
+.LoginModal_signup_link:hover {
+    text-decoration: underline;
+}

@@ -13,14 +13,12 @@ function LoginModal() {
                 <button className= "LoginModal_close" onClick={closeModal}>
                     x
                 </button>
-                <h2>Log In</h2>
-                {/* login form here */}
+                <h2 className="LoginModal_title">Log In</h2>
+
                 <form className="LoginModal_form">
-                    <input className="LoginModal_input_field" placeholder="Email or username"/>
-                    <input className="LoginModal_input_field" placeholder="Password"/>
-                    <button type="submit" className="LoginModal_submit_button">
-                        Log In
-                    </button>
+                    <input className="LoginModal_input_field" placeholder="Email or username *"/>
+                    <input className="LoginModal_input_field" placeholder="Password *"/>
+                    
                 </form>
 
                 <p className="LoginModal_footer">
@@ -29,9 +27,13 @@ function LoginModal() {
                         className="LoginModal_signup_link"
                         onClick={() => openModal("signup")}
                     >
-                        Sign up
+                        Sign Up
                     </span>
                 </p>
+
+                <button type="submit" className="LoginModal_submit_button">
+                        Log In
+                </button>
 
             </div>
         </div>
