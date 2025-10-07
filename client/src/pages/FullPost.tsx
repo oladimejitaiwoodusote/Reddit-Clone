@@ -6,12 +6,15 @@ import VoteButton from '../components/VoteButton'
 import CommentButton from '../components/CommentButton'
 import Comment from '../components/Comment'
 import { CommentData } from '../types'
-
+import { useModal } from '../context/ModalContext'
+import { useAuth } from '../context/AuthContext'
 
 function FullPost() {
   const { id } = useParams()
   const [post, setPost] = useState<PostData | null>(null);
   const [comments, setComments] = useState<CommentData[]>([])
+  const {openModal} = useModal()
+  const {isAuthenticated} = useAuth()
 
   useEffect(() => {
     fetch(`http://127.0.0.1:5000//post/${id}`)
@@ -24,6 +27,25 @@ function FullPost() {
     .then(response => response.json())
     .then(data => setComments(data)) 
   },[id])
+
+  function handleCommentClick () {
+    if(!isAuthenticated) {
+        openModal("signup");
+        return;
+    }
+
+    //logic for commenting on FullPost
+    console.log("commented!");
+  }
+
+  function handleVoteClick (){
+    if(!isAuthenticated) {
+        openModal("signup")
+        return;
+    }
+    
+    //logic for handling vote action goes here
+  }
 
   if (!post) return <p>Loading...</p>
   return (
@@ -51,10 +73,14 @@ function FullPost() {
         <p>{post.content}</p>
       </div>
       <div className='FullPost_Interactions'>
-        <VoteButton vote_count={post.vote_count}/>
-        <CommentButton comment_count={post.comment_count}/>
+        <div onClick={() => handleVoteClick()}>
+          <VoteButton vote_count={post.vote_count}/>
+        </div>
+        <div onClick={() => handleCommentClick()}>
+          <CommentButton comment_count={post.comment_count}/>
+        </div>
       </div>
-      <div className='FullPost_CommentInput'>
+      <div className='FullPost_CommentInput' onClick={() => handleCommentClick()}>
         <input type='text' placeholder='Join the conversation'/>
       </div>
       <div className='FullPost_CommentSection'>
