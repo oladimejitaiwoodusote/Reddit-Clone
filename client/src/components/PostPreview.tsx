@@ -3,12 +3,36 @@ import VoteButton from './VoteButton'
 import CommentButton from './CommentButton'
 import { Link } from 'react-router-dom'
 import { PostData } from '../types'
+import { useModal } from '../context/ModalContext'
+import { useAuth } from '../context/AuthContext'
 
 interface PostPreviewProps{
     post:PostData
 }
 
 function PostPreview({post}: PostPreviewProps) {
+    const {openModal} = useModal();
+    const {isAuthenticated} = useAuth();
+
+    function handleJoinClick () {
+        if(!isAuthenticated) {
+            openModal("signup");
+            return;
+        }
+
+        //logic for joining subreddit to be added here
+        console.log("Joined subreddit!");
+    }
+
+    function handleVoteClick (){
+        if(!isAuthenticated) {
+            openModal("signup")
+            return;
+        }
+        
+        //logic for handling vote action goes here
+    }
+
   return (
     <div key={post.id} className="PostPreview">
         <div className='PostPreview_Header'>
@@ -21,7 +45,9 @@ function PostPreview({post}: PostPreviewProps) {
                 <p className='PostPreview_Time'>{post.time}</p>
             </div>
             <div className='PostPreview_JoinButton'>
-                <button>Join</button>
+                <button type="button" onClick={() => handleJoinClick()}>
+                    Join
+                </button>
             </div>
         </div>
         <div className='PostPreview_Title'>
@@ -36,7 +62,9 @@ function PostPreview({post}: PostPreviewProps) {
             <p>{post.content}</p>
         </div>)}
         <div className='PostPreview_Interactions'>
-            <VoteButton vote_count={post.vote_count}/>
+            <div onClick={() => handleVoteClick()}>
+                <VoteButton vote_count={post.vote_count}/>
+            </div>
             <Link to={`/subreddit/r/${post.subreddit_name}/post/${post.id}`}>
                 <CommentButton comment_count={post.comment_count}/>
             </Link>

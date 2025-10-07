@@ -18,7 +18,7 @@ function SignupModal() {
                     <input className="Modal_input_field" placeholder="Email*"/>
                     <input className="Modal_input_field" placeholder="Username*"/>
                     <input className="Modal_input_field" placeholder="Fullname*"/>
-                    <input className="Modal_input_field" placeholder="Password *"/>                
+                    <input className="Modal_input_field" placeholder="Password*"/>                
                 </form>
 
                 <p className="Modal_footer">
