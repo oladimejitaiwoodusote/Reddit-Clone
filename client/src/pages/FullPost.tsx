@@ -13,6 +13,8 @@ function FullPost() {
   const { id } = useParams()
   const [post, setPost] = useState<PostData | null>(null);
   const [comments, setComments] = useState<CommentData[]>([])
+  const [commentText, setCommentText] = useState("")
+  const [isCommenting, setIsCommenting] = useState(false)
   const {openModal} = useModal()
   const {isAuthenticated} = useAuth()
 
@@ -28,23 +30,39 @@ function FullPost() {
     .then(data => setComments(data)) 
   },[id])
 
+  function handleVoteClick (){
+    if(!isAuthenticated) {
+        openModal("signup")
+        return;
+    }
+    //logic for handling vote action goes here
+  }
+
   function handleCommentClick () {
     if(!isAuthenticated) {
         openModal("signup");
         return;
     }
 
+    setIsCommenting(true)
+
     //logic for commenting on FullPost
     console.log("commented!");
   }
 
-  function handleVoteClick (){
-    if(!isAuthenticated) {
-        openModal("signup")
-        return;
+  function handleCancel() {
+    setIsCommenting(false)
+    setCommentText("")
+  }
+
+  function handleSubmit(){
+    if (!commentText.trim()){
+      return
     }
-    
-    //logic for handling vote action goes here
+    console.log("Submitting comment:", commentText)
+    //logic for submitting content to backend
+    setCommentText("")
+    setIsCommenting(false)
   }
 
   if (!post) return <p>Loading...</p>
@@ -80,12 +98,70 @@ function FullPost() {
           <CommentButton comment_count={post.comment_count}/>
         </div>
       </div>
-      <div className='FullPost_CommentInput' onClick={() => handleCommentClick()}>
-        <input type='text' placeholder='Join the conversation'/>
+      {/* <div className='FullPost_CommentInput' >
+        {!isAuthenticated ? (
+          <input 
+          type='text' 
+          placeholder='Share your thoughts' 
+          onFocus={() => handleCommentClick()}
+          />
+        ) : (
+          <div className='FullPost_CommentBox'>
+            <textarea
+              placeholder='Share your thoughts'
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+              rows={isCommenting? 4: 1}
+              onFocus={() => setIsCommenting(true)}
+            />
+            {isCommenting && (
+              <div className='FullPost_CommentBox_Buttons'>
+                <button className='FullPost_CancelButton' onClick={handleCancel}>
+                  Cancel
+                </button>
+                <button className='FullPost_CommentButton' onClick={handleSubmit} disabled={!commentText.trim()}>
+                  Comment
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </div> */}
+      <div className='FullPost_CommentInput'>
+        {!isCommenting ? (
+          <input
+            type="text"
+            placeholder='Share your thoughts'
+            onFocus={handleCommentClick}
+            readOnly
+          />
+        ) : (
+          <div className='FullPost_CommentBox'>
+            <textarea
+              placeholder='Share your thoughts'
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+              rows={4}
+            />
+            <div className='FullPost_CommentBox_Buttons'>
+              <button className='FullPost_CancelButton' onClick={handleCancel}>
+                cancel
+              </button>
+              <button className='FullPost_CommentButton' onClick={handleSubmit}>
+                Comment
+              </button>
+            </div>
+          </div>
+        )}
       </div>
+
+
+
       <div className='FullPost_CommentSection'>
         {comments.map((comment) => (
-          <Comment key={comment.id} comment={comment}/>
+          <div onClick={() => handleVoteClick()}>
+            <Comment key={comment.id} comment={comment}/>
+          </div>
         ))}
       </div>
 
