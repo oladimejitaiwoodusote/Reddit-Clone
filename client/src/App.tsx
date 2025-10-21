@@ -9,7 +9,6 @@ import Subreddit from './pages/Subreddit'
 import LoginModal from './components/LoginModal'
 import SignupModal from './components/SingupModal'
 
-
 function App() {
   
   return (
@@ -30,7 +29,6 @@ function App() {
       {/* Modals rendered globally*/}
       <LoginModal/>
       <SignupModal/>
-
     </>
   )
 }

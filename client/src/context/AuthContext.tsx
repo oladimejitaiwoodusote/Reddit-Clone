@@ -31,7 +31,7 @@ export function AuthProvider({children}: {children:React.ReactNode}) {
     
     async function login(credentials: {identifier: string; password: string}) {
         try {
-            const response = await fetch(`http://127.0.0.1:5000//user/login`, {
+            const response = await fetch(`http://127.0.0.1:5000/user/login`, {
                 method: "Post",
                 headers: {
                     "Content-Type": "application/json",
@@ -51,7 +51,6 @@ export function AuthProvider({children}: {children:React.ReactNode}) {
             console.error("Login error:", error);
         }
     }
-
 
     function logout(){
         setUser(null);

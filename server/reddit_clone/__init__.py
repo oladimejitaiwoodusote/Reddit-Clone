@@ -15,6 +15,14 @@ app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = SECRET_KEY
 
+# app.config["SESSION_TYPE"] = "filesystem"
+
+# #Configuring session cookies for cross-origin requests
+app.config.update(
+  SESSION_COOKIE_SAMESITE = "None",
+  SESSION_COOKIE_SECURE=True,
+)
+
 convention = {
   "ix": "ix_%(column_0_label)s",
   "uq": "uq_%(table_name)s_%(column_0_name)s",
