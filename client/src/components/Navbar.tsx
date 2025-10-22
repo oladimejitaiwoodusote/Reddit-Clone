@@ -2,10 +2,19 @@ import { FaReddit } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa"; 
 import '../styles/Navbar.css'
 import { useModal } from "../context/ModalContext";
-
+import { useAuth } from "../context/AuthContext";
 
 function Navbar() {
   const {openModal} = useModal();
+  const {isAuthenticated, logout} = useAuth()
+
+  function handleAuthClick() {
+    if(isAuthenticated){
+      logout();
+    } else {
+      openModal("login");
+    }
+  }
 
   return (
     <nav className="Navbar">
@@ -21,8 +30,8 @@ function Navbar() {
         </div>
         
         <div className="Navbar_right">
-            <button type="button" onClick={() => openModal("login")}>
-              Log In
+            <button type="button" onClick={handleAuthClick}>
+              {isAuthenticated ? "Log Out": "Log In"}
             </button>
         </div>
     </nav>

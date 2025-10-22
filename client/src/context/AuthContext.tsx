@@ -19,15 +19,22 @@ const AuthContext = createContext<AuthContextType | undefined> (undefined)
 export function AuthProvider({children}: {children:React.ReactNode}) {
     const [user,setUser] = useState<User | null>(null)
 
-    //Add functionality for session checking
-    // function login(userData: User) {
-    //     setUser(userData);
-    // }
-
     useEffect(() => {
-        console.log(user)
-
-    },[user])
+        async function checkSession() {
+            try {
+                const res = await fetch(`http://127.0.0.1:5000/user/me`, {
+                    credentials: "include",
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    setUser(data);
+                }
+            } catch(err) {
+                console.error("Session check failed", err);
+            }
+        }
+        checkSession();
+    },[])
     
     async function login(credentials: {identifier: string; password: string}) {
         try {
@@ -52,8 +59,21 @@ export function AuthProvider({children}: {children:React.ReactNode}) {
         }
     }
 
-    function logout(){
-        setUser(null);
+    async function logout() {
+        try {
+            const response = await fetch(`http://127.0.0.1:5000/user/logout`, {
+                method: "DELETE",
+                credentials: "include"
+            });
+
+            if (response.ok) {
+                setUser(null);
+            } else {
+                console.error("Logout failed", await response.text())
+            }
+        } catch(error) {
+            console.error("Logout error:", error);
+        }
     }
 
     return (
