@@ -8,13 +8,14 @@ function LoginModal() {
     const {login} = useAuth();
     const [identifier, setIdentifier] = useState("");
     const [password, setPassword] = useState("");
-
     
     if (modalType !== "login") return null;
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         await login({identifier, password});
+        setIdentifier("")
+        setPassword("")
         closeModal();
     }
 
@@ -28,7 +29,7 @@ function LoginModal() {
 
                 <form className="Modal_form" onSubmit={handleSubmit}>
                     <input className="Modal_input_field" placeholder="Email or username *" value={identifier} onChange={(e)=> setIdentifier(e.target.value)}/>
-                    <input className="Modal_input_field" placeholder="Password *" value={password} onChange={(e) => setPassword(e.target.value)}/>                    
+                    <input className="Modal_input_field" type="password" placeholder="Password *" value={password} onChange={(e) => setPassword(e.target.value)}/>                    
                     <button type="submit" className="Modal_submit_button">
                             Log In
                     </button>

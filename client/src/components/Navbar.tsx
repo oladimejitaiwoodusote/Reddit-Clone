@@ -1,12 +1,11 @@
-import { FaReddit } from "react-icons/fa";
-import { FaSearch } from "react-icons/fa"; 
+import { FaReddit, FaSearch, FaRegPlusSquare } from "react-icons/fa";
 import '../styles/Navbar.css'
 import { useModal } from "../context/ModalContext";
 import { useAuth } from "../context/AuthContext";
 
 function Navbar() {
   const {openModal} = useModal();
-  const {isAuthenticated, logout} = useAuth()
+  const {isAuthenticated, logout, user} = useAuth()
 
   function handleAuthClick() {
     if(isAuthenticated){
@@ -14,6 +13,13 @@ function Navbar() {
     } else {
       openModal("login");
     }
+  }
+
+  function handleCreateClick(){
+  }
+
+  function handleProfileClick(){
+
   }
 
   return (
@@ -30,9 +36,35 @@ function Navbar() {
         </div>
         
         <div className="Navbar_right">
+          {isAuthenticated ? (
+            <>
+              {/* Create Post Button */}
+              <button className="Navbar_createBtn" onClick={handleCreateClick}>
+                <FaRegPlusSquare className="Navbar_plusIcon"/>
+                <span>Create</span>
+              </button>
+
+              {/* User Avatar */}
+              <div className="Navbar_avatar" onClick={handleProfileClick}>
+                {user?.avatar? (
+                  <img src={user.avatar} alt="User Avatar"/>
+                ) : (
+                  <div className="Navbar_avatarPlaceholder">
+                    {user?.username.charAt(0).toUpperCase() || "U"}
+                  </div>
+                )}
+              </div>
+
+              {/* Log Out Button*/}
+              <button type="button" onClick={handleAuthClick}>
+                Log Out
+              </button>
+            </>
+          ) : (
             <button type="button" onClick={handleAuthClick}>
-              {isAuthenticated ? "Log Out": "Log In"}
+              Log In
             </button>
+          )}
         </div>
     </nav>
   )
