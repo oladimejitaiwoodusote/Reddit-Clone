@@ -68,24 +68,28 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 16px;
+  gap: 18px;
 }
 
 .Navbar_createBtn  {
   display: flex;
   align-items: center;
-  gap: 6px;
-  background-color: #ff4500;
+  justify-content: center;
+  gap: 8px;
+  background-color: #1f2128;
   color: white;
   border: none;
-  padding: 6px 12px;
+  padding: 8px 16px;
   border-radius: 20px;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 14px;
+  height: 40px;
+  transition: background-color 0.2s ease;
 }
 
 .Navbar_createBtn:hover {
-  background-color: #e03d00;
+  background-color: gray;
 }
 
 .Navbar_avatar {
@@ -119,10 +123,10 @@
 }
 
 .Navbar_plusIcon {
-  font-size: 14px;
-}
+  font-size: 16px;
+  margin-top: 1px;}
 
-.Navbar_right button{
+  .Navbar_right button:not(.Navbar_createBtn){
   background-color: #ff4500;
   color: white;
   border: none;
@@ -135,6 +139,6 @@
   width: 75px;
 }
 
-.Navbar_right button:hover{
+.Navbar_right button:not(.Navbar_createBtn):hover {
   background-color: #a33c15;
 }
