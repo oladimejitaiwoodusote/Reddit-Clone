@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar'
 import Home from './pages/Home'
 import Popular from './pages/Popular'
 import FullPost from './pages/FullPost'
+import CreatePost from './pages/CreatePost'
 import { Routes, Route } from 'react-router-dom'
 import Subreddit from './pages/Subreddit'
 import LoginModal from './components/LoginModal'
@@ -22,7 +23,8 @@ function App() {
             <Route path="/popular" element= {<Popular/>}/>
             <Route path="/subreddit/r/:subreddit_name" element={<Subreddit/>}/>
             <Route path="/subreddit/r/:subreddit_name/post/:id" element={<FullPost/>}/>
-          </Routes>          
+            <Route path="/submit" element={<CreatePost/>}/>
+          </Routes>         
         </main>
       </div>
 

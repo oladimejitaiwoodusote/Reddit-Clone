@@ -2,10 +2,12 @@ import { FaReddit, FaSearch, FaRegPlusSquare } from "react-icons/fa";
 import '../styles/Navbar.css'
 import { useModal } from "../context/ModalContext";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const {openModal} = useModal();
   const {isAuthenticated, logout, user} = useAuth()
+  const navigate = useNavigate()
 
   function handleAuthClick() {
     if(isAuthenticated){
@@ -13,9 +15,6 @@ function Navbar() {
     } else {
       openModal("login");
     }
-  }
-
-  function handleCreateClick(){
   }
 
   function handleProfileClick(){
@@ -39,7 +38,7 @@ function Navbar() {
           {isAuthenticated ? (
             <>
               {/* Create Post Button */}
-              <button className="Navbar_createBtn" onClick={handleCreateClick}>
+              <button className="Navbar_createBtn" onClick={() => navigate('/submit')}>
                 <FaRegPlusSquare className="Navbar_plusIcon"/>
                 <span>Create</span>
               </button>

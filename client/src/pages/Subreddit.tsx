@@ -1,14 +1,19 @@
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import '../styles/Subreddit.css'
 import { SubredditData, PostData } from '../types'
 import { useEffect, useState } from 'react'
 import { AiOutlinePlus } from "react-icons/ai";
 import PostPreview from '../components/PostPreview';
+import { useAuth } from '../context/AuthContext';
+import { useModal } from '../context/ModalContext';
 
 function Subreddit() {
   const {subreddit_name} = useParams()
   const [subreddit, setSubreddit] = useState<SubredditData|null>(null);
   const [posts, setPosts] = useState<PostData[]>([])
+  const navigate = useNavigate()
+  const {isAuthenticated} = useAuth()
+  const {openModal} = useModal()
 
   useEffect(()=> {
     fetch(`http://127.0.0.1:5000/subreddit/r/${subreddit_name}`)
@@ -21,6 +26,17 @@ function Subreddit() {
     .then(response => response.json())
     .then(data => setPosts(data))
   }, [subreddit_name])
+
+  function handleCreateClick(){
+    if (isAuthenticated){
+      navigate(`/submit`)
+    }
+    
+    else {
+      openModal("login")
+    }
+
+  }
   
   if (!subreddit) return <p>Loading...</p>
   return (
@@ -35,7 +51,7 @@ function Subreddit() {
               <span>r/{subreddit.name}</span>
             </div>
             <div className='Subreddit_Header_Interactions'>
-              <button>
+              <button onClick={handleCreateClick}>
                 <AiOutlinePlus/>
                 Create Post
               </button>
