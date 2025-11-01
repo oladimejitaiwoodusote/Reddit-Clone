@@ -121,7 +121,7 @@ function CreatePost() {
                       setShowDropdown(false)
                     }}
                   >
-                    <SubredditPreview subreddit={sub} />
+                    <SubredditPreview subreddit={sub} clickable={false} />
                   </div>
                 ))}
               </div>
