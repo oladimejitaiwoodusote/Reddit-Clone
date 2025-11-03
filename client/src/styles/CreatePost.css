@@ -1,0 +1,188 @@
+.CreatePost {
+max-width: 700px;
+margin: 40px auto;
+background-color: #ffffff;
+border: 1px solid #ccc;
+border-radius: 8px;
+padding: 24px;
+font-family: Arial, sans-serif;
+}
+
+.CreatePost_Header {
+margin-bottom: 16px;
+}
+
+.CreatePost_Header h1 {
+font-size: 22px;
+font-weight: bold;
+color: #222;
+}
+
+/* DROPDOWN */
+.CreatePost_Dropdown {
+position: relative;
+margin-bottom: 16px;
+}
+
+.Dropdown_Display {
+display: flex;
+align-items: center;
+justify-content: space-between;
+border: 1px solid #ccc;
+border-radius: 6px;
+padding: 10px 12px;
+cursor: pointer;
+background-color: #f8f9fa;
+transition: border-color 0.2s;
+}
+
+.Dropdown_Display:hover {
+border-color: #0079d3;
+}
+
+.Dropdown_Arrow {
+font-size: 12px;
+color: #555;
+}
+
+.Dropdown_Menu {
+position: absolute;
+top: 105%;
+left: 0;
+right: 0;
+background-color: white;
+border: 1px solid #ccc;
+border-radius: 6px;
+box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+z-index: 10;
+padding: 8px;
+}
+
+.Dropdown_Menu input {
+width: 100%;
+padding: 8px 10px;
+border: 1px solid #ddd;
+border-radius: 4px;
+margin-bottom: 8px;
+}
+
+.Dropdown_List {
+max-height: 200px;
+overflow-y: auto;
+}
+
+/* TITLE INPUT */
+.CreatePost_TitleInput input {
+width: 100%;
+padding: 12px;
+border-radius: 6px;
+border: 1px solid #ccc;
+margin-bottom: 16px;
+font-size: 15px;
+}
+
+.CreatePost_TitleInput input:focus {
+border-color: #0079d3;
+outline: none;
+}
+
+/* MEDIA UPLOAD */
+.CreatePost_MediaDrop {
+border: 2px dashed #ccc;
+border-radius: 6px;
+padding: 24px;
+text-align: center;
+margin-bottom: 16px;
+background-color: #fafafa;
+transition: border-color 0.2s;
+}
+
+.CreatePost_MediaDrop:hover {
+border-color: #0079d3;
+}
+
+.UploadPlaceholder {
+color: #666;
+font-size: 14px;
+}
+
+.MediaPreview {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 12px;
+}
+
+.MediaPreview img,
+.MediaPreview video {
+max-width: 100%;
+max-height: 300px;
+border-radius: 6px;
+border: 1px solid #ddd;
+}
+
+.MediaPreview button {
+background-color: transparent;
+border: 1px solid #aaa;
+padding: 6px 12px;
+border-radius: 4px;
+cursor: pointer;
+}
+
+.MediaPreview button:hover {
+background-color: #f2f2f2;
+}
+
+/* BODY SECTION */
+.CreatePost_BodySection textarea {
+width: 100%;
+min-height: 120px;
+padding: 12px;
+border-radius: 6px;
+border: 1px solid #ccc;
+resize: vertical;
+margin-bottom: 16px;
+font-size: 15px;
+font-family: inherit;
+}
+
+.CreatePost_BodySection textarea:focus {
+border-color: #0079d3;
+outline: none;
+}
+
+/* BUTTONS */
+.CreatePost_Buttons {
+display: flex;
+justify-content: flex-end;
+gap: 10px;
+}
+
+.CreatePost_Buttons_Submit {
+background-color: #0079d3;
+color: white;
+border: none;
+padding: 10px 18px;
+border-radius: 6px;
+cursor: pointer;
+font-weight: bold;
+transition: background-color 0.2s;
+}
+
+.CreatePost_Buttons_Submit:hover {
+background-color: #1484d6;
+}
+
+.CreatePost_Buttons_Cancel {
+background-color: #e6e6e6;
+color: #333;
+border: none;
+padding: 10px 18px;
+border-radius: 6px;
+cursor: pointer;
+transition: background-color 0.2s;
+}
+
+.CreatePost_Buttons_Cancel:hover {
+background-color: #d4d4d4;
+}

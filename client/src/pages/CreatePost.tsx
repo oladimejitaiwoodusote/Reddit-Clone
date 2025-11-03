@@ -62,7 +62,7 @@ function CreatePost() {
     }
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!title.trim()) {
       alert("Title is required.")
@@ -81,6 +81,43 @@ function CreatePost() {
     })
 
     // TODO: Send to backend via FormData (for media upload support)
+    const placeholderurl = mediaFile ? "https://picsum.photos/200" : null
+    
+    const postData = {
+      title: title.trim(),
+      content: body.trim(),
+      media: placeholderurl,
+      subreddit_id: selectedSubreddit.id
+    }
+
+    try {
+      const response = await fetch(`http://127.0.0.1:5000//post/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json" 
+        },
+        credentials: "include",
+        body: JSON.stringify(postData)
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        console.log("Post created", data)
+        alert("Post created successfully!")
+        setTitle("")
+        setBody("")
+        setSelectedSubreddit(null)
+        setMediaFile(null)
+        setMediaPreview(null)
+      } else {
+        const error = await response.json()
+        console.error("Failed to create post:", error)
+        alert("Error creating post.")
+      }      
+    } catch (err) {
+      console.error("Error:", err)
+      alert("Network error while creating post.")
+    } 
   }
 
   return (

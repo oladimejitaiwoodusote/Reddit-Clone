@@ -74,14 +74,15 @@ class Post(db.Model):
         
     #create posts
     @classmethod
-    def create_post(cls, form_data, user_id, subreddit_id ):
+    def create_post(cls, form_data, user_id):        
         post = Post(
             title = form_data["title"],
             content = form_data.get("content"),
             media = form_data.get("media"),
+            subreddit_id = form_data.get("subreddit_id"),
             user_id = user_id,
-            subreddit_id = subreddit_id
         )
+
         db.session.add(post)
         db.session.commit()
         return post
