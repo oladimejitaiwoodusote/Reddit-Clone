@@ -1,13 +1,16 @@
 import '../styles/VoteButton.css'
-import { LuArrowBigUp } from "react-icons/lu";
-import { LuArrowBigDown } from "react-icons/lu";
+import { LuArrowBigUp, LuArrowBigDown } from "react-icons/lu";
 
-function VoteButton({vote_count}: {vote_count : number}) {
+interface VoteButtonProps {
+  vote_count: number
+  onVote: (direction: "up" | "down") => void
+}
+function VoteButton({vote_count, onVote}: VoteButtonProps) {
   return (
     <div className='Vote'>
-        <LuArrowBigUp/>
-            {vote_count}
-        <LuArrowBigDown/>
+        <LuArrowBigUp onClick={()=> onVote("up")} className='vote-icon'/>
+        <span>{vote_count}</span>
+        <LuArrowBigDown onClick={() => onVote("down")} className="vote-icon"/>
     </div>
   )
 }

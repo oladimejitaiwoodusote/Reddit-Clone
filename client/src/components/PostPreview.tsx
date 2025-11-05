@@ -24,13 +24,38 @@ function PostPreview({post}: PostPreviewProps) {
         console.log("Joined subreddit!");
     }
 
-    function handleVoteClick (){
+    async function handleVoteClick (direction: "up" | "down"){
         if(!isAuthenticated) {
             openModal("signup")
             return;
         }
         
         //logic for handling vote action goes here
+        const is_upvote = direction === "up"
+
+        try {
+            const res = await fetch(`http://127.0.0.1:5000//post_vote/create`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "include",
+                body: JSON.stringify({
+                    post_id : post.id,
+                    is_upvote
+                })
+            })
+
+            const data = await res.json()
+            if(!res.ok) {
+                console.error(data.message)
+                return
+            }
+
+            console.log("Vote success:", data)
+        } catch (err) {
+            console.error("Vote error:", err)
+        }
     }
 
   return (
@@ -62,9 +87,7 @@ function PostPreview({post}: PostPreviewProps) {
             <p>{post.content}</p>
         </div>)}
         <div className='PostPreview_Interactions'>
-            <div onClick={() => handleVoteClick()}>
-                <VoteButton vote_count={post.vote_count}/>
-            </div>
+                <VoteButton vote_count={post.vote_count} onVote={handleVoteClick}/>
             <Link to={`/subreddit/r/${post.subreddit_name}/post/${post.id}`}>
                 <CommentButton comment_count={post.comment_count}/>
             </Link>

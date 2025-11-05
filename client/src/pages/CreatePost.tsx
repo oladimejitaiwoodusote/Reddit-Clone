@@ -1,8 +1,9 @@
 import '../styles/CreatePost.css'
 import { useEffect, useState, useRef } from 'react'
 import { SubredditData } from '../types'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import SubredditPreview from '../components/SubredditPreview'
+import { useAuth } from '../context/AuthContext'
 
 function CreatePost() {
   const [subreddits, setSubreddits] = useState<SubredditData[]>([])
@@ -16,9 +17,18 @@ function CreatePost() {
   const [mediaPreview, setMediaPreview] = useState<string | null>(null)
   const location = useLocation()
   const dropdownRef = useRef<HTMLDivElement | null>(null)
+  const {isAuthenticated} = useAuth()
+  const navigate = useNavigate()
 
   const preselectedSubredditName = location.state?.subreddit_name
 
+  //Check if a user is logged in
+  useEffect(() => {
+    if (!isAuthenticated) {
+        navigate("/")
+    }
+  },[isAuthenticated])
+  
   // Fetch all subreddits
   useEffect(() => {
     fetch(`http://127.0.0.1:5000/subreddits/all`)
@@ -81,7 +91,7 @@ function CreatePost() {
     })
 
     // TODO: Send to backend via FormData (for media upload support)
-    const placeholderurl = mediaFile ? "https://picsum.photos/200" : null
+    const placeholderurl = mediaFile ? "https://pbs.twimg.com/media/Fm11ZPSX0AAxZKR.jpg" : null
     
     const postData = {
       title: title.trim(),
