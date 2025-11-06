@@ -11,3 +11,16 @@
 .Vote svg{
     font-size: 25px;
 }
+
+.vote-icon {
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.vote-icon.active-up {
+    color: orange;
+}
+
+.vote-icon.active-down{
+    color: blue
+}

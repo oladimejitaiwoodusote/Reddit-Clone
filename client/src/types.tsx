@@ -27,4 +27,5 @@ export interface PostData{
   content?: string,
   vote_count: number,
   comment_count: number
+  user_vote: "up" | "down" | null
 }

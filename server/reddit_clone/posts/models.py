@@ -1,5 +1,7 @@
 from reddit_clone import db
 from datetime import datetime
+from sqlalchemy.orm import joinedload
+
 
 class Post(db.Model):
 
@@ -33,7 +35,7 @@ class Post(db.Model):
         self.subreddit_id = subreddit_id
 
     #to dict
-    def to_dict(self):
+    def to_dict(self, current_user = None):
         now = datetime.utcnow()
         time_str = None
 
@@ -55,7 +57,12 @@ class Post(db.Model):
                 time_str = f"{int(years)} year{'s' if years != 1 else ''} ago"
 
 
-
+        user_vote = None
+        if current_user and current_user.is_authenticated:
+            vote = next((v for v in self.post_votes if v.user_id == current_user.id), None)
+            if vote:
+                user_vote = "up" if vote.is_upvote else "down"
+        
         return ({
             "id": self.id,
             "subreddit_avatar": self.subreddit.avatar,
@@ -70,6 +77,7 @@ class Post(db.Model):
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "updated_at": self.updated_at.isoformat() if self.updated_at else None,
             "user_id": self.user_id,
+            "user_vote": user_vote
         })
         
     #create posts

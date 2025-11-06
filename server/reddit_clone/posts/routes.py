@@ -41,24 +41,30 @@ def patch_post(id):
 
     json = request.json
     post.patch_post(json)
-    return jsonify(post.to_dict()), 200
+    return jsonify(post.to_dict(current_user)), 200
 
 #Get posts sorted by newest
 @posts.get("/post/new")
 def get_posts_new():
-    post_dicts = [post.to_dict() for post in Post.get_posts_by_new()]
+    post_dicts = [post.to_dict(current_user) for post in Post.get_posts_by_new()]
     return jsonify(post_dicts), 200
 
 #Get posts sorted by popularity
 @posts.get("/post/popular")
 def get_posts_popularity():
-    post_dicts = [post.to_dict() for post in Post.get_posts_by_popularity()]
+    post_dicts = [post.to_dict(current_user) for post in Post.get_posts_by_popularity()]
     return jsonify(post_dicts), 200
 
 #Get Indivual Posts
 @posts.get("/post/<int:post_id>")
 def get_post(post_id):
-    post_dict = Post.get_post(post_id).to_dict()
+    # post_dict = Post.get_post(post_id).to_dict()
+    # return jsonify(post_dict), 200
+    post = Post.get_post(post_id)
+    if not post:
+        return jsonify({"message": "Post not found"}), 404
+    
+    post_dict = post.to_dict(current_user)
     return jsonify(post_dict), 200
 
 #Get Comments for Individual Post

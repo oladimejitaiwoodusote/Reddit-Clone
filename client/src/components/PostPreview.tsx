@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { PostData } from '../types'
 import { useModal } from '../context/ModalContext'
 import { useAuth } from '../context/AuthContext'
+import { useState } from 'react'
 
 interface PostPreviewProps{
     post:PostData
@@ -13,6 +14,8 @@ interface PostPreviewProps{
 function PostPreview({post}: PostPreviewProps) {
     const {openModal} = useModal();
     const {isAuthenticated} = useAuth();
+    const [vote_count, setVoteCount] = useState(post.vote_count)
+    const [userVote, setUserVote] = useState<"up" | "down" | null>(post.user_vote)
 
     function handleJoinClick () {
         if(!isAuthenticated) {
@@ -87,7 +90,7 @@ function PostPreview({post}: PostPreviewProps) {
             <p>{post.content}</p>
         </div>)}
         <div className='PostPreview_Interactions'>
-                <VoteButton vote_count={post.vote_count} onVote={handleVoteClick}/>
+            <VoteButton vote_count={vote_count} onVote={handleVoteClick} user_vote={userVote}/>
             <Link to={`/subreddit/r/${post.subreddit_name}/post/${post.id}`}>
                 <CommentButton comment_count={post.comment_count}/>
             </Link>

@@ -3,6 +3,8 @@ from reddit_clone import db
 class PostVote(db.Model):
     __tablename__ = "post_votes"
 
+    __table_args__ = (db.UniqueConstraint("user_id", "post_id", name="unique_user_post_vote"),)
+
     id = db.Column(db.Integer, primary_key = True)
     is_upvote = db.Column(db.Boolean, nullable = False)
 
