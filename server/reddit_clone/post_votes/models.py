@@ -41,18 +41,39 @@ class PostVote(db.Model):
             return {"error": "is_upvote is required and must be true or false"}
 
         existing_vote = cls.query.filter_by(user_id = user_id, post_id = post_id).first()
-        if existing_vote:
-            return None
+        # if existing_vote:
+        #     return None
 
-        post_vote = PostVote(
-            is_upvote=form_data["is_upvote"],
-            user_id=user_id,
-            post_id=post_id
-        )
+        # post_vote = PostVote(
+        #     is_upvote=form_data["is_upvote"],
+        #     user_id=user_id,
+        #     post_id=post_id
+        # )
 
-        db.session.add(post_vote)
+        # db.session.add(post_vote)
+        # db.session.commit()
+        # return post_vote
+        # Case 1: No existing -> Create
+        if not existing_vote:
+            post_vote = PostVote(
+                is_upvote=is_upvote,
+                user_id=user_id,
+                post_id=post_id
+            )
+            db.session.add(post_vote)
+            db.session.commit()
+            return post_vote
+
+        #Case 2: Same direction -> delete (unvote)
+        if existing_vote.is_upvote == is_upvote:
+            db.session.delete(existing_vote)
+            db.session.commit()
+            return None, 200 #No active vote now
+
+        #Case 3: Opposite direction -> toggle
+        existing_vote.is_upvote = not existing_vote.is_upvote
         db.session.commit()
-        return post_vote
+        return existing_vote, 200
 
     #Delete post vote
     def delete_post_vote(self):

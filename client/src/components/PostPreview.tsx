@@ -55,9 +55,24 @@ function PostPreview({post}: PostPreviewProps) {
                 return
             }
 
-            console.log("Vote success:", data)
+            //Handle optimistic UI Change
+            if (userVote == direction) {
+                //Undo Vote
+                setUserVote(null)
+                setVoteCount(prev => prev + (direction === "up" ? -1 : 1))
+            } else {
+                //Change or new vote
+                const voteChange = 
+                  userVote === null
+                    ? (direction === "up" ? 1: -1)
+                    : (direction === "up" ? 2: -2) 
+                setVoteCount(prev => prev + voteChange)
+                setUserVote(direction)
+            }
+
+          console.log("Vote success:", data)
         } catch (err) {
-            console.error("Vote error:", err)
+          console.error("Vote error:", err)
         }
     }
 
