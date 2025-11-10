@@ -14,10 +14,7 @@ def create_post_vote():
         return jsonify({"message": "post_id is required"}), 400
 
     post_vote = PostVote.create_post_vote(json, current_user.id, post_id)
-    # if not post_vote:
-    #     return jsonify({"message": "vote already cast!"}), 400
-    # elif post_vote:
-    #     return jsonify(post_vote.to_dict())
+    
     if post_vote is None:
         #Vote Removed
         return jsonify({"message": "Vote Removed"}), 200

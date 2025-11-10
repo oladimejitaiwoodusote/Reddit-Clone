@@ -106,14 +106,43 @@ function FullPost() {
     setCommentText("")
   }
 
-  function handleSubmit(){
-    if (!commentText.trim()){
+  // function handleSubmit(){
+  //   if (!commentText.trim()){
+  //     return
+  //   }
+  //   console.log("Submitting comment:", commentText)
+  //   //logic for submitting content to backend
+
+
+  //   setCommentText("")
+  //   setIsCommenting(false)
+  // }
+  async function handleSubmit(){
+    if(!commentText.trim()){
       return
     }
     console.log("Submitting comment:", commentText)
     //logic for submitting content to backend
-    setCommentText("")
-    setIsCommenting(false)
+    try {
+      const res = await fetch(`http://127.0.0.1:5000//comment/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials:"include",
+        body: JSON.stringify({
+          post_id: post?.id,
+          commentText
+        })
+      });
+      const data = await res.json()
+      if (!res.ok) {
+        console.error(data.message);
+        return
+      }
+    } catch (err) {
+      console.error("Comment error:", err);
+    }
   }
 
   if (!post) return <p>Loading...</p>
@@ -147,35 +176,7 @@ function FullPost() {
           <CommentButton comment_count={post.comment_count}/>
         </div>
       </div>
-      {/* <div className='FullPost_CommentInput' >
-        {!isAuthenticated ? (
-          <input 
-          type='text' 
-          placeholder='Share your thoughts' 
-          onFocus={() => handleCommentClick()}
-          />
-        ) : (
-          <div className='FullPost_CommentBox'>
-            <textarea
-              placeholder='Share your thoughts'
-              value={commentText}
-              onChange={(e) => setCommentText(e.target.value)}
-              rows={isCommenting? 4: 1}
-              onFocus={() => setIsCommenting(true)}
-            />
-            {isCommenting && (
-              <div className='FullPost_CommentBox_Buttons'>
-                <button className='FullPost_CancelButton' onClick={handleCancel}>
-                  Cancel
-                </button>
-                <button className='FullPost_CommentButton' onClick={handleSubmit} disabled={!commentText.trim()}>
-                  Comment
-                </button>
-              </div>
-            )}
-          </div>
-        )}
-      </div> */}
+
       <div className='FullPost_CommentInput'>
         {!isCommenting ? (
           <input
@@ -204,11 +205,9 @@ function FullPost() {
         )}
       </div>
 
-
-
       <div className='FullPost_CommentSection'>
         {comments.map((comment) => (
-          <div onClick={() => handleVoteClick()}>
+          <div>
             <Comment key={comment.id} comment={comment}/>
           </div>
         ))}
