@@ -132,7 +132,7 @@ function FullPost() {
         credentials:"include",
         body: JSON.stringify({
           post_id: post?.id,
-          commentText
+          text: commentText
         })
       });
       const data = await res.json()
@@ -140,6 +140,9 @@ function FullPost() {
         console.error(data.message);
         return
       }
+      setComments((prev) => [data, ...prev])
+      setCommentText("");
+      setIsCommenting(false);
     } catch (err) {
       console.error("Comment error:", err);
     }
