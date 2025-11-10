@@ -17,25 +17,76 @@ function FullPost() {
   const [isCommenting, setIsCommenting] = useState(false)
   const {openModal} = useModal()
   const {isAuthenticated} = useAuth()
-
+  const [voteCount, setVoteCount] = useState<number>(0);
+  const [userVote, setUserVote] = useState<"up" | "down" | null>(null);
+  
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000//post/${id}`)
+    fetch(`http://127.0.0.1:5000//post/${id}`,{
+      credentials: "include",
+    })
     .then(response => response.json())
-    .then(data => setPost(data))
-  }, [id])
+    .then(data => {
+      setPost(data)
+      setVoteCount(data.vote_count);
+      setUserVote(data.user_vote)
+    })
+    .catch(err => console.error("Error fetching post:", err))
+  }, [id]);
 
   useEffect(() => {
     fetch(`http://127.0.0.1:5000//post/comments/${id}`)
     .then(response => response.json())
     .then(data => setComments(data)) 
+    .catch(err => console.error("Error fetching comments:", err))
   },[id])
 
-  function handleVoteClick (){
+  async function handleVoteClick (direction: "up" | "down"){
     if(!isAuthenticated) {
         openModal("signup")
         return;
     }
     //logic for handling vote action goes here
+    const is_upvote = direction === "up";
+
+    try {
+      const res = await fetch(`http://127.0.0.1:5000//post_vote/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify({
+            post_id : post?.id,
+            is_upvote
+        }) 
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        console.error(data.message);
+        return;
+      }
+
+      if (userVote == direction) {
+        setUserVote(null)
+        setVoteCount(prev => prev + (direction ==="up" ? -1: 1))
+      } else {
+        const voteChange =
+          userVote === null
+            ? direction === "up"
+              ? 1
+              : -1
+            : direction === "up"
+              ? 2
+              : -2
+        setVoteCount(prev => prev + voteChange)
+        setUserVote(direction)
+      }
+
+      console.log("Vote success: ", data);
+    } catch (err) {
+      console.error("Vote error:", err);
+    }
   }
 
   function handleCommentClick () {
@@ -91,9 +142,7 @@ function FullPost() {
         <p>{post.content}</p>
       </div>
       <div className='FullPost_Interactions'>
-        <div onClick={() => handleVoteClick()}>
-          <VoteButton vote_count={post.vote_count}/>
-        </div>
+        <VoteButton vote_count={voteCount} onVote={handleVoteClick} user_vote={userVote}/>
         <div onClick={() => handleCommentClick()}>
           <CommentButton comment_count={post.comment_count}/>
         </div>
