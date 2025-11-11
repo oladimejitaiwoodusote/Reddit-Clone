@@ -106,17 +106,6 @@ function FullPost() {
     setCommentText("")
   }
 
-  // function handleSubmit(){
-  //   if (!commentText.trim()){
-  //     return
-  //   }
-  //   console.log("Submitting comment:", commentText)
-  //   //logic for submitting content to backend
-
-
-  //   setCommentText("")
-  //   setIsCommenting(false)
-  // }
   async function handleSubmit(){
     if(!commentText.trim()){
       return
@@ -124,7 +113,7 @@ function FullPost() {
     console.log("Submitting comment:", commentText)
     //logic for submitting content to backend
     try {
-      const res = await fetch(`http://127.0.0.1:5000//comment/create`, {
+      const res = await fetch(`http://127.0.0.1:5000/comment/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -210,9 +199,7 @@ function FullPost() {
 
       <div className='FullPost_CommentSection'>
         {comments.map((comment) => (
-          <div>
             <Comment key={comment.id} comment={comment}/>
-          </div>
         ))}
       </div>
 

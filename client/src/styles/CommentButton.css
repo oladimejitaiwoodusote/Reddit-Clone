@@ -12,3 +12,19 @@
 .CommentButton svg {
     font-size: 15px;
 }
+
+.vote-icon {
+    cursor: pointer;
+    transition: fill 0.2s ease, color 0.2s ease;
+}
+
+.vote-icon.active-up {
+    color: orange;
+    fill: orange;
+}
+
+.vote-icon.active-down{
+    color: blue;
+    fill: blue
+    
+}

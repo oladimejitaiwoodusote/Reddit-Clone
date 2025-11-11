@@ -5,6 +5,7 @@ export interface CommentData {
     time: string;
     content: string;
     vote_count: number;
+    user_vote?: "up" | "down" | null;
   }
 
   export interface SubredditData {

@@ -22,7 +22,7 @@ class Comment(db.Model):
         self.user_id = user_id
         self.post_id = post_id
 
-    def to_dict(self):
+    def to_dict(self, current_user = None):
         now = datetime.utcnow()
         time_str = None
 
@@ -43,7 +43,11 @@ class Comment(db.Model):
             else:
                 time_str = f"{int(years)} year{'s' if years != 1 else ''} ago"
 
-
+        user_vote = None
+        if current_user and current_user.isauthenticated:
+            vote = next((v for v in self.comment_votes if v.user_id == current_user.id), None)
+            if vote:
+                user_vote = "up" if vote.is_upvote else "down"
 
         return ({
             "id": self.id,
@@ -55,7 +59,8 @@ class Comment(db.Model):
             "user_avatar": self.user.avatar,
             "post_id": self.post_id,
             "vote_count": sum(1 if vote.is_upvote else -1 for vote in self.comment_votes),
-            "time": time_str
+            "time": time_str,
+            "user_vote": user_vote
         })
 
     #create comment

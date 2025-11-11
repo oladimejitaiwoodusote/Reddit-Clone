@@ -70,5 +70,5 @@ def get_post(post_id):
 #Get Comments for Individual Post
 @posts.get("/post/comments/<int:post_id>")
 def get_post_comments(post_id):
-    comment_dicts = [comment.to_dict() for comment in Post.get_post_comments(post_id)]
+    comment_dicts = [comment.to_dict(current_user) for comment in Post.get_post_comments(post_id)]
     return jsonify(comment_dicts), 200
