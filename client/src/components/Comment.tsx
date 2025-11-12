@@ -4,7 +4,7 @@ import { LuArrowBigDown } from "react-icons/lu";
 import { CommentData } from '../types';
 import { useAuth } from '../context/AuthContext';
 import { useModal } from '../context/ModalContext';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 interface CommentProps{
   comment:CommentData
@@ -14,37 +14,57 @@ function Comment({comment}: CommentProps) {
   const {isAuthenticated} = useAuth()
   const {openModal} = useModal()
 
-  const [userVote, setUserVote] = useState<"up" | "down" | null>(null)
-  const [voteCount, setVoteCount] = useState<number>(0)
+  const [userVote, setUserVote] = useState<"up" | "down" | null>(comment.user_vote?? null);
+  const [voteCount, setVoteCount] = useState<number>(comment.vote_count)
 
-  useEffect(() => {
-    setVoteCount(comment.vote_count)
-
-    if (isAuthenticated) {
-      fetch(`http://127.0.0.1:5000/comment_vote/get/${comment.id}`, {
-        credentials: "include",
-      })
-      .then((res) => {
-        if(!res.ok) {
-          return null;
-        }
-        return res.json()
-      })
-      .then((data) => {
-        if (data && data.is_upvote !== undefined) {
-          setUserVote(data.is_upvote ? "up" : "down")
-        }
-      })
-      .catch((err) => console.error("Error fetching comment vote:", err));
-    }
-  }, [isAuthenticated, comment.id, comment.vote_count])
-
-  function handleVote(voteType: "up" | "down"){
+  async function handleVote(voteType: "up" | "down"){
     if(!isAuthenticated){
       openModal("signup")
-      return
+      return;
     }
 
+    const is_upvote = voteType === "up";
+
+    try {
+      const res = await fetch(`http://127.0.0.1:5000/comment_vote/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          comment_id: comment.id,
+          is_upvote
+        })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.error(data.message)
+        return;
+      }
+
+      if (userVote === voteType){
+        setUserVote(null);
+        setVoteCount((prev) => prev + (voteType === "up" ? -1: 1))
+      } else {
+        const voteChange =
+          userVote === null
+            ? voteType === "up"
+              ? 1
+              : -1
+            : voteType === "up"
+              ? 2
+              : -2;
+        setVoteCount((prev) => prev + voteChange)
+        setUserVote(voteType);
+      }
+
+      console.log("Comment vote success:", data);
+    } catch(err) {
+      console.log("Comment vote error:", err);
+    }
   }
 
   return (
@@ -65,7 +85,7 @@ function Comment({comment}: CommentProps) {
           className={`vote-icon ${userVote === "up" ? "active-up": ""}`}
           onClick={() => handleVote("up")}
         />
-            {comment.vote_count}
+            {voteCount}
         <LuArrowBigDown
           className={`vote-icon ${userVote ==="down" ? "active-down": ""}`}
           onClick={() => handleVote("down")}

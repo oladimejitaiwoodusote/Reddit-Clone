@@ -14,14 +14,14 @@ def create_comment_vote():
         return jsonify({"message": "comment_id is required"}), 400
 
     comment_vote = CommentVote.create_comment_vote(json, current_user.id, comment_id)
-    if not comment_vote:
-        # return jsonify(comment_vote.to_dict())
-        return jsonify({"message": "vote already cast!"}), 400
-    elif comment_vote:
-        return jsonify(comment_vote.to_dict())
 
-    return jsonify({"message": "Comment vote not created succesfully"}), 400
-
+    if comment_vote is None:
+        #Vote Removed
+        return jsonify({"message": "Vote Removed"}), 200
+    
+    #Vote created or toggled
+    return jsonify(comment_vote.to_dict()), 200
+    
 #Delete CommentVote
 @comment_votes.delete("/comment_vote/delete/<int:id>")
 @login_required

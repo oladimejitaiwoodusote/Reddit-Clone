@@ -34,7 +34,9 @@ function FullPost() {
   }, [id]);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000//post/comments/${id}`)
+    fetch(`http://127.0.0.1:5000//post/comments/${id}`,{
+      credentials: "include",
+    })
     .then(response => response.json())
     .then(data => setComments(data)) 
     .catch(err => console.error("Error fetching comments:", err))

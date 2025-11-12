@@ -44,7 +44,7 @@ class Comment(db.Model):
                 time_str = f"{int(years)} year{'s' if years != 1 else ''} ago"
 
         user_vote = None
-        if current_user and current_user.isauthenticated:
+        if current_user and current_user.is_authenticated:
             vote = next((v for v in self.comment_votes if v.user_id == current_user.id), None)
             if vote:
                 user_vote = "up" if vote.is_upvote else "down"
