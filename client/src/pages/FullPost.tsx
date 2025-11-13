@@ -201,7 +201,18 @@ function FullPost() {
 
       <div className='FullPost_CommentSection'>
         {comments.map((comment) => (
-            <Comment key={comment.id} comment={comment}/>
+            <Comment 
+              key={comment.id} 
+              comment={comment}
+              onCommentUpdated={(updated) =>
+                setComments((prev) => 
+                  prev.map((c)=> (c.id === updated.id ? updated : c))
+                )
+              }
+              onCommentDeleted={(id) =>
+                  setComments((prev) => prev.filter((c) => c.id !== id))
+              }
+              />
         ))}
       </div>
 
