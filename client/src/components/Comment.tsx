@@ -76,7 +76,7 @@ function Comment({comment, onCommentUpdated, onCommentDeleted}: CommentProps) {
   async function handleSaveEdit(){
     try {
       const res = await fetch(`http://127.0.0.1:5000/comment/edit/${comment.id}`,{
-        method: "PUT",
+        method: "PATCH",
         headers: {"Content-Type": "application/json"},
         credentials: "include",
         body: JSON.stringify({text: editText}),
@@ -119,12 +119,6 @@ function Comment({comment, onCommentUpdated, onCommentDeleted}: CommentProps) {
         <span className='Comment_Dot'> • </span>
         <span className='Comment_Time'>{comment.time}</span>
       </div>
-
-      {/* <div className='Comment_Text'>
-        <p>
-         {comment.content}
-        </p>
-      </div> */}
       <div className='Comment_Text'>
         {isEditing ? (
           <div className='Comment_EditBox'>
@@ -160,7 +154,7 @@ function Comment({comment, onCommentUpdated, onCommentDeleted}: CommentProps) {
               onClick={()=> setShowMenu(!showMenu)}
             />
             {showMenu && (
-              <div>
+              <div className='Comment_Menu'>
                 <button onClick={()=> setIsEditing(true)}>Edit</button>
                 <button onClick={handleDelete}>Delete</button>
               </div>
