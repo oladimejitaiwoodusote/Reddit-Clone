@@ -18,7 +18,7 @@ function Navbar() {
   }
 
   function handleProfileClick(){
-
+    navigate(`/profile`)
   }
 
   return (

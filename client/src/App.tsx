@@ -9,6 +9,7 @@ import { Routes, Route } from 'react-router-dom'
 import Subreddit from './pages/Subreddit'
 import LoginModal from './components/LoginModal'
 import SignupModal from './components/SingupModal'
+import ProfilePage from './pages/ProfilePage'
 
 function App() {
   
@@ -24,6 +25,7 @@ function App() {
             <Route path="/subreddit/r/:subreddit_name" element={<Subreddit/>}/>
             <Route path="/subreddit/r/:subreddit_name/post/:id" element={<FullPost/>}/>
             <Route path="/submit" element={<CreatePost/>}/>
+            <Route path="/profile" element={<ProfilePage/>}/>
           </Routes>         
         </main>
       </div>

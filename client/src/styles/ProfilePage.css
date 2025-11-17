@@ -1,0 +1,56 @@
+.profile-container {
+    padding: 20px;
+    color: #d7dadc;
+    background: #1f2128;
+    min-height: 100vh;
+}
+
+.profile-container h2 {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.profile-form,
+.password-form {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-form label,
+.password-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 14px;
+}
+
+.profile-form input,
+.profile-form textarea,
+.password-form input {
+    background: #2a2c33;
+    border: 1px solid #444;
+    padding: 8px;
+    border-radius: 6px;
+    color: #fff;
+}
+
+.profile-form textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+button {
+    background: #ff4500;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    font-weight: 500;
+}
+
+button:hover {
+    background: #e03f00;
+}

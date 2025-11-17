@@ -40,6 +40,7 @@ class User(db.Model):
     def to_dict(self):
         return (
             {
+                "id": self.id,
                 "email": self.email,
                 "full_name": self.full_name,
                 "username": self.username,
@@ -103,9 +104,6 @@ class User(db.Model):
         if "full_name" in form_data:
             self.full_name = form_data["full_name"]
 
-        if "username" in form_data:
-            self.username = form_data["username"]
-
         if "avatar" in form_data:
             self.avatar = form_data["avatar"]
 
@@ -113,9 +111,9 @@ class User(db.Model):
             self.bio = form_data["bio"]
 
         #Handling Password
-        if "password" in form_data:
-            current_password = form_data.get("password")
-            new_password = form_data["password"]
+        if "new_password" in form_data:
+            current_password = form_data.get("current_password")
+            new_password = form_data["new_password"]
 
             if not current_password:
                 raise ValueError("Current password is required to change password.")

@@ -1,24 +1,28 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 interface User {
+    id: number;
     username: string;
     email: string;
     avatar?: string;
+    full_name: string;
+    bio: string | null;
 }
 
 interface AuthContextType {
     user: User | null;
     isAuthenticated: boolean;
-    // login: (userData: User) => void;
     login: (credentials: {identifier: string; password: string}) => Promise<void>;
     logout: () => void;
+    loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined> (undefined)
 
 export function AuthProvider({children}: {children:React.ReactNode}) {
     const [user,setUser] = useState<User | null>(null)
-
+    const [loading, setLoading] = useState(true);
+    
     useEffect(() => {
         async function checkSession() {
             try {
@@ -29,8 +33,8 @@ export function AuthProvider({children}: {children:React.ReactNode}) {
                     const data = await res.json();
                     setUser(data);
                 }
-            } catch(err) {
-                console.error("Session check failed", err);
+            } finally {
+                setLoading(false);
             }
         }
         checkSession();
@@ -77,7 +81,7 @@ export function AuthProvider({children}: {children:React.ReactNode}) {
     }
 
     return (
-        <AuthContext value={{user, isAuthenticated: user? true: false, login, logout}}>
+        <AuthContext value={{user, isAuthenticated: user? true: false, login, logout, loading}}>
             {children}
         </AuthContext>
     );

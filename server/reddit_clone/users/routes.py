@@ -56,8 +56,17 @@ def user_delete():
 @users.patch("/user/patch")
 def patch_user():
     json = request.json
-    patched_user = current_user.patch_user(json)
-    return jsonify(patched_user.to_dict()), 200
+
+    try:
+        patched_user = current_user.patch_user(json)
+        return jsonify(patched_user.to_dict()), 200
+    except ValueError as e:
+        return jsonify({"message": str(e)}), 400
+    
+    except Exception as e:
+        print("Unexpected error:", e)
+        return jsonify({"message": "Server error" }), 500
+
 
 #Get All Users; To delete!!
 @users.get("/user/all")

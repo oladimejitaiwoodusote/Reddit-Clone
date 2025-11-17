@@ -24,6 +24,7 @@ function CreatePost() {
 
   //Check if a user is logged in
   useEffect(() => {
+    
     if (!isAuthenticated) {
         navigate("/")
     }
