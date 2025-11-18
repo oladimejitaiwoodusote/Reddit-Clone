@@ -67,6 +67,7 @@ class Post(db.Model):
             "id": self.id,
             "subreddit_avatar": self.subreddit.avatar,
             "subreddit_name": self.subreddit.name,
+            "subreddit_id": self.subreddit.id,
             "user_name": self.user.username,
             "title": self.title,
             "content": self.content,

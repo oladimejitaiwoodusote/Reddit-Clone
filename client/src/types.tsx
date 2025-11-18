@@ -21,6 +21,7 @@ export interface PostData{
   id: number,
   subreddit_avatar: string,
   subreddit_name: string,
+  subreddit_id: number,
   time: string,
   title: string,
   user_name: string,

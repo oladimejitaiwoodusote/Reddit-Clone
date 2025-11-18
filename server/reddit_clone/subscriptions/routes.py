@@ -37,3 +37,18 @@ def unsubscribe(id):
 
     subscription.delete_subscription()
     return jsonify({"message": "Unsubscribed!"})
+
+#Get subscription for current user & subreddit
+@subscriptions.get("/subscription/check/<int:subreddit_id>")
+@login_required
+def check_subscription(subreddit_id):
+    subscription = Subscription.query.filter_by(
+        user_id = current_user.id,
+        subreddit_id = subreddit_id
+    ).first()
+    return jsonify({
+        "subscribed": subscription is not None, 
+        "subscription_id": subscription.id if subscription else None
+    
+    })
+

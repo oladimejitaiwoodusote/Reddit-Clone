@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { PostData } from '../types'
 import { useModal } from '../context/ModalContext'
 import { useAuth } from '../context/AuthContext'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 interface PostPreviewProps{
     post:PostData
@@ -16,15 +16,69 @@ function PostPreview({post}: PostPreviewProps) {
     const {isAuthenticated} = useAuth();
     const [vote_count, setVoteCount] = useState(post.vote_count)
     const [userVote, setUserVote] = useState<"up" | "down" | null>(post.user_vote)
+    const [isSubscribed, setIsSubscribed] = useState(false);
+    const [subscriptionId, setSubscriptionId] = useState<number | null>(null);
 
-    function handleJoinClick () {
+    useEffect(() => {
+        if(!isAuthenticated) {
+            return;
+        }
+
+        async function fetchSubscription() {
+            try {
+                const res = await fetch(`http://127.0.0.1:5000/subscription/check/${post.subreddit_id}`, {
+                    credentials: "include"
+                });
+                const data = await res.json();
+                setIsSubscribed(data.subscribed);
+                setSubscriptionId(data.subscription_id)
+            } catch(err) {
+                console.error(err);
+            }
+        }
+
+        fetchSubscription();
+    }, [isAuthenticated, post.subreddit_id])
+    
+    async function handleJoinClick () {
         if(!isAuthenticated) {
             openModal("signup");
             return;
         }
-
-        //logic for joining subreddit to be added here
-        console.log("Joined subreddit!");
+        
+        try {
+            if (!isSubscribed) {
+                const res = await fetch(`http://127.0.0.1:5000/subscription/create`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: "include",
+                    body: JSON.stringify({subreddit_id: post.subreddit_id})
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    setIsSubscribed(true);
+                    setSubscriptionId(data.id);
+                } else {
+                    console.error(data.message)
+                }
+            } else if (subscriptionId){
+                const res = await fetch(`http://127.0.0.1:5000/subscription/delete/${subscriptionId}`, {
+                    method: "DELETE",
+                    credentials: "include"
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    setIsSubscribed(false);
+                    setSubscriptionId(null);
+                } else {
+                    console.error(data.message)
+                }
+            }
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     async function handleVoteClick (direction: "up" | "down"){
@@ -89,7 +143,7 @@ function PostPreview({post}: PostPreviewProps) {
             </div>
             <div className='PostPreview_JoinButton'>
                 <button type="button" onClick={() => handleJoinClick()}>
-                    Join
+                    {isSubscribed? "Joined": "Join"}
                 </button>
             </div>
         </div>

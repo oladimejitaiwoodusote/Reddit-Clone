@@ -119,7 +119,7 @@ function ProfilePage() {
 
   return (
     <div className='profile-container'>
-        <h2>Profile</h2>
+        <h2>Profile Page</h2>
 
         {message && <p style ={{color: "green"}}>{message}</p>}
         {error && <p style ={{color: "red"}}>{error}</p>}

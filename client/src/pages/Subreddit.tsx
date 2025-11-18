@@ -11,6 +11,10 @@ function Subreddit() {
   const {subreddit_name} = useParams()
   const [subreddit, setSubreddit] = useState<SubredditData|null>(null);
   const [posts, setPosts] = useState<PostData[]>([])
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [subscriptionId, setSubscriptionId] = useState<number | null>(null);
+  
+  
   const navigate = useNavigate()
   const {isAuthenticated} = useAuth()
   const {openModal} = useModal()
@@ -27,15 +31,78 @@ function Subreddit() {
     .then(data => setPosts(data))
   }, [subreddit_name])
 
+  useEffect(() => {
+    if (!isAuthenticated || !subreddit) {
+      return
+    }
+
+    async function fetchSubscription() {
+      try {
+        const res = await fetch(`http://127.0.0.1:5000/subscription/check/${subreddit!.id}`, {
+          credentials: "include"
+        })
+
+        const data = await res.json();
+        setIsSubscribed(data.subscribed);
+        setSubscriptionId(data.subscription_id);
+      } catch(err) {
+        console.error("Subscription fetch error:", err);
+      }
+    }
+
+    fetchSubscription()
+  }, [isAuthenticated, subreddit])
+
   function handleCreateClick(){
     if (isAuthenticated){
       navigate(`/submit`)
-    }
-    
+    } 
     else {
       openModal("login")
     }
+  }
 
+  async function handleJoinClick() {
+    if (!isAuthenticated) {
+      openModal("signup");
+      return;
+    }
+
+    try {
+      if(!isSubscribed) {
+        const res = await fetch(`http://127.0.0.1:5000/subscription/create`, {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          credentials: "include",
+          body: JSON.stringify({subreddit_id: subreddit?.id})
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          setIsSubscribed(true);
+          setSubscriptionId(data.id);
+        } else {
+          console.error(data.message)
+        }
+      } else if (subscriptionId) {
+        const res = await fetch(`http://127.0.0.1:5000/subscription/delete/${subscriptionId}`, {
+          method: "DELETE",
+          credentials: "include"
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          setIsSubscribed(false);
+          setSubscriptionId(null);
+        } else {
+          console.error(data.message)
+        }
+      }
+    } catch (err) {
+      console.error("Join toggle error:", err);
+    }
   }
   
   if (!subreddit) return <p>Loading...</p>
@@ -55,7 +122,9 @@ function Subreddit() {
                 <AiOutlinePlus/>
                 Create Post
               </button>
-              <button>Join</button>
+              <button onClick={handleJoinClick}>
+                {isSubscribed ? "Joined": "Join"}
+              </button>
             </div>
           </div>
         </div>

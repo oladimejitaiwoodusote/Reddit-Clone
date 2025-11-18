@@ -17,7 +17,7 @@ function CreatePost() {
   const [mediaPreview, setMediaPreview] = useState<string | null>(null)
   const location = useLocation()
   const dropdownRef = useRef<HTMLDivElement | null>(null)
-  const {isAuthenticated} = useAuth()
+  const {isAuthenticated, loading} = useAuth()
   const navigate = useNavigate()
 
   const preselectedSubredditName = location.state?.subreddit_name
@@ -25,7 +25,7 @@ function CreatePost() {
   //Check if a user is logged in
   useEffect(() => {
     
-    if (!isAuthenticated) {
+    if (!loading && !isAuthenticated) {
         navigate("/")
     }
   },[isAuthenticated])
