@@ -35,7 +35,7 @@ def unsubscribe(id):
     if subscription.user_id != current_user.id:
         return jsonify({"message": "Not authorized to unsubscribe"}), 403
 
-    subscription.delete_subscription()
+    subscription.delete_subscription() 
     return jsonify({"message": "Unsubscribed!"})
 
 #Get subscription for current user & subreddit
@@ -49,6 +49,12 @@ def check_subscription(subreddit_id):
     return jsonify({
         "subscribed": subscription is not None, 
         "subscription_id": subscription.id if subscription else None
-    
     })
 
+#Get all subreddit_ids the current user is subscribed to
+@subscriptions.get("/subscription/my_subreddits")
+@login_required
+def my_subreddits():
+    subs = Subscription.query.filter_by(user_id=current_user.id).all()
+    subreddit_ids = [sub.subreddit_id for sub in subs]
+    return jsonify(subreddit_ids)
