@@ -8,17 +8,6 @@ interface SubredditPreviewProps{
 }
 
 function SubredditPreview({subreddit, clickable = true}: SubredditPreviewProps) {
-  // return (
-  //   <Link to={`subreddit/r/${subreddit.name}`} className="SubredditPreviewLink">                   
-  //       <div key={subreddit.id} className="SubredditPreview">
-  //           <img src={subreddit.avatar} alt={`r/${subreddit.name}`}/>
-  //           <div className="SubredditPreviewInfo">
-  //               <strong>r/{subreddit.name}</strong>
-  //               <p>{subreddit.member_count} members</p>
-  //           </div>
-  //       </div> 
-  //   </Link>    
-  // );
   const content = (
     <div key={subreddit.id} className='SubredditPreview'>
       <img src={subreddit.avatar} alt={`r/${subreddit.name}`}/>

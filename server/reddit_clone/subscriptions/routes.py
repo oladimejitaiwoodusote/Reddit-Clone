@@ -56,5 +56,12 @@ def check_subscription(subreddit_id):
 @login_required
 def my_subreddits():
     subs = Subscription.query.filter_by(user_id=current_user.id).all()
-    subreddit_ids = [sub.subreddit_id for sub in subs]
-    return jsonify(subreddit_ids)
+    # subreddit_ids = [sub.subreddit_id for sub in subs]
+    result = [
+        {
+            "subreddit_id": sub.subreddit_id,
+            "subscription_id": sub.id
+        }
+        for sub in subs
+    ]
+    return jsonify(result)

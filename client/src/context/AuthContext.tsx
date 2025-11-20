@@ -48,7 +48,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     async function refreshSubscriptions() {
-        if (!user) return;
         try {
             const res = await fetch(`http://127.0.0.1:5000/subscription/my_subreddits`, { credentials: "include" });
             if (res.ok) {
