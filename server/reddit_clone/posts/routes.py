@@ -1,6 +1,8 @@
 from reddit_clone.posts.models import Post
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
+import cloudinary
+from cloudinary import uploader
 
 posts = Blueprint("posts", __name__)
 
@@ -8,11 +10,31 @@ posts = Blueprint("posts", __name__)
 @posts.post("/post/create")
 @login_required
 def create_post():
-    json = request.json
-    post = Post.create_post(json, current_user.id)
-    if post:
-        return jsonify(post.to_dict()), 201
-    return jsonify({"message": "Post not created succesfully"}), 400
+    # json = request.json
+    # post = Post.create_post(json, current_user.id)
+    # if post:
+    #     return jsonify(post.to_dict()), 201
+    # return jsonify({"message": "Post not created succesfully"}), 400
+    title = request.form.get("title")
+    content = request.form.get("content")
+    subreddit_id = request.form.get("subreddit_id")
+    media_file = request.files.get("media")
+
+    media_url = None
+    if media_file: 
+        uploaded = cloudinary.uploader.upload(media_file)
+        media_url = uploaded.get("secure_url")
+
+    post = Post.create_post({
+        "title": title,
+        "content": content,
+        "media": media_url,
+        "subreddit_id": subreddit_id
+    }, current_user.id)
+
+    return jsonify(post.to_dict()), 201
+    
+
 
 #Delete Post
 @posts.delete("/post/delete/<int:id>")

@@ -5,8 +5,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from sqlalchemy import MetaData
+import cloudinary
 
-from reddit_clone.config import DATABASE_URI, SECRET_KEY
+from reddit_clone.config import DATABASE_URI, SECRET_KEY, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET, CLOUDINARY_CLOUD_NAME
 
 app = Flask(__name__)
 CORS (app, supports_credentials=True)
@@ -22,6 +23,14 @@ app.config.update(
   SESSION_COOKIE_SAMESITE = "None",
   SESSION_COOKIE_SECURE=True,
 )
+
+cloudinary.config(
+    cloud_name=CLOUDINARY_CLOUD_NAME,
+    api_key=CLOUDINARY_API_KEY,
+    api_secret=CLOUDINARY_API_SECRET,
+    secure=True
+)
+
 
 convention = {
   "ix": "ix_%(column_0_label)s",

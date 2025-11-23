@@ -92,23 +92,29 @@ function CreatePost() {
     })
 
     // TODO: Send to backend via FormData (for media upload support)
-    const placeholderurl = mediaFile ? "https://pbs.twimg.com/media/Fm11ZPSX0AAxZKR.jpg" : null
+    // const placeholderurl = mediaFile ? "https://pbs.twimg.com/media/Fm11ZPSX0AAxZKR.jpg" : null
     
-    const postData = {
-      title: title.trim(),
-      content: body.trim(),
-      media: placeholderurl,
-      subreddit_id: selectedSubreddit.id
+    // const postData = {
+    //   title: title.trim(),
+    //   content: body.trim(),
+    //   media: placeholderurl,
+    //   subreddit_id: selectedSubreddit.id
+    // }
+
+    const formData = new FormData()
+    formData.append("title", title.trim())
+    formData.append("content", body.trim())
+    formData.append("subreddit_id", String(selectedSubreddit.id))
+
+    if (mediaFile) {
+      formData.append("media", mediaFile)
     }
 
     try {
-      const response = await fetch(`http://127.0.0.1:5000//post/create`, {
+      const response = await fetch(`http://127.0.0.1:5000/post/create`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json" 
-        },
         credentials: "include",
-        body: JSON.stringify(postData)
+        body: formData
       })
 
       if (response.ok) {
