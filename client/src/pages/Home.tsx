@@ -8,7 +8,7 @@ function Home() {
   const [posts, setPosts] = useState<PostData[]>([])
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000//post/new`,{
+    fetch(`http://127.0.0.1:5000//post/home`,{
       method: "GET",
       credentials: "include",
     })

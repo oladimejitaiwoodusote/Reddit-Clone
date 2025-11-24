@@ -1,4 +1,5 @@
 from reddit_clone.posts.models import Post
+from reddit_clone.subscriptions.models import Subscription
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 import cloudinary
@@ -10,11 +11,6 @@ posts = Blueprint("posts", __name__)
 @posts.post("/post/create")
 @login_required
 def create_post():
-    # json = request.json
-    # post = Post.create_post(json, current_user.id)
-    # if post:
-    #     return jsonify(post.to_dict()), 201
-    # return jsonify({"message": "Post not created succesfully"}), 400
     title = request.form.get("title")
     content = request.form.get("content")
     subreddit_id = request.form.get("subreddit_id")
@@ -80,8 +76,6 @@ def get_posts_popularity():
 #Get Indivual Posts
 @posts.get("/post/<int:post_id>")
 def get_post(post_id):
-    # post_dict = Post.get_post(post_id).to_dict()
-    # return jsonify(post_dict), 200
     post = Post.get_post(post_id)
     if not post:
         return jsonify({"message": "Post not found"}), 404
@@ -94,3 +88,39 @@ def get_post(post_id):
 def get_post_comments(post_id):
     comment_dicts = [comment.to_dict(current_user) for comment in Post.get_post_comments(post_id)]
     return jsonify(comment_dicts), 200
+
+#Get posts only from subreddits the user is subscribed to
+@posts.get("/post/home")
+def get_home_feed():
+    subs = [s.subreddit_id for s in Subscription.query.filter_by(user_id=current_user.id)]
+
+    if not subs:
+        return jsonify([]), 200
+
+    posts = (
+        Post.query
+        .filter(Post.subreddit_id.in_(subs))
+        .order_by(Post.created_at.desc())
+        .all()
+    )
+
+    post_dicts = [post.to_dict(current_user) for post in posts]
+    return jsonify(post_dicts), 200
+
+#Get popular posts only subreddits the user is subscribed to
+@posts.get("/post/home/popular")
+def get_home_popular():
+    subs = [s.subreddit_id for s in Subscription.query.filter_by(user_id=current_user.id)]
+
+    if not subs:
+        return jsonify([]), 200
+
+    posts = (
+        Post.query
+        .filter(Post.subreddit_id.in_(subs))
+        .all()
+    )
+
+    sorted_posts = sorted(posts, key=lambda post: post.get_score(), reverse=True)
+    post_dicts = [post.to_dict(current_user) for post in sorted_posts]
+    return jsonify(post_dicts), 200
