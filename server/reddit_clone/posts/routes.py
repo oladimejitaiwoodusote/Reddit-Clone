@@ -30,8 +30,6 @@ def create_post():
 
     return jsonify(post.to_dict()), 201
     
-
-
 #Delete Post
 @posts.delete("/post/delete/<int:id>")
 @login_required
@@ -90,8 +88,14 @@ def get_post_comments(post_id):
     return jsonify(comment_dicts), 200
 
 #Get posts only from subreddits the user is subscribed to
+@login_required
 @posts.get("/post/home")
 def get_home_feed():
+    if not current_user.is_authenticated:
+        posts = Post.query.order_by(Post.created_at.desc()).all()
+        post_dicts = [post.to_dict(current_user) for post in posts]
+        return jsonify(post_dicts), 200
+
     subs = [s.subreddit_id for s in Subscription.query.filter_by(user_id=current_user.id)]
 
     if not subs:
@@ -108,8 +112,15 @@ def get_home_feed():
     return jsonify(post_dicts), 200
 
 #Get popular posts only subreddits the user is subscribed to
+@login_required
 @posts.get("/post/home/popular")
 def get_home_popular():
+    if not current_user.is_authenticated:
+        posts = Post.query.all()
+        sorted_posts = sorted(posts, key=lambda p: p.get_score(), reverse=True)
+        post_dicts = [post.to_dict(current_user) for post in sorted_posts]
+        return jsonify(post_dicts), 200
+
     subs = [s.subreddit_id for s in Subscription.query.filter_by(user_id=current_user.id)]
 
     if not subs:
