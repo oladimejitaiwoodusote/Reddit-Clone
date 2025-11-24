@@ -1,6 +1,8 @@
 from reddit_clone.users.models import User
 from flask import Blueprint, request, jsonify
 from flask_login import current_user, login_user, logout_user, login_required
+import cloudinary
+from cloudinary import uploader
 
 users = Blueprint("users", __name__)
 
@@ -55,18 +57,43 @@ def user_delete():
 @login_required
 @users.patch("/user/patch")
 def patch_user():
-    json = request.json
+    # json = request.json
 
-    try:
-        patched_user = current_user.patch_user(json)
-        return jsonify(patched_user.to_dict()), 200
-    except ValueError as e:
-        return jsonify({"message": str(e)}), 400
+    # try:
+    #     patched_user = current_user.patch_user(json)
+    #     return jsonify(patched_user.to_dict()), 200
+    # except ValueError as e:
+    #     return jsonify({"message": str(e)}), 400
     
-    except Exception as e:
-        print("Unexpected error:", e)
-        return jsonify({"message": "Server error" }), 500
+    # except Exception as e:
+    #     print("Unexpected error:", e)
+    #     return jsonify({"message": "Server error" }), 500
+    user = current_user
 
+    full_name = request.form.get("full_name")
+    email = request.form.get("email")
+    bio = request.form.get("bio")
+
+    avatar_file = request.files.get("avatar")
+
+    if avatar_file:
+        uploaded = cloudinary.uploader.upload(avatar_file)
+        user.avatar = uploaded("secure_url")
+
+    if full_name is not None:
+        user.full_name = full_name
+    
+    if email is not None:
+        user.email = email
+
+    if bio is not None:
+        user.bio = bio
+
+    new_password = request.form.get("new_password")
+    current_password = request.form.get("current_password")
+
+    user.save()   # SQLAlchemy commit
+    return jsonify(user.to_dict()), 200
 
 #Get All Users; To delete!!
 @users.get("/user/all")

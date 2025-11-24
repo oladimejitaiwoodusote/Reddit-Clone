@@ -17,7 +17,7 @@ function ProfilePage() {
     const [fullName, setFullName] = useState(user?.full_name)
     const [email, setEmail] = useState(user?.email)
     const [bio, setBio] = useState(user?.bio)
-    const [avatar, setAvatar] = useState(user?.avatar)
+    const [avatar, setAvatar] = useState<File | string | undefined>(user?.avatar)
 
     const [currentPassword, setCurrentPassword] = useState("")
     const [newPassword, setNewPassword] = useState("")
@@ -48,19 +48,21 @@ function ProfilePage() {
         setError(null);
 
         try {
+            const form = new FormData();
+            form.append("full_name", fullName || "")
+            form.append("email", email || "")
+            form.append("bio", bio || "");
+
+            if (avatar instanceof File) {
+                form.append("avatar", avatar)
+            }
+
             const res = await fetch(`http://127.0.0.1:5000/user/patch`, {
                 method: "PATCH",
                 credentials: "include",
-                headers: {
-                    "Content-Type" : "application/json"
-                },
-                body: JSON.stringify({
-                    full_name: fullName,
-                    email,
-                    bio,
-                    avatar,
-                }),
+                body: form,
             });
+
             if (res.ok) {
                 setMessage("Profile updated succesfully")
                 await refreshUser();
@@ -141,10 +143,19 @@ function ProfilePage() {
                 />
             </label>
             <label>
-                Avatar Url
+                Avatar
+                {typeof avatar === "string" && (
+                    <img src={avatar} alt="avatar" className='avatar-preview'/>
+                )}
                 <input
-                     value={avatar}
-                     onChange={(e) => setAvatar(e.target.value)}
+                    type="file"
+                    accept="image/*"
+                    onChange={e => {
+                        const file = e.target.files?.[0]
+                        if (file) {
+                            setAvatar(file);
+                        }
+                    }}
                 />
             </label>
             <label>

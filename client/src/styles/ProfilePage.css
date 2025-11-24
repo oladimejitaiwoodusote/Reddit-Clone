@@ -54,3 +54,12 @@ button {
 button:hover {
     background: #e03f00;
 }
+
+.avatar-preview {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    display: block;
+}
