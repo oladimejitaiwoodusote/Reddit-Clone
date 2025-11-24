@@ -13,6 +13,12 @@ interface AuthContextType {
     user: User | null;
     isAuthenticated: boolean;
     login: (credentials: {identifier: string; password: string}) => Promise<void>;
+    signup: (credentials:{
+        email: string;
+        username: string;
+        full_name: string;
+        password: string;
+    }) => Promise<void>;
     logout: () => void;
     loading: boolean;
 
@@ -153,6 +159,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
     }
 
+    async function signup(credentials:{
+        email: string;
+        username: string;
+        full_name: string;
+        password: string;
+    }) {
+        try {
+            const res = await fetch(`http://127.0.0.1:5000/user/register`, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                credentials: "include",
+                body: JSON.stringify(credentials)
+            });
+
+            const data = await res.json()
+
+            if (!res.ok) {
+                alert(data.message || "Signup failed")
+                return;
+            }
+
+            setUser(data)
+            await refreshSubscriptions();
+        } catch(err) {
+            console.error("Signup error:", err)
+        }
+    }
+
     return (
         <AuthContext.Provider
             value={{
@@ -160,6 +194,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 isAuthenticated: !!user,
                 login,
                 logout,
+                signup,
                 loading,
                 subscriptions,
                 subscriptionMap,

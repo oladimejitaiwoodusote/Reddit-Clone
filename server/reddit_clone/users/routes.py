@@ -44,6 +44,8 @@ def user_register():
         })
     json = request.json
     newuser = User.create_user(json)
+
+    login_user(newuser)
     return jsonify(newuser.to_dict()), 201
 
 #Delete User
