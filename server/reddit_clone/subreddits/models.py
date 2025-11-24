@@ -13,7 +13,7 @@ class Subreddit(db.Model):
     created_at = db.Column(db.DateTime, server_default = db.func.now())
     updated_at = db.Column(db.DateTime, server_default = db.func.now(), onupdate = db.func.now())
 
-    posts = db.relationship("Post", back_populates = ("subreddit"), cascade = "all, delete-orphan")
+    posts = db.relationship("Post", back_populates = ("subreddit"), cascade = "all, delete-orphan", lazy = "dynamic")
     subscriptions = db.relationship("Subscription", back_populates = ("subreddit"), cascade = "all, delete-orphan")
 
     def __init__(self, name, wallpaper, description = None, avatar = None):
@@ -50,13 +50,8 @@ class Subreddit(db.Model):
         db.session.commit()
         return subreddit
 
-    #Delete Subreddit
-    #Apparently Subreddit's cant be deleted once created, lucky me :)
-
     #Edit Subreddit
-    #Apparently can only edit the description and not name of subreddit
     def patch_subreddit(self, form_data):
-        #self.description = form_data["description"]
         if "description" in form_data:
             self.description = form_data["description"]
 

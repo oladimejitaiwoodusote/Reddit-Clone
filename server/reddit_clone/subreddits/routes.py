@@ -1,4 +1,5 @@
 from reddit_clone.subreddits.models import Subreddit
+from reddit_clone.posts.models import Post
 from flask import Blueprint, request, jsonify
 from flask_login import login_required
 
@@ -50,5 +51,7 @@ def get_subreddit_posts(subreddit_name):
     if not subreddit:
         return jsonify({"message": "Subreddit not found"}), 401
     
-    post_dicts = [post.to_dict() for post in subreddit.posts]
+    #post_dicts = [post.to_dict() for post in subreddit.posts]
+    posts = subreddit.posts.order_by(Post.created_at.desc()).all()
+    post_dicts = [post.to_dict() for post in posts]
     return jsonify(post_dicts), 200
