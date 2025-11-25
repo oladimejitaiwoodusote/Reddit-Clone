@@ -48,28 +48,10 @@ def user_register():
     login_user(newuser)
     return jsonify(newuser.to_dict()), 201
 
-#Delete User
-@login_required
-@users.delete("/user/delete")
-def user_delete():
-    current_user.delete_user()
-    return {}, 204
-
 #Edit User
 @login_required
 @users.patch("/user/patch")
 def patch_user():
-    # json = request.json
-
-    # try:
-    #     patched_user = current_user.patch_user(json)
-    #     return jsonify(patched_user.to_dict()), 200
-    # except ValueError as e:
-    #     return jsonify({"message": str(e)}), 400
-    
-    # except Exception as e:
-    #     print("Unexpected error:", e)
-    #     return jsonify({"message": "Server error" }), 500
     user = current_user
 
     full_name = request.form.get("full_name")
@@ -96,9 +78,3 @@ def patch_user():
 
     user.save()   # SQLAlchemy commit
     return jsonify(user.to_dict()), 200
-
-#Get All Users; To delete!!
-@users.get("/user/all")
-def get_users():
-    users_dicts = [user.to_dict() for user in User.get_users()]
-    return jsonify(users_dicts), 200

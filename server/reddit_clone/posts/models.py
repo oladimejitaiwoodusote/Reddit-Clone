@@ -96,38 +96,6 @@ class Post(db.Model):
         db.session.commit()
         return post
 
-    #delete posts
-    def delete_post(self):
-        db.session.delete(self)
-        db.session.commit()
-
-    #edit post
-    def patch_post(self, form_data):       
-        if "title" in form_data:
-            self.title = form_data["title"]
-        
-        if "content" in form_data:
-            self.content = form_data["content"]
-
-        if "media" in form_data:
-            self.media = form_data["media"]
-
-        db.session.commit()
-        return self
-
-    #Get All Posts Ordered by newest(Home Page)
-    @classmethod
-    def get_posts_by_new(cls):
-        posts = Post.query.order_by(Post.created_at.desc()).all()
-        return posts
-
-    #Get All Posts Ordered by popularity (Popular Page)
-    @classmethod
-    def get_posts_by_popularity(cls):
-        posts = Post.query.all()
-        return sorted(posts, key=lambda post: post.get_score(), reverse=True)
-
-
     #Get Single Post
     @classmethod
     def get_post(cls, id):

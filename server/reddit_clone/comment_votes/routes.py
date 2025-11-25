@@ -21,31 +21,3 @@ def create_comment_vote():
     
     #Vote created or toggled
     return jsonify(comment_vote.to_dict()), 200
-    
-#Delete CommentVote
-@comment_votes.delete("/comment_vote/delete/<int:id>")
-@login_required
-def delete_comment_vote(id):
-    comment_vote = CommentVote.query.get(id)
-    if not comment_vote:
-        return jsonify({"message": "Comment vote not found"}), 404
-
-    if comment_vote.user_id != current_user.id:
-        return jsonify({"message": "Unauthorized: You can only unvote your own vote"}), 403
-
-    comment_vote.delete_comment_vote()
-    return jsonify({"message": "Comment vote deleted"}), 200
-
-#Patch Comment vote
-@comment_votes.patch("/comment_vote/edit/<int:id>")
-@login_required
-def patch_comment_vote(id):
-    comment_vote = CommentVote.query.get(id)
-    if not comment_vote:
-        return jsonify({"message": "Comment vote not found"}), 404
-    
-    if comment_vote.user_id != current_user.id:
-        return jsonify({"message": "Unauthorized: You can only unvote your own vote"}), 403
-
-    comment_vote.patch_comment_vote()
-    return jsonify(comment_vote.to_dict()), 200

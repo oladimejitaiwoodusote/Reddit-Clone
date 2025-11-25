@@ -21,31 +21,3 @@ def create_post_vote():
     
     #Vote created or toggled
     return jsonify(post_vote.to_dict()), 200
-
-#Delete PostVote
-@post_votes.delete("/post_vote/delete/<int:id>")
-@login_required
-def delete_post_vote(id):
-    post_vote = PostVote.query.get(id)
-    if not post_vote:
-        return jsonify({"message": "Post vote not found"}), 404
-
-    if post_vote.user_id != current_user.id:
-        return jsonify({"message": "Unauthorized: You can only unvote your own vote"}), 403
-
-    post_vote.delete_post_vote()
-    return jsonify({"message": "Post vote deleted"}), 200
-
-#Patch Post vote
-@login_required
-@post_votes.patch("/post_vote/edit/<int:id>")
-def patch_post_vote(id):
-    post_vote = PostVote.query.get(id)
-    if not post_vote:
-        return jsonify({"message": "Post vote not found"})
-
-    if post_vote.user_id != current_user.id:
-        return jsonify({"message": "Unauthorized: You can only unvote your own vote"}), 403
-
-    post_vote.patch_post_vote()
-    return jsonify(post_vote.to_dict()), 200

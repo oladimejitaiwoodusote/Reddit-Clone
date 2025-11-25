@@ -129,11 +129,6 @@ class User(db.Model):
         db.session.commit()
         return self
 
-    #Delete User
-    def delete_user(self):
-        db.session.delete(self)
-        db.session.commit()
-
     #Methods for flask_login
     #is_authenticated
     @property
@@ -153,8 +148,3 @@ class User(db.Model):
     #get_id
     def get_id(self):
         return str(self.id)
-
-    #To-Delete: Get all users
-    @classmethod
-    def get_users(cls):
-        return User.query.all()

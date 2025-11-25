@@ -50,17 +50,6 @@ class Subreddit(db.Model):
         db.session.commit()
         return subreddit
 
-    #Edit Subreddit
-    def patch_subreddit(self, form_data):
-        if "description" in form_data:
-            self.description = form_data["description"]
-
-        if "avatar" in form_data:
-            self.avatar = form_data["avatar"]
-
-        db.session.commit()
-        return self
-
     #Get All Subreddits
     @classmethod
     def get_subreddits(cls):

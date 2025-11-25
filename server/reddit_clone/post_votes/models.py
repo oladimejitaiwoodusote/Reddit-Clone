@@ -63,13 +63,3 @@ class PostVote(db.Model):
         existing_vote.is_upvote = not existing_vote.is_upvote
         db.session.commit()
         return existing_vote
-
-    #Delete post vote
-    def delete_post_vote(self):
-        db.session.delete(self)
-        db.session.commit()
-
-    #Edit post vote
-    def patch_post_vote(self):
-        self.is_upvote = not self.is_upvote
-        db.session.commit()

@@ -65,16 +65,6 @@ class CommentVote(db.Model):
         db.session.commit()
         return existing_vote
 
-    #Delete comment vote
-    def delete_comment_vote(self):
-        db.session.delete(self)
-        db.session.commit()
-
-    #Edit comment vote
-    def patch_comment_vote(self):
-        self.is_upvote = not self.is_upvote
-        db.session.commit()
-
     
     
         
