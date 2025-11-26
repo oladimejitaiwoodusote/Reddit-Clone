@@ -3,7 +3,7 @@ from reddit_clone import db
 class CommentVote(db.Model):
     __tablename__ = "comment_votes"
 
-    __table_args__ = (db.UniqueConstraint("user_id", "comment_id", name="unique_user_post_vote"),)
+    __table_args__ = (db.UniqueConstraint("user_id", "comment_id", name="unique_user_comment_vote"),)
 
 
     id = db.Column(db.Integer, primary_key = True)
