@@ -33,15 +33,19 @@
     position: absolute;
     top: 10px;
     right: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
     background: #444c5c;
     color: white;
-    font-size: 1.5rem;
-    font-weight: 300;
-    border-radius: 100%;
-    width: 30px;
-    height: 30px;
+    font-size: 1.2rem; 
     cursor: pointer;
+    line-height: 1; 
+    padding: 0;
 }
 
 .Modal_form {

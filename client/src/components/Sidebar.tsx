@@ -7,10 +7,10 @@ import '../styles/Sidebar.css'
 import { useEffect, useState } from "react";
 
 function Sidebar() {
-    
+    const API = import.meta.env.VITE_API_BASE_URL
     const [subreddits, setSubreddits] = useState<SubredditData[]>([])
     useEffect(() => {
-      fetch(`http://127.0.0.1:5000//subreddits/all`)
+      fetch(`${API}//subreddits/all`)
       .then(response => response.json())
       .then(data=> setSubreddits(data))
     },[])

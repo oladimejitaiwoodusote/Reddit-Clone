@@ -4,11 +4,11 @@ import { PostData } from '../types'
 import { useEffect, useState  } from 'react'
 
 function Popular() {
-
+  const API = import.meta.env.VITE_API_BASE_URL
   const [posts, setPosts] = useState<PostData[]>([])
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000//post/home/popular`,{
+    fetch(`${API}//post/home/popular`,{
       method: "GET",
       credentials: "include",
     })

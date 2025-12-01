@@ -10,6 +10,7 @@ import { useModal } from '../context/ModalContext'
 import { useAuth } from '../context/AuthContext'
 
 function FullPost() {
+  const API = import.meta.env.VITE_API_BASE_URL
   const { id } = useParams()
   const [post, setPost] = useState<PostData | null>(null);
   const [comments, setComments] = useState<CommentData[]>([])
@@ -21,7 +22,7 @@ function FullPost() {
   const [userVote, setUserVote] = useState<"up" | "down" | null>(null);
   
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000//post/${id}`,{
+    fetch(`${API}//post/${id}`,{
       credentials: "include",
     })
     .then(response => response.json())
@@ -34,7 +35,7 @@ function FullPost() {
   }, [id]);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000//post/comments/${id}`,{
+    fetch(`${API}//post/comments/${id}`,{
       credentials: "include",
     })
     .then(response => response.json())
@@ -51,7 +52,7 @@ function FullPost() {
     const is_upvote = direction === "up";
 
     try {
-      const res = await fetch(`http://127.0.0.1:5000//post_vote/create`, {
+      const res = await fetch(`${API}//post_vote/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -115,7 +116,7 @@ function FullPost() {
     console.log("Submitting comment:", commentText)
     //logic for submitting content to backend
     try {
-      const res = await fetch(`http://127.0.0.1:5000/comment/create`, {
+      const res = await fetch(`${API}/comment/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

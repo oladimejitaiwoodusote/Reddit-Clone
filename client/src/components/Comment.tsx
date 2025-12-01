@@ -13,6 +13,7 @@ interface CommentProps{
 }
 
 function Comment({comment, onCommentUpdated, onCommentDeleted}: CommentProps) {
+  const API = import.meta.env.VITE_API_BASE_URL
   const {isAuthenticated, user} = useAuth()
   const {openModal} = useModal()
 
@@ -32,7 +33,7 @@ function Comment({comment, onCommentUpdated, onCommentDeleted}: CommentProps) {
 
     const is_upvote = voteType === "up";
     try {
-      const res = await fetch(`http://127.0.0.1:5000/comment_vote/create`, {
+      const res = await fetch(`${API}/comment_vote/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -75,7 +76,7 @@ function Comment({comment, onCommentUpdated, onCommentDeleted}: CommentProps) {
 
   async function handleSaveEdit(){
     try {
-      const res = await fetch(`http://127.0.0.1:5000/comment/edit/${comment.id}`,{
+      const res = await fetch(`${API}/comment/edit/${comment.id}`,{
         method: "PATCH",
         headers: {"Content-Type": "application/json"},
         credentials: "include",
@@ -96,7 +97,7 @@ function Comment({comment, onCommentUpdated, onCommentDeleted}: CommentProps) {
   async function handleDelete(){
     if(!window.confirm("Are you sure want to delete this comment?")) return;
     try {
-      const res = await fetch(`http://127.0.0.1:5000/comment/delete/${comment.id}`,{
+      const res = await fetch(`${API}/comment/delete/${comment.id}`,{
         method: "DELETE",
         credentials: "include",
       });

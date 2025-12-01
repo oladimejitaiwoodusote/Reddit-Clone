@@ -6,6 +6,7 @@ import SubredditPreview from '../components/SubredditPreview'
 import { useAuth } from '../context/AuthContext'
 
 function CreatePost() {
+  const API = import.meta.env.VITE_API_BASE_URL
   const [subreddits, setSubreddits] = useState<SubredditData[]>([])
   const [filteredSubreddits, setFilteredSubreddits] = useState<SubredditData[]>([])
   const [selectedSubreddit, setSelectedSubreddit] = useState<SubredditData | null>(null)
@@ -32,7 +33,7 @@ function CreatePost() {
   
   // Fetch all subreddits
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000/subreddits/all`)
+    fetch(`${API}/subreddits/all`)
       .then(res => res.json())
       .then((data: SubredditData[]) => {
         setSubreddits(data)
@@ -90,17 +91,6 @@ function CreatePost() {
       body,
       mediaFile
     })
-
-    // TODO: Send to backend via FormData (for media upload support)
-    // const placeholderurl = mediaFile ? "https://pbs.twimg.com/media/Fm11ZPSX0AAxZKR.jpg" : null
-    
-    // const postData = {
-    //   title: title.trim(),
-    //   content: body.trim(),
-    //   media: placeholderurl,
-    //   subreddit_id: selectedSubreddit.id
-    // }
-
     const formData = new FormData()
     formData.append("title", title.trim())
     formData.append("content", body.trim())
@@ -111,7 +101,7 @@ function CreatePost() {
     }
 
     try {
-      const response = await fetch(`http://127.0.0.1:5000/post/create`, {
+      const response = await fetch(`${API}/post/create`, {
         method: "POST",
         credentials: "include",
         body: formData

@@ -32,6 +32,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
+    const API = import.meta.env.VITE_API_BASE_URL
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const [subscriptions, setSubscriptions] = useState<Set<number>>(new Set());
@@ -40,7 +41,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         async function init() {
             try {
-                const res = await fetch(`http://127.0.0.1:5000/user/me`, { credentials: "include" });
+                const res = await fetch(`${API}/user/me`, { credentials: "include" });
                 if (res.ok) {
                     const data = await res.json();
                     setUser(data);
@@ -55,7 +56,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     async function refreshSubscriptions() {
         try {
-            const res = await fetch(`http://127.0.0.1:5000/subscription/my_subreddits`, { credentials: "include" });
+            const res = await fetch(`${API}/subscription/my_subreddits`, { credentials: "include" });
             if (res.ok) {
                 const data: { subreddit_id: number; subscription_id: number }[] = await res.json();
                 const newSet = new Set<number>();
@@ -74,7 +75,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     async function subscribeTo(subreddit_id: number) {
         try {
-            const res = await fetch(`http://127.0.0.1:5000/subscription/create`, {
+            const res = await fetch(`${API}/subscription/create`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
@@ -99,7 +100,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (!subscription_id) return;
 
         try {
-            const res = await fetch(`http://127.0.0.1:5000/subscription/delete/${subscription_id}`, {
+            const res = await fetch(`${API}/subscription/delete/${subscription_id}`, {
                 method: "DELETE",
                 credentials: "include",
             });
@@ -122,7 +123,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     async function login(credentials: { identifier: string; password: string }) {
         try {
-            const res = await fetch(`http://127.0.0.1:5000/user/login`, {
+            const res = await fetch(`${API}/user/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
@@ -143,7 +144,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     async function logout() {
         try {
-            const res = await fetch(`http://127.0.0.1:5000/user/logout`, {
+            const res = await fetch(`${API}/user/logout`, {
                 method: "DELETE",
                 credentials: "include",
             });
@@ -166,7 +167,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         password: string;
     }) {
         try {
-            const res = await fetch(`http://127.0.0.1:5000/user/register`, {
+            const res = await fetch(`${API}/user/register`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 credentials: "include",

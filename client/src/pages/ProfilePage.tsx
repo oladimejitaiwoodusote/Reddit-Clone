@@ -4,6 +4,7 @@ import { useModal } from '../context/ModalContext'
 import React, { useState } from 'react'
 
 function ProfilePage() {
+    const API = import.meta.env.VITE_API_BASE_URL
     const {user, isAuthenticated, loading} = useAuth()
     const {openModal} = useModal()
 
@@ -27,7 +28,7 @@ function ProfilePage() {
 
     async function refreshUser(){
         try {
-            const res = await fetch(`http://127.0.0.1:5000/user/me`, {
+            const res = await fetch(`${API}/user/me`, {
                 credentials: "include",
             });
             if (res.ok) {
@@ -57,7 +58,7 @@ function ProfilePage() {
                 form.append("avatar", avatar)
             }
 
-            const res = await fetch(`http://127.0.0.1:5000/user/patch`, {
+            const res = await fetch(`${API}/user/patch`, {
                 method: "PATCH",
                 credentials: "include",
                 body: form,
@@ -87,7 +88,7 @@ function ProfilePage() {
         }
 
         try {
-            const res = await fetch(`http://127.0.0.1:5000/user/patch`, {
+            const res = await fetch(`${API}/user/patch`, {
                 method: "PATCH",
                 credentials: "include",
                 headers: {

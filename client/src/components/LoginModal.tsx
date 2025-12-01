@@ -44,9 +44,6 @@ function LoginModal() {
                         Sign Up
                     </span>
                 </p>
-
-                
-
             </div>
         </div>
     )

@@ -8,6 +8,7 @@ import { useAuth } from '../context/AuthContext';
 import { useModal } from '../context/ModalContext';
 
 function Subreddit() {
+  const API = import.meta.env.VITE_API_BASE_URL
   const {subreddit_name} = useParams()
   const [subreddit, setSubreddit] = useState<SubredditData|null>(null);
   const [posts, setPosts] = useState<PostData[]>([])
@@ -18,13 +19,13 @@ function Subreddit() {
 
   
   useEffect(()=> {
-    fetch(`http://127.0.0.1:5000/subreddit/r/${subreddit_name}`)
+    fetch(`${API}/subreddit/r/${subreddit_name}`)
     .then(response => response.json())
     .then(data => setSubreddit(data))
   },[subreddit_name])
   
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000/subreddit/r/${subreddit_name}/posts`)
+    fetch(`${API}/subreddit/r/${subreddit_name}/posts`)
     .then(response => response.json())
     .then(data => setPosts(data))
   }, [subreddit_name])

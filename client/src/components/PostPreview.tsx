@@ -12,6 +12,7 @@ interface PostPreviewProps {
 }
 
 function PostPreview({ post }: PostPreviewProps) {
+    const API = import.meta.env.VITE_API_BASE_URL
     const { openModal } = useModal();
     const { isAuthenticated, subscriptions, subscribeTo, unsubscribeFrom } = useAuth();
     const [vote_count, setVoteCount] = useState(post.vote_count);
@@ -41,7 +42,7 @@ function PostPreview({ post }: PostPreviewProps) {
         const is_upvote = direction === "up";
 
         try {
-            const res = await fetch(`http://127.0.0.1:5000/post_vote/create`, {
+            const res = await fetch(`${API}/post_vote/create`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
