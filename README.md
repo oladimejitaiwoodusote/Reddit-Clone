@@ -4,6 +4,8 @@ A fullstack Reddit-inspired application built with React + Typescript with Flask
 
 Deployed site: https://vercel.com/oladimeji-odusotes-projects/reddit-clone
 
+![](images/Home_Page.png)
+
 Backend API: https://reddit-clone-backend-ozow.onrender.com/
 
 ## Technologies Used
@@ -75,6 +77,7 @@ This project consists of two main parts: the backend (Flask app) and the fronten
 - Open new terminal and navigate to the client directory `cd ..` `cd client`
 - Install the necesarry npm packages `npm install`
 - Start the React development server `npm run`
+
 
 
 
